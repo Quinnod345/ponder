@@ -1,17 +1,10 @@
 <div align="center">
 
-<img src="docs/assets/hero-banner.svg" alt="Ponder — Convergent Deliberation Engine for Coding Agents" width="100%" />
+<img src="docs/assets/hero-banner.png" alt="Ponder — Phase-Space Convergence & Epistemic Silence" width="100%" />
 
 <br />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-38bdf8.svg?style=flat-square)](LICENSE)
-[![Dependencies: 0](https://img.shields.io/badge/npm_dependencies-0-10b981.svg?style=flat-square)](package.json)
-[![Conformance: 101 Passed](https://img.shields.io/badge/conformance-101%2F101_passing-34d399.svg?style=flat-square)](test/conformance.sh)
-[![Node: >=18](https://img.shields.io/badge/node-%3E%3D18-818cf8.svg?style=flat-square)](package.json)
-[![Harnesses: Claude Code · Codex · OpenClaw](https://img.shields.io/badge/harnesses-Claude_Code_%C2%B7_Codex_%C2%B7_OpenClaw-f59e0b.svg?style=flat-square)](skill/ponder/SKILL.md)
-
-**A convergent deliberation loop for coding agents.**  
-Point it at a subject through a lens. It runs repeated passes — each one revising the last pass's findings on an append-only ledger rather than starting over — until further passes stop changing the answer.
+`MIT LICENSE` · `0 NPM DEPENDENCIES` · `101/101 CONFORMANCE` · `NODE >= 18` · `CLAUDE CODE / CODEX / OPENCLAW`
 
 [**Why Ponder?**](#why-ponder-exists) · [**How It Works**](#the-four-perspectives-are-the-four-delta-operations) · [**Studies & Benchmarks**](#empirical-studies--benchmarks) · [**Install**](#install) · [**60s Quickstart**](#60-second-quickstart) · [**The Phantom Rule**](#the-phantom-rule) · [**Full Spec**](SPEC.md)
 
@@ -80,7 +73,7 @@ Re-running is safe: it replaces its own symlinks and refuses to clobber a real d
 ## Empirical Studies & Benchmarks
 
 <div align="center">
-<img src="docs/assets/benchmark-comparison.svg" alt="Controlled Head-to-Head Benchmark: Single-Shot vs. Self-Refine vs. Ponder" width="100%" />
+<img src="docs/assets/benchmark-comparison.png" alt="Controlled Head-to-Head Benchmark: Single-Shot vs. Self-Refine vs. Ponder" width="100%" />
 </div>
 
 Full methodology, target application source code, raw pass outputs, and production field studies are committed in **[`studies/`](studies/README.md)**.
