@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.09,
+  "claim": "Pass 3 is a verification pass: one Builder edit to tighten SQL batching syntax, zero new findings, zero retractions.",
+  "at": "2026-10-27T21:42:57.155Z"
+}

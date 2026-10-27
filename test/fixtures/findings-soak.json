@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "unit": "screen.settings.billing",
+      "title": "Billing empty state is a bare string",
+      "detail": "No illustration, no explanation, no action.",
+      "dimension": "empty-states",
+      "score": 2,
+      "severity": "must",
+      "confidence": 0.8,
+      "effort": "s",
+      "evidence": ["src/routes/settings/billing.tsx:1-4"],
+      "recommendation": "Give it a cause, an expectation and a primary action.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.settings.profile",
+      "title": "Profile fields carry no inline validation",
+      "detail": "Errors only appear after the round trip.",
+      "dimension": "forms",
+      "score": 3,
+      "severity": "should",
+      "confidence": 0.6,
+      "effort": "m",
+      "evidence": ["src/routes/settings/profile.tsx:1-3"],
+      "recommendation": "Validate on blur and name the fix in the message.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.onboarding.welcome",
+      "title": "Welcome offers no way back",
+      "detail": "The only control moves forward.",
+      "dimension": "navigation",
+      "score": 3,
+      "severity": "could",
+      "confidence": 0.5,
+      "effort": "l",
+      "evidence": [],
+      "recommendation": "Add a way to step back a screen.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.partner.embed",
+      "title": "Embed copy repeats the product name three times",
+      "detail": "It reads as a template nobody edited.",
+      "dimension": "copy",
+      "score": 4,
+      "severity": "note",
+      "confidence": 0.9,
+      "effort": "xs",
+      "evidence": ["src/routes/settings/billing.tsx:1"],
+      "recommendation": "Say it once.",
+      "status": "open"
+    }
+  ]
+}

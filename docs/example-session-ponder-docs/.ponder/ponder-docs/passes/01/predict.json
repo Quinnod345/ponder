@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.9,
+  "claim": "Pass 1 builds the finding set from nothing; the missing root README will dominate.",
+  "at": "2026-08-24T18:00:40.033Z"
+}

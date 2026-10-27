@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 2,
+  "churn": 0.3,
+  "claim": "Pass 2 resolves the three unopened units; two should verify as missing on disk.",
+  "at": "2026-08-24T19:07:31.075Z"
+}

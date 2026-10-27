@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "stakes": "high",
+  "skeptic": { "perspective": "skeptic", "argument": "Every one of the fourteen was checked against the file it names and all fourteen hold; the enum claim and the locking claim were both verified against the live database and lib/session.js rather than taken on trust. I have nothing to delete this pass, and I would rather say so than manufacture a deletion to look like I argued.", "confidence": 0.8, "emits": "delete" },
+  "builder": { "perspective": "builder", "argument": "Most of these name a change. The project-status recommendation does not — 'close the thread or the document stops being a status' is a judgment, not something you can do on Monday morning. Findings that cannot be turned into a diff are moods.", "confidence": 0.85, "emits": "edit" },
+  "dreamer": { "perspective": "dreamer", "argument": "Every finding here grades a document that exists against what it says. Nobody looked at the shape of the set: there is no worked example anywhere — no document shows a whole session from start to converged stop, so a reader has to assemble the loop from a contract, a reference and a skill. And the zero-dependency promise, which is the most unusual thing about this tool, is asserted once inside a numbered non-negotiable and nowhere a reader would look.", "confidence": 0.7, "emits": "add" },
+  "empath": { "perspective": "empath", "argument": "The ranking is written from inside the repo. The perspectives.md path citation is marked 'could', but it is the first thing that breaks for the only audience that matters for a skill — an agent on somebody else's machine. Rank by who hits it and how soon.", "confidence": 0.75, "emits": "change" },
+  "resolution": "Open the two structural gaps the Dreamer found, make the project-status recommendation actionable, and re-rank the perspectives citation for a reader who is not on this machine."
+}

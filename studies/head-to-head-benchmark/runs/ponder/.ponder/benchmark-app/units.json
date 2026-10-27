@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "lens": "ui",
+  "units": [
+    {
+      "id": "screen.dashboard",
+      "label": "Dashboard — populated workspace overview",
+      "path": "src/screens/dashboard.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.dashboard.error",
+      "label": "Dashboard — error state on API failure",
+      "path": "src/screens/dashboard.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.dashboard.wizard",
+      "label": "Dashboard — unrouted currentStep setup wizard",
+      "path": "src/screens/dashboard.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.survey",
+      "label": "Participant Survey (/survey/:hash)",
+      "path": "src/screens/survey.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.results",
+      "label": "Admin Results (/results) — unlocks at completedCount >= 1 against the 3-respondent survey promise",
+      "path": "src/screens/results.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.invitations",
+      "label": "Admin Invitations Table (/invitations)",
+      "path": "src/screens/invitations.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.billing",
+      "label": "Billing & Plans (/billing)",
+      "path": "src/screens/billing.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.legacy-v1-modal",
+      "label": "Legacy V1 Settings Modal",
+      "path": "src/screens/legacy-v1-modal.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1,
+      "removedInPass": 2,
+      "removalKind": "appraised"
+    },
+    {
+      "id": "screen.legacy-export",
+      "label": "Legacy Export (/settings/legacy-export)",
+      "path": "src/screens/legacy-export.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1,
+      "removedInPass": 2,
+      "removalKind": "phantom",
+      "phantomVerification": "verified-missing",
+      "phantomPath": "/Users/quinnodonnell/code/ponder/studies/head-to-head-benchmark/target-app/src/screens/legacy-export.jsx"
+    },
+    {
+      "id": "action.attach-members",
+      "label": "attachMembersToCampaign server action",
+      "path": "src/actions/team-actions.js",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}

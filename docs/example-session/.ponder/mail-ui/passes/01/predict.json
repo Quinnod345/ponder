@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.9,
+  "claim": "Pass 1 builds the set from nothing; the unhandled-absence pattern will dominate.",
+  "at": "2026-08-24T19:07:30.480Z"
+}

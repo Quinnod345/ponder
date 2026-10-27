@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-08-24T18:00:40.873Z",
+  "coverage": 1,
+  "novelty": 0.0625,
+  "churn": 0.25,
+  "thrash": 0.25,
+  "surprise": 0.03,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 4,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "predictedChurn": 0.28,
+  "claim": "Pass 2 should kill at least one of the Dreamer's adds and re-rank the SPEC findings; no new document-level gaps.",
+  "units": {
+    "enumerated": 9,
+    "graded": 9,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 17,
+    "open": 16,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 16
+  },
+  "deltas": {
+    "total": 4,
+    "byOp": {
+      "delete": 1,
+      "edit": 1,
+      "add": 1,
+      "change": 1
+    },
+    "seeded": 0,
+    "revisions": 4
+  },
+  "reversals": [
+    {
+      "kind": "killed-add",
+      "op": "delete",
+      "target": "f-0016",
+      "against": "f-0016",
+      "note": "deletes f-0016, added in pass 1"
+    }
+  ],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

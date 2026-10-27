@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "unit": "screen.settings.billing",
+      "title": "Billing empty state is a bare string",
+      "detail": "A new account sees the literal text No invoices with no illustration, no explanation of when the first invoice appears, and no primary action.",
+      "dimension": "empty-states",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.8,
+      "effort": "s",
+      "evidence": ["src/routes/settings/billing.tsx:88-94"],
+      "recommendation": "Add an empty state with cause, expectation and a primary action.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.settings.profile",
+      "title": "Avatar upload control is unreachable by keyboard",
+      "detail": "The upload trigger is a div with a click handler, so it takes no focus and announces nothing to a screen reader.",
+      "dimension": "accessibility",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.85,
+      "effort": "s",
+      "evidence": ["src/routes/settings/profile.tsx:44-52"],
+      "recommendation": "Replace the div with a button wrapping a visually hidden file input and label it.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.onboarding.welcome",
+      "title": "Welcome hero overflows below 380px",
+      "detail": "The two-column hero never collapses, so the primary action is pushed off-screen on a small phone.",
+      "dimension": "responsive-behaviour",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.7,
+      "effort": "m",
+      "evidence": ["src/routes/onboarding/welcome.tsx:8-28"],
+      "recommendation": "Collapse the hero to a single column under 480px and keep the action above the fold.",
+      "status": "open"
+    }
+  ]
+}

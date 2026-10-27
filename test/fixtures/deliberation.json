@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "skeptic": {
+    "perspective": "skeptic",
+    "argument": "Two of the billing findings rest on the same three lines of markup and one of them is asserted without evidence. The error-states call duplicates the empty-states call in everything but wording.",
+    "confidence": 0.7,
+    "emits": "delete"
+  },
+  "builder": {
+    "perspective": "builder",
+    "argument": "Half of these recommendations name a quality rather than a change. Anything that cannot be turned into a diff in an afternoon is not a finding yet, it is a mood.",
+    "confidence": 0.8,
+    "emits": "edit"
+  },
+  "dreamer": {
+    "perspective": "dreamer",
+    "argument": "Nobody has looked at loading states as a set. Each screen was graded alone, so the inconsistency between them is invisible to every finding on the board.",
+    "confidence": 0.6,
+    "emits": "add"
+  },
+  "empath": {
+    "perspective": "empath",
+    "argument": "The ranking serves the reviewer, not the person paying. A billing screen that cannot explain a failed charge outranks every piece of polish above it.",
+    "confidence": 0.75,
+    "emits": "change"
+  },
+  "perspectives": [
+    {
+      "perspective": "skeptic",
+      "name": "skeptic",
+      "argument": "Two of the billing findings rest on the same three lines of markup and one of them is asserted without evidence. The error-states call duplicates the empty-states call in everything but wording.",
+      "confidence": 0.7,
+      "emits": "delete"
+    },
+    {
+      "perspective": "builder",
+      "name": "builder",
+      "argument": "Half of these recommendations name a quality rather than a change. Anything that cannot be turned into a diff in an afternoon is not a finding yet, it is a mood.",
+      "confidence": 0.8,
+      "emits": "edit"
+    },
+    {
+      "perspective": "dreamer",
+      "name": "dreamer",
+      "argument": "Nobody has looked at loading states as a set. Each screen was graded alone, so the inconsistency between them is invisible to every finding on the board.",
+      "confidence": 0.6,
+      "emits": "add"
+    },
+    {
+      "perspective": "empath",
+      "name": "empath",
+      "argument": "The ranking serves the reviewer, not the person paying. A billing screen that cannot explain a failed charge outranks every piece of polish above it.",
+      "confidence": 0.75,
+      "emits": "change"
+    }
+  ],
+  "resolution": "Retract the duplicated error-states finding, sharpen the empty-state recommendation, raise loading states to must, and open a cross-screen loading-state finding."
+}

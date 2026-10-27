@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-08-24T19:07:31.329Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0.2667,
+  "thrash": 0,
+  "surprise": 0.0333,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 2,
+  "deltaVoiceNames": [
+    "empath",
+    "skeptic"
+  ],
+  "predictedChurn": 0.3,
+  "claim": "Pass 2 resolves the three unopened units; two should verify as missing on disk.",
+  "units": {
+    "enumerated": 6,
+    "graded": 6,
+    "removed": 3,
+    "removedUngraded": 0,
+    "phantom": 3
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.drafts",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.labels",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.digest",
+      "verification": "unverified",
+      "pass": 2
+    }
+  ],
+  "findings": {
+    "total": 15,
+    "open": 15,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 15
+  },
+  "deltas": {
+    "total": 4,
+    "byOp": {
+      "unit-delete": 3,
+      "edit": 1
+    },
+    "seeded": 0,
+    "revisions": 4
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 3,
+  "maxPasses": 6
+}

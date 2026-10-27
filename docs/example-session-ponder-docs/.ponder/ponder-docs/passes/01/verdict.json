@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "continue",
+  "reason": "min-passes",
+  "rule": 2,
+  "message": "pass 1 of a 2-pass minimum. One pass is an opinion, not a pondering.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 3
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-08-24T18:00:40.452Z",
+  "decision": "continue",
+  "why": "Coverage is complete, but one pass over nine documents is an opinion.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-08-24T18:00:40.535Z",
+  "coverageAtDecision": 1
+}

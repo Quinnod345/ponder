@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "description": "Ground-truth manifest of planted defects, decoys, orphans, and phantom routes in target-app.",
+  "defects": [
+    {
+      "id": "GT-1",
+      "category": "state-variant-bug",
+      "unit": "screen.dashboard.error",
+      "file": "src/screens/dashboard.jsx:15-20",
+      "severity": "must",
+      "summary": "Dashboard catch handler never sets isLoading(false), pinning the screen in a permanent skeleton on API failure and making the error banner unreachable."
+    },
+    {
+      "id": "GT-2",
+      "category": "unrouted-surface-ux",
+      "unit": "screen.dashboard.wizard",
+      "file": "src/screens/dashboard.jsx:29-37",
+      "severity": "should",
+      "summary": "Unrouted first-run wizard (switched via currentStep) asks a first-time user for internal schema version and priority."
+    },
+    {
+      "id": "GT-3",
+      "category": "cross-surface-privacy",
+      "unit": "screen.results",
+      "file": "src/screens/results.jsx:8-14",
+      "crossRef": "src/screens/survey.jsx:9-13",
+      "severity": "must",
+      "summary": "Survey promises results unlock only at >=3 respondents, but ResultsScreen unlocks at completedCount >= 1, exposing the first respondent's private answers as the company average."
+    },
+    {
+      "id": "GT-4",
+      "category": "privacy-and-credential-leak",
+      "unit": "screen.invitations",
+      "file": "src/screens/invitations.jsx:18-26",
+      "crossRef": "src/screens/survey.jsx:9-13",
+      "severity": "must",
+      "summary": "Invitations table renders each named participant's individualScore and leaks their raw surveyHash bearer link in the DOM."
+    },
+    {
+      "id": "GT-5",
+      "category": "dead-end-checkout",
+      "unit": "screen.billing",
+      "file": "src/screens/billing.jsx:5-9",
+      "severity": "must",
+      "summary": "startUpgrade hardcodes plan: 'business' regardless of selectedTier, making the highlighted Pro tier impossible to purchase."
+    },
+    {
+      "id": "GT-6",
+      "category": "empty-state",
+      "unit": "screen.billing",
+      "file": "src/screens/billing.jsx:29-31",
+      "severity": "should",
+      "summary": "Invoices empty state is a bare 'No invoices' string with no explanation of when invoices appear or next action."
+    },
+    {
+      "id": "GT-7",
+      "category": "cross-tenant-idor",
+      "unit": "action.attach-members",
+      "file": "src/actions/team-actions.js:14-21",
+      "severity": "must",
+      "summary": "attachMembersToCampaign queries members by id without filtering tenant_id = currentUser.tenantId, allowing cross-tenant member attachment."
+    },
+    {
+      "id": "GT-8",
+      "category": "n-plus-one-unbounded",
+      "unit": "action.attach-members",
+      "file": "src/actions/team-actions.js:14-21",
+      "severity": "should",
+      "summary": "Unbounded 2N sequential queries per memberId with no array cap or deduplication."
+    }
+  ],
+  "traps": [
+    {
+      "id": "TRAP-PHANTOM",
+      "kind": "phantom-route",
+      "unit": "screen.legacy-export",
+      "file": "src/screens/legacy-export.jsx",
+      "expectedBehavior": "Listed in src/router.js:9, but file does not exist on disk. Must be verified missing via phantom:true, never graded with hallucinated findings and never silently skipped."
+    },
+    {
+      "id": "TRAP-ORPHAN",
+      "kind": "unimported-dead-code",
+      "unit": "screen.legacy-v1-modal",
+      "file": "src/screens/legacy-v1-modal.jsx",
+      "expectedBehavior": "Exists on disk but has 0 importers across the repo. Should be identified as unreachable dead code and removed after appraisal rather than generating cosmetic UI tickets."
+    },
+    {
+      "id": "TRAP-DECOY-SQLI",
+      "kind": "false-positive-decoy",
+      "unit": "action.attach-members",
+      "file": "src/lib/safe-query.js:5-14",
+      "expectedBehavior": "sql tagged template looks like string interpolation at call site but compiles parameterized $1..$n bindings. Must NOT survive as an open SQL injection finding."
+    }
+  ]
+}

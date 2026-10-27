@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "id": "f-0001",
+      "unit": "screen.dashboard",
+      "title": "Workspace overview renders activeCount cleanly once summary resolves",
+      "detail": "Populated state displays active campaign count with a nullish fallback to 0.",
+      "dimension": "information-hierarchy",
+      "score": 4,
+      "severity": "note",
+      "confidence": 0.9,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/dashboard.jsx:40-44"
+      ],
+      "recommendation": "No change required on the populated overview.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0002",
+      "unit": "screen.dashboard.wizard",
+      "title": "Unrouted first-run wizard asks new users for internal schema version and priority",
+      "detail": "Sweep 1b found a state-switched wizard (currentStep === \"welcome\") that prompts a first-time user for \"Priority (Low / Medium / High)\" and \"Internal schema version\" before they have seen the workspace.",
+      "dimension": "affordance-clarity",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.9,
+      "effort": "s",
+      "evidence": [
+        "src/screens/dashboard.jsx:29-37"
+      ],
+      "recommendation": "In src/screens/dashboard.jsx:29-37, remove the Priority and Internal schema version <input> elements and start new workspaces directly on the overview with a single inline \"Create first campaign\" CTA.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 2,
+      "history": [
+        {
+          "pass": 2,
+          "op": "edit",
+          "field": "recommendation",
+          "from": "Remove the Priority and Internal schema version inputs from the welcome step.",
+          "to": "In src/screens/dashboard.jsx:29-37, remove the Priority and Internal schema version <input> elements and start new workspaces directly on the overview with a single inline \"Create first campaign\" CTA."
+        }
+      ]
+    },
+    {
+      "id": "f-0003",
+      "unit": "screen.survey",
+      "title": "Survey header states a clear 3-respondent privacy floor to participants",
+      "detail": "The survey header explicitly promises respondents that leadership only sees a combined reading once at least 3 teammates have completed the checkup.",
+      "dimension": "copy-tone",
+      "score": 4,
+      "severity": "note",
+      "confidence": 0.95,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/survey.jsx:9-13"
+      ],
+      "recommendation": "Enforce this 3-respondent privacy floor on every admin read surface.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0004",
+      "unit": "screen.invitations",
+      "title": "Invitations table leaks individual respondent scores and raw surveyHash bearer links",
+      "detail": "Every row in InvitationsScreen prints p.individualScore% by name and renders /survey/{p.surveyHash} in the DOM, breaking the privacy promise in survey.jsx:9-13 and exposing each participant bearer token.",
+      "dimension": "consistency",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.98,
+      "effort": "s",
+      "evidence": [
+        "src/screens/invitations.jsx:18-26",
+        "src/screens/survey.jsx:9-13"
+      ],
+      "recommendation": "Remove the Individual Score and Magic Link columns from InvitationsScreen; show only Name and Completed/Pending status.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": [
+        {
+          "pass": 1,
+          "op": "change",
+          "field": "severity",
+          "from": "should",
+          "to": "must"
+        },
+        {
+          "pass": 1,
+          "op": "change",
+          "field": "confidence",
+          "from": 0.95,
+          "to": 0.98
+        }
+      ]
+    },
+    {
+      "id": "f-0005",
+      "unit": "screen.invitations",
+      "title": "Completed vs Pending status column gives clear per-participant progress feedback",
+      "detail": "The Status column cleanly distinguishes Completed from Pending respondents without exposing answers.",
+      "dimension": "information-hierarchy",
+      "score": 4,
+      "severity": "note",
+      "confidence": 0.95,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/invitations.jsx:19"
+      ],
+      "recommendation": "Keep the Name and Status columns as the sole columns in InvitationsScreen.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0006",
+      "unit": "screen.billing",
+      "title": "Upgrade to Pro button hardcodes plan: \"business\" in checkout payload",
+      "detail": "startUpgrade(selectedTier) ignores selectedTier for the plan key and sends { plan: \"business\", sourceTier: selectedTier }, making the highlighted Pro plan impossible to buy.",
+      "dimension": "affordance-clarity",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.98,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/billing.jsx:5-9",
+        "src/screens/billing.jsx:17"
+      ],
+      "recommendation": "Pass plan: selectedTier in startUpgrade at src/screens/billing.jsx:8.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0007",
+      "unit": "screen.billing",
+      "title": "Invoices empty state is a bare \"No invoices\" string",
+      "detail": "When invoices.length === 0, BillingScreen renders a bare <div>No invoices</div> with no explanation of when invoices appear.",
+      "dimension": "empty-states",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.9,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/billing.jsx:29-31"
+      ],
+      "recommendation": "Replace the bare string at src/screens/billing.jsx:31 with an empty state explaining that invoices appear after the first billing cycle.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0008",
+      "unit": "screen.legacy-v1-modal",
+      "title": "LegacyV1Modal uses low-contrast #ccc text on #fff background",
+      "detail": "Inline style sets color: #ccc on background: #fff.",
+      "dimension": "accessibility",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.8,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/legacy-v1-modal.jsx:8"
+      ],
+      "recommendation": "Darken text color in LegacyV1Modal.",
+      "status": "retracted",
+      "createdInPass": 1,
+      "lastTouchedPass": 2,
+      "history": [
+        {
+          "pass": 2,
+          "op": "delete",
+          "field": "status",
+          "from": "open",
+          "to": "retracted"
+        }
+      ]
+    },
+    {
+      "id": "f-0009",
+      "unit": "action.attach-members",
+      "title": "SQL injection in attachMembersToCampaign via sql template literal",
+      "detail": "attachMembersToCampaign interpolates campaignId and memberId into sql`...` template strings.",
+      "dimension": "error-states",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.6,
+      "effort": "s",
+      "evidence": [
+        "src/actions/team-actions.js:5-19"
+      ],
+      "recommendation": "Use parameterized queries instead of template strings.",
+      "status": "retracted",
+      "createdInPass": 1,
+      "lastTouchedPass": 2,
+      "history": [
+        {
+          "pass": 2,
+          "op": "delete",
+          "field": "status",
+          "from": "open",
+          "to": "retracted"
+        }
+      ]
+    },
+    {
+      "id": "f-0010",
+      "unit": "action.attach-members",
+      "title": "attachMembersToCampaign does not scope memberIds to currentUser.tenantId (cross-tenant IDOR)",
+      "detail": "attachMembersToCampaign verifies campaign ownership at line 5, but loads each memberId with WHERE id = ${memberId} only (line 15), allowing any tenant to attach another tenant's members to their campaign.",
+      "dimension": "consistency",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.95,
+      "effort": "s",
+      "evidence": [
+        "src/actions/team-actions.js:14-21"
+      ],
+      "recommendation": "Add AND tenant_id = ${currentUser.tenantId} to the members lookup in src/actions/team-actions.js:15.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0011",
+      "unit": "action.attach-members",
+      "title": "attachMembersToCampaign executes an unbounded 2N sequential query loop per memberId",
+      "detail": "Lines 14-21 run a sequential SELECT and INSERT inside for (const memberId of memberIds) with no batching or length cap, causing 2N DB round-trips.",
+      "dimension": "loading-states",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.95,
+      "effort": "s",
+      "evidence": [
+        "src/actions/team-actions.js:14-21"
+      ],
+      "recommendation": "In src/actions/team-actions.js:14-21, deduplicate and cap `const ids = [...new Set(memberIds)].slice(0, 200)`, query `WHERE id = ANY(${ids}) AND tenant_id = ${currentUser.tenantId}` in one round-trip, and insert all matched rows in one multi-row INSERT.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 3,
+      "history": [
+        {
+          "pass": 3,
+          "op": "edit",
+          "field": "recommendation",
+          "from": "Replace the per-member SELECT/INSERT loop with a single batched WHERE id = ANY($1) query and multi-row INSERT.",
+          "to": "In src/actions/team-actions.js:14-21, deduplicate and cap `const ids = [...new Set(memberIds)].slice(0, 200)`, query `WHERE id = ANY(${ids}) AND tenant_id = ${currentUser.tenantId}` in one round-trip, and insert all matched rows in one multi-row INSERT."
+        }
+      ]
+    },
+    {
+      "id": "f-0012",
+      "unit": "screen.dashboard.error",
+      "title": "Dashboard catch handler never clears isLoading, pinning the screen in a permanent skeleton on error",
+      "detail": "In src/screens/dashboard.jsx:15-20, .catch() calls setError(...) without calling setIsLoading(false). Because if (isLoading) at line 23 precedes if (error) at line 27, a failed fetchSummary() leaves the skeleton mounted forever and the error banner is unreachable.",
+      "dimension": "error-states",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.98,
+      "effort": "xs",
+      "evidence": [
+        "src/screens/dashboard.jsx:15-28"
+      ],
+      "recommendation": "Call setIsLoading(false) inside the .catch() block at src/screens/dashboard.jsx:18 (or in a .finally() handler) and add a Retry button to the error-banner at line 27.",
+      "status": "open",
+      "createdInPass": 2,
+      "lastTouchedPass": 2,
+      "history": []
+    },
+    {
+      "id": "f-0013",
+      "unit": "screen.results",
+      "title": "Results unlock at completedCount >= 1, exposing the first respondent's private answers as the company average",
+      "detail": "SurveyScreen (src/screens/survey.jsx:9-13) promises participants that leadership only sees a combined reading once at least 3 teammates respond. ResultsScreen (src/screens/results.jsx:8-14) gates on campaign.completedCount < 1 and says \"Results unlock as soon as one person completes a checkup\", so at N=1 the aggregate score is the first respondent's exact answers.",
+      "dimension": "consistency",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.98,
+      "effort": "s",
+      "evidence": [
+        "src/screens/results.jsx:8-14",
+        "src/screens/survey.jsx:9-13"
+      ],
+      "recommendation": "Export MIN_RESPONDENTS = 3 and gate ResultsScreen at src/screens/results.jsx:8 on campaign.completedCount < MIN_RESPONDENTS, updating the empty-state copy at line 11 to match survey.jsx.",
+      "status": "open",
+      "createdInPass": 2,
+      "lastTouchedPass": 2,
+      "history": []
+    }
+  ]
+}

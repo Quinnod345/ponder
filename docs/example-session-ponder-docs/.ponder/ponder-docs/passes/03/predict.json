@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.07,
+  "claim": "Pass 3 should find nothing new; at most one recommendation still needs sharpening.",
+  "at": "2026-08-24T18:00:41.041Z"
+}

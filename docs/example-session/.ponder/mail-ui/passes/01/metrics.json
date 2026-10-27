@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "pass": 1,
+  "at": "2026-08-24T19:07:30.904Z",
+  "coverage": 0.6667,
+  "novelty": null,
+  "churn": null,
+  "thrash": null,
+  "surprise": null,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 3,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "empath"
+  ],
+  "predictedChurn": 0.9,
+  "claim": "Pass 1 builds the set from nothing; the unhandled-absence pattern will dominate.",
+  "units": {
+    "enumerated": 9,
+    "graded": 6,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [
+    "screen.drafts",
+    "screen.labels",
+    "screen.digest"
+  ],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 15,
+    "open": 15,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 15
+  },
+  "deltas": {
+    "total": 16,
+    "byOp": {
+      "add": 15,
+      "change": 1
+    },
+    "seeded": 13,
+    "revisions": 3
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 3,
+  "maxPasses": 6
+}

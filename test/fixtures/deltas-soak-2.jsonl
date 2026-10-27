@@ -1,0 +1,4 @@
+{"op":"unit-delete","target":"screen.partner.embed","perspective":"skeptic","why":"Owned by partnerships; it is outside the subject of this pondering."}
+{"op":"unit-delete","target":"screen.auth.sso","phantom":true,"perspective":"skeptic","why":"Pass 1 read this route off a stale sitemap; the app has never had an SSO screen."}
+{"op":"unit-delete","target":"screen.legacy.unknown","perspective":"builder","why":"Dropping it for now: nobody could point at what it refers to."}
+{"op":"unit-add","perspective":"dreamer","why":"Pass 1 missed this route entirely and it is squarely in the subject.","unit":{"id":"screen.auth.reset","label":"Auth > Reset password","path":"src/routes/settings/profile.tsx","meta":{"route":"/auth/reset"}}}

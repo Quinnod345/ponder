@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "lens": "ui",
+  "units": [
+    { "id": "screen.inbox",    "label": "Inbox — the message list",        "path": "src/screens/inbox.jsx",    "kind": "screen" },
+    { "id": "screen.thread",   "label": "Thread — one conversation",       "path": "src/screens/thread.jsx",   "kind": "screen" },
+    { "id": "screen.compose",  "label": "Compose — writing a message",     "path": "src/screens/compose.jsx",  "kind": "screen" },
+    { "id": "screen.settings", "label": "Settings — account preferences",  "path": "src/screens/settings.jsx", "kind": "screen" },
+    { "id": "screen.search",   "label": "Search — results over messages",  "path": "src/screens/search.jsx",   "kind": "screen" },
+    { "id": "screen.archive",  "label": "Archive — everything filed away", "path": "src/screens/archive.jsx",  "kind": "screen" },
+    { "id": "screen.drafts",   "label": "Drafts — unsent messages",        "path": "src/screens/drafts.jsx",   "kind": "screen" },
+    { "id": "screen.labels",   "label": "Labels — managing labels",        "path": "src/screens/labels.jsx",   "kind": "screen" },
+    { "id": "screen.digest",   "label": "Daily digest — the email itself",                                     "kind": "screen" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "pass": 3,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.00, churn 0.07 — one quiet pass. Convergence needs two in a row.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0.0667,
+    "thrash": 0,
+    "surprise": 0.0133,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.drafts",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.labels",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.digest",
+      "verification": "unverified",
+      "pass": 2
+    }
+  ],
+  "advisedAt": "2026-08-24T19:07:31.758Z",
+  "decision": "continue",
+  "why": "One quiet pass is not convergence; rule 6 wants two in a row before stopping.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-08-24T19:07:31.844Z",
+  "coverageAtDecision": 1
+}

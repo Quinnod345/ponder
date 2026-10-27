@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "stakes": "medium",
+  "skeptic": { "perspective": "skeptic", "argument": "Third re-check of the four must-findings. f-0001 and f-0002 are confirmed by README.md still not existing; f-0006 by lib/session.js:369 and the concurrency group; f-0017 by grepping lib/ for session.mode. Nothing here is unsupported. No deletions, and I would say so if there were.", "confidence": 0.9, "emits": "delete" },
+  "builder": { "perspective": "builder", "argument": "Every recommendation on the board now names a file and a change. I have nothing left to sharpen without rewriting for its own sake.", "confidence": 0.85, "emits": "edit" },
+  "dreamer": { "perspective": "dreamer", "argument": "Two passes without a new frame. The gap-hunting enumerators — a dimension no finding mentions, an audience nobody wrote for, a document that should exist and does not — all come back empty against this inventory. That is a survey result, not silence.", "confidence": 0.7, "emits": "add" },
+  "empath": { "perspective": "empath", "argument": "One thing left. f-0013 says the test count in prose goes stale, ranked 'could'. It costs a reader nothing — a wrong count in a README sentence misleads no one about behaviour — and it is sitting above nothing. It is a note, and calling it a finding inflates the apparent size of the problem.", "confidence": 0.8, "emits": "change" },
+  "resolution": "One demotion. Three voices ran their checks and returned nothing, which is what a converged pass looks like from the inside."
+}

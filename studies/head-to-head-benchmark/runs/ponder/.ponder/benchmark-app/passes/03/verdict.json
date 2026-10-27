@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "pass": 3,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.00, churn 0.09 — one quiet pass. Convergence needs two in a row.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0.0909,
+    "thrash": 0,
+    "surprise": 0.0009,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.legacy-export",
+      "verification": "verified-missing",
+      "pass": 2
+    }
+  ],
+  "advisedAt": "2026-10-27T21:42:57.773Z",
+  "decision": "continue",
+  "why": "Pass 3 was quiet (novelty 0.00, churn 0.09, surprise 0.00); running pass 4 to earn two-pass convergence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-27T21:42:57.967Z",
+  "coverageAtDecision": 1
+}

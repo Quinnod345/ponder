@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.06, churn 0.25 — the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.0625,
+    "churn": 0.25,
+    "thrash": 0.25,
+    "surprise": 0.03,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 4
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-08-24T18:00:40.874Z",
+  "decision": "continue",
+  "why": "Four voices moved the set and one add was killed on evidence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-08-24T18:00:40.958Z",
+  "coverageAtDecision": 1
+}

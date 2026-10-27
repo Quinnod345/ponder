@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "unit": "screen.settings.billing",
+      "title": "Billing empty state is a bare string",
+      "detail": "A new account sees the literal text No invoices with no illustration, no explanation of when the first invoice appears, and no primary action.",
+      "dimension": "empty-states",
+      "score": 2,
+      "severity": "must",
+      "confidence": 0.8,
+      "effort": "s",
+      "evidence": ["src/routes/settings/billing.tsx:88-94"],
+      "recommendation": "Add an empty state with cause, expectation and a primary action.",
+      "status": "open"
+    },
+    {
+      "unit": "screen.settings.billing",
+      "title": "Invoice table has no loading state",
+      "detail": "The table renders an empty tbody while the fetch is in flight, so a slow network looks identical to an account with no invoices.",
+      "dimension": "loading-states",
+      "score": 2,
+      "severity": "should",
+      "confidence": 0.7,
+      "effort": "xs",
+      "evidence": ["src/routes/settings/billing.tsx:40-58"],
+      "recommendation": "Render skeleton rows while the invoice query is pending.",
+      "status": "open"
+    }
+  ]
+}

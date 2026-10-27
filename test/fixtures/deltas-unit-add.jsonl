@@ -1,0 +1,1 @@
+{"op":"unit-add","perspective":"dreamer","why":"The password reset route was never enumerated in pass 1 and it is the first screen a locked-out user sees.","unit":{"id":"screen.auth.reset","label":"Auth > Reset password","path":"src/routes/auth/reset.tsx","kind":"screen","meta":{"route":"/auth/reset"}}}

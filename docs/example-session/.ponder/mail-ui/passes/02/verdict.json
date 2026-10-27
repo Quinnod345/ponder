@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "min-passes",
+  "rule": 2,
+  "message": "pass 2 of a 3-pass minimum. One pass is an opinion, not a pondering.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0.2667,
+    "thrash": 0,
+    "surprise": 0.0333,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 2
+  },
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.drafts",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.labels",
+      "verification": "verified-missing",
+      "pass": 2
+    },
+    {
+      "id": "screen.digest",
+      "verification": "unverified",
+      "pass": 2
+    }
+  ],
+  "advisedAt": "2026-08-24T19:07:31.331Z",
+  "decision": "continue",
+  "why": "Coverage is whole now, but the minimum pass count is not met and one pass is an opinion.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-08-24T19:07:31.415Z",
+  "coverageAtDecision": 1
+}

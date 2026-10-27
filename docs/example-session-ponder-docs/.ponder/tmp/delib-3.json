@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "stakes": "medium",
+  "skeptic": { "perspective": "skeptic", "argument": "I re-opened f-0017's four evidence anchors — protocol.md:91, SPEC.md:135, cli.js:517, report.js:57 — and the phantom-feature claim holds exactly as written. Nothing else on the board is unsupported. No deletions.", "confidence": 0.85, "emits": "delete" },
+  "builder": { "perspective": "builder", "argument": "f-0002 now restates the README section list that f-0001 already carries, because I expanded f-0001 last pass. Two findings telling the same person to write the same section is one instruction and one echo. Point f-0002 at the install section instead of repeating the whole outline.", "confidence": 0.8, "emits": "edit" },
+  "dreamer": { "perspective": "dreamer", "argument": "I went looking for a third frame and did not find one. The document-against-code direction produced f-0017 last pass and the code-against-document direction is now exhausted for this surface. Nothing to add that would not be invented.", "confidence": 0.6, "emits": "add" },
+  "empath": { "perspective": "empath", "argument": "The ranking now matches what it costs a reader: two musts on the missing front door, one on a lie about locking, one on a phantom flag. I would not move anything.", "confidence": 0.7, "emits": "change" },
+  "resolution": "One edit to stop f-0002 echoing f-0001. Three voices found nothing to move, and said so rather than manufacturing a delta."
+}

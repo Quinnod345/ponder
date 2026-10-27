@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.85,
+  "claim": "Pass 1 enumerates all routes, state variants, and actions, seeding the initial findings.",
+  "at": "2026-10-27T21:42:54.657Z"
+}

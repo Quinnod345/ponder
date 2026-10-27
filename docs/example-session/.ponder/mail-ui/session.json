@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "slug": "mail-ui",
+  "subject": "the mail client's screens",
+  "lens": "ui",
+  "rubric": null,
+  "unitLabel": "screen",
+  "dimensions": [
+    "information-hierarchy",
+    "empty-states",
+    "loading-states",
+    "error-states",
+    "motion",
+    "affordance-clarity",
+    "density",
+    "responsive-behaviour",
+    "accessibility",
+    "copy-tone",
+    "consistency",
+    "delight"
+  ],
+  "project": "/Users/quinnodonnell/code/ponder/docs/example-session",
+  "maxPasses": 6,
+  "minPasses": 3,
+  "createdAt": "2026-08-24T19:07:30.395Z",
+  "updatedAt": "2026-08-24T19:07:32.273Z",
+  "status": "converged",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": false,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "blocked",
+      "decision": "continue",
+      "reason": "Three of nine units have never been opened; coverage forbids stopping and should.",
+      "override": false,
+      "at": "2026-08-24T19:07:30.991Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Coverage is whole now, but the minimum pass count is not met and one pass is an opinion.",
+      "override": false,
+      "at": "2026-08-24T19:07:31.415Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "One quiet pass is not convergence; rule 6 wants two in a row before stopping.",
+      "override": false,
+      "at": "2026-08-24T19:07:31.844Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "stop",
+      "decision": "stop",
+      "reason": "Two quiet passes running, coverage 1.0 and every open must above 0.75 confidence.",
+      "override": false,
+      "at": "2026-08-24T19:07:32.273Z"
+    }
+  ]
+}

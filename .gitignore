@@ -1,0 +1,17 @@
+# macOS Finder metadata. These are binary, they carry no information anyone needs,
+# and they reappear every time the repository is opened in Finder.
+.DS_Store
+
+# Live ponder sessions. The worked examples under docs/ and the benchmark session
+# under studies/ are committed on purpose, so they are re-included below.
+.ponder/
+!docs/example-session/.ponder/
+!docs/example-session/.ponder/**
+!docs/example-session-ponder-docs/.ponder/
+!docs/example-session-ponder-docs/.ponder/**
+!studies/head-to-head-benchmark/runs/ponder/.ponder/
+!studies/head-to-head-benchmark/runs/ponder/.ponder/**
+
+# There are no npm dependencies (SPEC 8.5), so this directory should never exist.
+# It is listed so that an accidental `npm install` cannot be committed.
+node_modules/

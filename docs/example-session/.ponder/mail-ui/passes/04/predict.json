@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 4,
+  "churn": 0.07,
+  "claim": "Pass 4 should move at most one grade and confirm the set has settled.",
+  "at": "2026-08-24T19:07:31.928Z"
+}

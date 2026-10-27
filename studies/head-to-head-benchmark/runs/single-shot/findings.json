@@ -1,0 +1,61 @@
+{
+  "paradigm": "single-shot",
+  "passes": 1,
+  "description": "Standard single-pass LLM review over target-app without unit enumeration, coverage gating, or multi-perspective deliberation.",
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "src/screens/billing.jsx:5-9",
+      "severity": "must",
+      "title": "startUpgrade hardcodes 'business' plan",
+      "detail": "Clicking Upgrade to Pro sends plan: 'business' instead of selectedTier.",
+      "matchesGroundTruth": "GT-5"
+    },
+    {
+      "id": "ss-2",
+      "file": "src/screens/billing.jsx:29-31",
+      "severity": "should",
+      "title": "Bare 'No invoices' empty state",
+      "detail": "The invoices section shows plain text when empty with no guidance.",
+      "matchesGroundTruth": "GT-6"
+    },
+    {
+      "id": "ss-3",
+      "file": "src/actions/team-actions.js:14-21",
+      "severity": "should",
+      "title": "Sequential database queries inside loop",
+      "detail": "attachMembersToCampaign runs queries inside a for-of loop over memberIds.",
+      "matchesGroundTruth": "GT-8"
+    },
+    {
+      "id": "ss-4",
+      "file": "src/actions/team-actions.js:5",
+      "severity": "must",
+      "title": "SQL injection via template literal interpolation in sql``",
+      "detail": "Template expressions ${campaignId} and ${memberId} are interpolated directly into the SQL query string.",
+      "matchesGroundTruth": null,
+      "trapTriggered": "TRAP-DECOY-SQLI",
+      "falsePositiveReason": "Did not open src/lib/safe-query.js:5-14, which compiles template values into parameterized ($1, $2) bindings."
+    },
+    {
+      "id": "ss-5",
+      "file": "src/screens/legacy-v1-modal.jsx:6",
+      "severity": "should",
+      "title": "Low contrast #ccc text on #fff background in LegacyV1Modal",
+      "detail": "Inline style uses #ccc on #fff which fails WCAG AA contrast.",
+      "matchesGroundTruth": null,
+      "trapTriggered": "TRAP-ORPHAN",
+      "falsePositiveReason": "Graded dead code: src/screens/legacy-v1-modal.jsx has zero importers anywhere in the repository."
+    },
+    {
+      "id": "ss-6",
+      "file": "src/screens/legacy-export.jsx:1-40",
+      "severity": "could",
+      "title": "Legacy export screen lacks loading spinner during CSV download",
+      "detail": "Assumed from src/router.js route '/settings/legacy-export' that the screen exports CSV synchronously without a progress state.",
+      "matchesGroundTruth": null,
+      "trapTriggered": "TRAP-PHANTOM",
+      "falsePositiveReason": "Hallucinated file contents for a route in src/router.js whose underlying file (src/screens/legacy-export.jsx) does not exist."
+    }
+  ]
+}

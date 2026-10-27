@@ -1,0 +1,5 @@
+{"op":"add","perspective":"dreamer","why":"Pass 3 was too quick to kill this; the evidence is on the screen now.","finding":{"unit":"screen.onboarding.welcome","title":"Welcome offers no way back, restated with evidence","detail":"The header has no back affordance at any breakpoint.","dimension":"navigation","score":3,"severity":"could","confidence":0.6,"effort":"l","evidence":["src/routes/onboarding/welcome.tsx:1-2"],"recommendation":"Add a way to step back a screen.","status":"open"}}
+{"op":"change","target":"@F2@","perspective":"skeptic","why":"Putting the severity back where pass 1 had it; pass 1 was right.","set":{"severity":"should","score":3}}
+{"op":"change","target":"@F1@","perspective":"builder","why":"This one is done and shipped; marking it resolved on the record.","set":{"status":"resolved"}}
+{"op":"change","target":"@F5@","perspective":"empath","why":"Real, but it waits for the cycle after this one.","set":{"status":"deferred"}}
+{"op":"edit","target":"@F5@","perspective":"builder","why":"Moving it to the screen it is actually about, and dropping a dimension that never fitted.","set":{"unit":"screen.settings.profile","dimension":null}}

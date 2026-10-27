@@ -1,0 +1,3 @@
+{"op":"unit-delete","target":"screen.legacy.unknown","phantom":true,"perspective":"skeptic","why":"I went and looked: there is no such screen anywhere in the software."}
+{"op":"add","perspective":"builder","why":"The route pass 2 added to the inventory has never been graded.","finding":{"unit":"screen.auth.reset","title":"Reset password has no error state","detail":"A rejected token renders a blank panel.","dimension":"error-states","score":2,"severity":"must","confidence":0.4,"effort":"m","evidence":["src/routes/settings/profile.tsx:1"],"recommendation":"Name what went wrong and what to do next.","status":"open"}}
+{"op":"delete","target":"@F3@","perspective":"skeptic","why":"Asserted without evidence; withdrawing it rather than leaving it on the board."}

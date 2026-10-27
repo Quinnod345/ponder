@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "slug": "ponder-docs",
+  "subject": "ponder's own documentation",
+  "lens": "docs",
+  "rubric": null,
+  "unitLabel": "document",
+  "dimensions": [
+    "accuracy",
+    "completeness",
+    "audience-fit",
+    "discoverability",
+    "runnable-examples",
+    "staleness"
+  ],
+  "project": "/Users/quinnodonnell/code/ponder/docs/example-session",
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-08-24T18:00:39.948Z",
+  "updatedAt": "2026-08-24T18:00:41.796Z",
+  "status": "converged",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": false,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Coverage is complete, but one pass over nine documents is an opinion.",
+      "override": false,
+      "at": "2026-08-24T18:00:40.535Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Four voices moved the set and one add was killed on evidence.",
+      "override": false,
+      "at": "2026-08-24T18:00:40.958Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "One quiet pass is not convergence. Rule 6 wants two.",
+      "override": false,
+      "at": "2026-08-24T18:00:41.380Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "stop",
+      "decision": "stop",
+      "reason": "Two passes running, novelty 0.00 and churn 0.06. The set has settled.",
+      "override": false,
+      "at": "2026-08-24T18:00:41.796Z"
+    }
+  ]
+}

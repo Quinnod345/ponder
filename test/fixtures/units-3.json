@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "lens": "ui",
+  "units": [
+    {
+      "id": "screen.settings.billing",
+      "label": "Settings > Billing",
+      "path": "src/routes/settings/billing.tsx",
+      "kind": "screen",
+      "meta": { "route": "/settings/billing" }
+    },
+    {
+      "id": "screen.settings.profile",
+      "label": "Settings > Profile",
+      "path": "src/routes/settings/profile.tsx",
+      "kind": "screen",
+      "meta": { "route": "/settings/profile" }
+    },
+    {
+      "id": "screen.onboarding.welcome",
+      "label": "Onboarding > Welcome",
+      "path": "src/routes/onboarding/welcome.tsx",
+      "kind": "screen",
+      "meta": { "route": "/onboarding" }
+    }
+  ]
+}

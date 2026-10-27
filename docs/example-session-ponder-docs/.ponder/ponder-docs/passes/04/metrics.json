@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "pass": 4,
+  "at": "2026-08-24T18:00:41.711Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0.0625,
+  "thrash": 0,
+  "surprise": 0.0025,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "empath"
+  ],
+  "predictedChurn": 0.06,
+  "claim": "Pass 4 should move at most one grade and confirm the set has settled.",
+  "units": {
+    "enumerated": 9,
+    "graded": 9,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 17,
+    "open": 16,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 16
+  },
+  "deltas": {
+    "total": 1,
+    "byOp": {
+      "change": 1
+    },
+    "seeded": 0,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

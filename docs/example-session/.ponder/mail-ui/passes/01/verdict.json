@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "blocked",
+  "reason": "coverage",
+  "rule": 1,
+  "message": "3 of 9 screens have never been graded. Stopping is not permitted.",
+  "notes": [],
+  "ungraded": [
+    "screen.drafts",
+    "screen.labels",
+    "screen.digest"
+  ],
+  "signals": {
+    "coverage": 0.6667,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 3
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-08-24T19:07:30.905Z",
+  "decision": "continue",
+  "why": "Three of nine units have never been opened; coverage forbids stopping and should.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-08-24T19:07:30.991Z",
+  "coverageAtDecision": 0.6666666666666666
+}

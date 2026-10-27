@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "lens": "ui",
+  "units": [
+    {
+      "id": "screen.inbox",
+      "label": "Inbox — the message list",
+      "path": "src/screens/inbox.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.thread",
+      "label": "Thread — one conversation",
+      "path": "src/screens/thread.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.compose",
+      "label": "Compose — writing a message",
+      "path": "src/screens/compose.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.settings",
+      "label": "Settings — account preferences",
+      "path": "src/screens/settings.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.search",
+      "label": "Search — results over messages",
+      "path": "src/screens/search.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.archive",
+      "label": "Archive — everything filed away",
+      "path": "src/screens/archive.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "screen.drafts",
+      "label": "Drafts — unsent messages",
+      "path": "src/screens/drafts.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1,
+      "removedInPass": 2,
+      "removalKind": "phantom",
+      "phantomVerification": "verified-missing",
+      "phantomPath": "/Users/quinnodonnell/code/ponder/docs/example-session/src/screens/drafts.jsx"
+    },
+    {
+      "id": "screen.labels",
+      "label": "Labels — managing labels",
+      "path": "src/screens/labels.jsx",
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1,
+      "removedInPass": 2,
+      "removalKind": "phantom",
+      "phantomVerification": "verified-missing",
+      "phantomPath": "/Users/quinnodonnell/code/ponder/docs/example-session/src/screens/labels.jsx"
+    },
+    {
+      "id": "screen.digest",
+      "label": "Daily digest — the email itself",
+      "path": null,
+      "kind": "screen",
+      "meta": {},
+      "addedInPass": 1,
+      "removedInPass": 2,
+      "removalKind": "phantom",
+      "phantomVerification": "unverified",
+      "phantomPath": null
+    }
+  ]
+}

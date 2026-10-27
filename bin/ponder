@@ -1,0 +1,15 @@
+#!/bin/sh
+# ponder — thin POSIX sh shim, deliberately not JavaScript: an extensionless entry point
+# trips Node's module resolution. All engine code lives in lib/*.js.
+#
+# install.sh symlinks this file into ~/.local/bin, so resolve the symlink chain before
+# working out where lib/ is. Without this, `ponder` on PATH looks for ~/.local/lib/cli.js.
+self=$0
+while [ -L "$self" ]; do
+  link=$(readlink "$self")
+  case $link in
+    /*) self=$link ;;
+    *) self=$(dirname "$self")/$link ;;
+  esac
+done
+exec node "$(dirname "$self")/../lib/cli.js" "$@"

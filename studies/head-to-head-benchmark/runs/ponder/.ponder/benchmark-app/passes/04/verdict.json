@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "pass": 4,
+  "verdict": "stop",
+  "reason": "converged",
+  "rule": 6,
+  "message": "novelty 0.00 and churn 0.00, two passes running. Further passes stopped changing the answer.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0,
+    "thrash": 0,
+    "surprise": 0,
+    "stall": 1,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 0
+  },
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.legacy-export",
+      "verification": "verified-missing",
+      "pass": 2
+    }
+  ],
+  "advisedAt": "2026-10-27T21:42:58.716Z",
+  "decision": "stop",
+  "why": "Converged after two consecutive quiet passes with 1.00 coverage, 0.00 novelty, 0.00 churn, 0.00 thrash, 0.00 surprise, and 4/4 voices confirming DONE.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-27T21:42:58.918Z",
+  "coverageAtDecision": 1
+}

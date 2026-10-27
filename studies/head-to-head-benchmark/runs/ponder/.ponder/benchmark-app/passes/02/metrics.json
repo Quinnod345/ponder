@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-10-27T21:42:56.886Z",
+  "coverage": 1,
+  "novelty": 0.1818,
+  "churn": 0.7273,
+  "thrash": 0,
+  "surprise": 0.1773,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 3,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "skeptic"
+  ],
+  "predictedChurn": 0.55,
+  "claim": "Pass 2 grades the remaining units, retracts the SQLi decoy and dead modal, verifies the phantom export route, and sharpens recommendations.",
+  "units": {
+    "enumerated": 8,
+    "graded": 8,
+    "removed": 2,
+    "removedUngraded": 0,
+    "phantom": 1
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.legacy-export",
+      "verification": "verified-missing",
+      "pass": 2
+    }
+  ],
+  "findings": {
+    "total": 13,
+    "open": 11,
+    "resolved": 0,
+    "retracted": 2,
+    "deferred": 0,
+    "live": 11
+  },
+  "deltas": {
+    "total": 8,
+    "byOp": {
+      "delete": 2,
+      "unit-delete": 2,
+      "edit": 1,
+      "unit-edit": 1,
+      "add": 2
+    },
+    "seeded": 0,
+    "revisions": 8
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 5
+}

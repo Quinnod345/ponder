@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "pass": 4,
+  "at": "2026-10-27T21:42:58.710Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0,
+  "thrash": 0,
+  "surprise": 0,
+  "stall": 1,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 0,
+  "deltaVoiceNames": [],
+  "predictedChurn": 0,
+  "claim": "Pass 4 is completely silent: all four voices confirm the 11 open findings hold with zero deltas.",
+  "units": {
+    "enumerated": 8,
+    "graded": 8,
+    "removed": 2,
+    "removedUngraded": 0,
+    "phantom": 1
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [
+    {
+      "id": "screen.legacy-export",
+      "verification": "verified-missing",
+      "pass": 2
+    }
+  ],
+  "findings": {
+    "total": 13,
+    "open": 11,
+    "resolved": 0,
+    "retracted": 2,
+    "deferred": 0,
+    "live": 11
+  },
+  "deltas": {
+    "total": 0,
+    "byOp": {},
+    "seeded": 0,
+    "revisions": 0
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 5
+}

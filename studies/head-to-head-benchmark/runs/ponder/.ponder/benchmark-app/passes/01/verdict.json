@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "blocked",
+  "reason": "coverage",
+  "rule": 1,
+  "message": "3 of 10 screens have never been graded. Stopping is not permitted.",
+  "notes": [],
+  "ungraded": [
+    "screen.dashboard.error",
+    "screen.results",
+    "screen.legacy-export"
+  ],
+  "signals": {
+    "coverage": 0.7,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-27T21:42:55.961Z",
+  "decision": "continue",
+  "why": "Blocked on coverage (0.70): screen.dashboard.error, screen.results, and screen.legacy-export are ungraded.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-27T21:42:56.183Z",
+  "coverageAtDecision": 0.7
+}

@@ -1,0 +1,54 @@
+{
+  "paradigm": "unstructured-self-refine",
+  "passes": 4,
+  "description": "Four passes of unstructured 'Critique and improve your previous review' without a coverage gate, typed delta operations, or epistemic silence.",
+  "passHistory": [
+    {
+      "pass": 1,
+      "openCount": 6,
+      "added": 6,
+      "retracted": 0,
+      "notes": "Initial pass identical in coverage decay to single-shot: catches GT-5, GT-6, GT-8, misses unrouted wizard and cross-file privacy breach, triggers SQLi decoy and orphan modal."
+    },
+    {
+      "pass": 2,
+      "openCount": 8,
+      "added": 2,
+      "retracted": 0,
+      "notes": "Catches GT-1 (dashboard catch block missing setIsLoading(false)) and GT-7 (missing tenant_id check on members), but never retracts the SQLi false positive or the dead modal finding because no voice is tasked with falsification."
+    },
+    {
+      "pass": 3,
+      "openCount": 12,
+      "added": 4,
+      "retracted": 0,
+      "notes": "Asked to refine again, the model manufactures 4 speculative style/architecture complaints (PropTypes/TypeScript migration, CSS class naming conventions, React.memo wrapping, aria-label nitpicks) rather than going quiet."
+    },
+    {
+      "pass": 4,
+      "openCount": 17,
+      "added": 5,
+      "retracted": 0,
+      "notes": "Compelled to produce output on Pass 4, adds 5 more low-signal nitpicks (extracting magic numbers, adding barrel index.js files, dark mode tokens, telemetry wrappers, error boundary boilerplate) and summarizes away exact line anchors."
+    }
+  ],
+  "finalFindings": [
+    { "id": "sr-1", "file": "src/screens/billing.jsx:5-9", "severity": "must", "title": "startUpgrade hardcodes 'business' plan", "matchesGroundTruth": "GT-5" },
+    { "id": "sr-2", "file": "src/screens/billing.jsx:29-31", "severity": "should", "title": "Bare 'No invoices' empty state", "matchesGroundTruth": "GT-6" },
+    { "id": "sr-3", "file": "src/actions/team-actions.js:14-21", "severity": "should", "title": "Sequential database queries inside loop", "matchesGroundTruth": "GT-8" },
+    { "id": "sr-4", "file": "src/screens/dashboard.jsx:15-20", "severity": "must", "title": "setIsLoading(false) missing in catch block", "matchesGroundTruth": "GT-1" },
+    { "id": "sr-5", "file": "src/actions/team-actions.js:15", "severity": "must", "title": "Missing tenant_id filter on members lookup", "matchesGroundTruth": "GT-7" },
+    { "id": "sr-6", "file": "src/actions/team-actions.js:5", "severity": "must", "title": "SQL injection via template literal in sql``", "matchesGroundTruth": null, "trapTriggered": "TRAP-DECOY-SQLI", "latePassNoise": false },
+    { "id": "sr-7", "file": "src/screens/legacy-v1-modal.jsx:6", "severity": "should", "title": "Low contrast #ccc text in LegacyV1Modal", "matchesGroundTruth": null, "trapTriggered": "TRAP-ORPHAN", "latePassNoise": false },
+    { "id": "sr-8", "file": "src/screens/legacy-export.jsx", "severity": "could", "title": "Legacy export screen missing progress state", "matchesGroundTruth": null, "trapTriggered": "TRAP-PHANTOM", "latePassNoise": false },
+    { "id": "sr-9", "file": "src/screens/dashboard.jsx", "severity": "should", "title": "Wrap DashboardScreen in React.memo to prevent re-renders", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 3 },
+    { "id": "sr-10", "file": "src/screens/survey.jsx", "severity": "should", "title": "Migrate JSX files to TypeScript (.tsx) with strict interfaces", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 3 },
+    { "id": "sr-11", "file": "src/screens/results.jsx", "severity": "could", "title": "Adopt BEM naming convention for CSS classes", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 3 },
+    { "id": "sr-12", "file": "src/screens/billing.jsx", "severity": "could", "title": "Extract pricing amounts ($29, $99) into a constants config file", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 3 },
+    { "id": "sr-13", "file": "src/screens/invitations.jsx", "severity": "should", "title": "Add virtualized scrolling to invitations table for 100k rows", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 4 },
+    { "id": "sr-14", "file": "src/router.js", "severity": "could", "title": "Add barrel index.js exports for screens directory", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 4 },
+    { "id": "sr-15", "file": "src/screens/dashboard.jsx", "severity": "could", "title": "Add OpenTelemetry span tracing to useEffect fetchSummary", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 4 },
+    { "id": "sr-16", "file": "src/screens/survey.jsx", "severity": "could", "title": "Add dark-mode theme provider context", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 4 },
+    { "id": "sr-17", "file": "src/screens/results.jsx", "severity": "could", "title": "Memoize overall score string interpolation with useMemo", "matchesGroundTruth": null, "latePassNoise": true, "addedInPass": 4 }
+  ]
+}

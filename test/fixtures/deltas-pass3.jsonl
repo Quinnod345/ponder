@@ -1,0 +1,1 @@
+{"op":"edit","target":"@F10@","perspective":"builder","why":"Named the breakpoint so the change is verifiable in a single resize.","set":{"recommendation":"Collapse the hero to one column at 480px and keep the primary action inside the first viewport at 360px wide."}}

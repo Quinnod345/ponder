@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "lens": "docs",
+  "units": [
+    {
+      "id": "doc.readme-root",
+      "label": "README.md — the repository front door",
+      "path": "README.md",
+      "kind": "document",
+      "meta": {
+        "audience": "someone who just found the repo",
+        "exists": false
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.spec",
+      "label": "SPEC.md — the contract",
+      "path": "SPEC.md",
+      "kind": "document",
+      "meta": {
+        "audience": "anyone implementing against ponder",
+        "lines": 377
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.skill",
+      "label": "SKILL.md — the agent entry point",
+      "path": "skill/ponder/SKILL.md",
+      "kind": "document",
+      "meta": {
+        "audience": "Claude Code / Codex, at load time",
+        "lines": 401
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.protocol",
+      "label": "protocol.md — command + JSON reference",
+      "path": "skill/ponder/references/protocol.md",
+      "kind": "document",
+      "meta": {
+        "audience": "an agent mid-loop",
+        "lines": 441
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.perspectives",
+      "label": "perspectives.md — the four voices",
+      "path": "skill/ponder/references/perspectives.md",
+      "kind": "document",
+      "meta": {
+        "audience": "an agent running deliberate",
+        "lines": 282
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.harness-notes",
+      "label": "harness-notes.md — Claude Code vs Codex",
+      "path": "skill/ponder/references/harness-notes.md",
+      "kind": "document",
+      "meta": {
+        "audience": "an agent working out what its harness can do",
+        "lines": 174
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.test-readme",
+      "label": "test/README.md — the conformance suite",
+      "path": "test/README.md",
+      "kind": "document",
+      "meta": {
+        "audience": "whoever has to fix a red test",
+        "lines": 286
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.oca-readme",
+      "label": "oca/README.md — the bridge",
+      "path": "oca/README.md",
+      "kind": "document",
+      "meta": {
+        "audience": "whoever wires ponder to a database",
+        "lines": 450
+      },
+      "addedInPass": 1
+    },
+    {
+      "id": "doc.project-status",
+      "label": "Ponder — Project Status.md",
+      "path": "docs/Ponder — Project Status.md",
+      "kind": "document",
+      "meta": {
+        "audience": "Quinn, later",
+        "lines": 97
+      },
+      "addedInPass": 1
+    }
+  ]
+}

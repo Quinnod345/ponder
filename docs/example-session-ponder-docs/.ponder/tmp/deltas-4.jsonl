@@ -1,0 +1,1 @@
+{"op":"change","target":"f-0013","perspective":"empath","why":"A stale test count in a prose sentence misleads nobody about how the suite behaves; ranking it alongside findings that cost a reader an afternoon inflates the apparent size of the problem.","set":{"severity":"note","score":4}}

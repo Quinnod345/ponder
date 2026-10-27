@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "pass": 1,
+  "at": "2026-08-24T18:00:40.450Z",
+  "coverage": 1,
+  "novelty": null,
+  "churn": null,
+  "thrash": null,
+  "surprise": null,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 3,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "empath"
+  ],
+  "predictedChurn": 0.9,
+  "claim": "Pass 1 builds the finding set from nothing; the missing root README will dominate.",
+  "units": {
+    "enumerated": 9,
+    "graded": 9,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 16,
+    "open": 16,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 16
+  },
+  "deltas": {
+    "total": 18,
+    "byOp": {
+      "add": 16,
+      "edit": 1,
+      "change": 1
+    },
+    "seeded": 14,
+    "revisions": 4
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}
