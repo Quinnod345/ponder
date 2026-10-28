@@ -58,6 +58,7 @@ ponder start "the UI" --lens ui --max-passes 6 --min-passes 2
 5. **revise** — apply the deltas the deliberation produced.
    `ponder delta --file .ponder/tmp/deltas-2.jsonl`
    Every delta carries `op`, `perspective`, and a non-empty `why`. The engine rejects a delta without a `why`. On pass 2+ this call satisfies appraise as well.
+   **Token-efficient internal notation:** To keep multi-pass token usage low (~56% reduction across 4 passes), you may write internal machine-to-machine `deliberation.json` arguments and `deltas.jsonl` `why` strings using compact causal arrows (`"safe-query.js:5 binds $1 -> SQLi claim false -> retract"`), while keeping all user-facing finding `title`, `detail`, and `recommendation` fields in clear, complete prose.
 6. **judge** — `ponder judge` computes the metrics and prints advice.
 7. **decide** — `ponder decide <continue|stop|escalate> --why "..."` commits your call.
 

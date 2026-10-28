@@ -1,38 +1,41 @@
 <div align="center">
 
-<img src="docs/assets/hero-banner.png" alt="Ponder — Phase-Space Convergence & Epistemic Silence" width="100%" />
+<img src="docs/assets/hero-banner.png" alt="Ponder — AI that knows when to speak — and when to shut up." width="100%" />
 
 <br />
 
+### *AI that knows when to speak — and when to shut up.*
+
 `MIT LICENSE` · `0 NPM DEPENDENCIES` · `101/101 CONFORMANCE` · `NODE >= 18` · `CLAUDE CODE / CODEX / OPENCLAW`
 
-[**Why Ponder?**](#why-ponder-exists) · [**How It Works**](#the-four-perspectives-are-the-four-delta-operations) · [**Studies & Benchmarks**](#empirical-studies--benchmarks) · [**Install**](#install) · [**60s Quickstart**](#60-second-quickstart) · [**The Phantom Rule**](#the-phantom-rule) · [**Full Spec**](SPEC.md)
+[**The Plot Hole in AI**](#the-critical-plot-hole-in-ai-forced-speech) · [**How It Works**](#the-four-perspectives-are-the-four-delta-operations) · [**Studies & Benchmarks**](#empirical-studies--benchmarks) · [**One-Shot & Temperature Study**](#2-human-one-shot-temperature-variance-k--5--the-cost-of-forced-speech-studiesone-shot-vs-ponder) · [**Install**](#install) · [**60s Quickstart**](#60-second-quickstart) · [**Full Spec**](SPEC.md)
 
 </div>
 
 ---
 
-## Why Ponder Exists
+## The Critical Plot Hole in AI: Forced Speech
 
-Ask a standard AI coding agent to audit a codebase or plan a major change, and you hit **three structural failure modes**:
+Ponder does not claim to "solve all of AI." It solves **one specific, critical plot hole in how modern AI models work**: **forced speech**.
 
-### 1. Agents deliver half a goal and silently forget the rest
-A long sweep decays. The first ten screens get real attention, the last thirty get a sentence each, and after a context compaction the agent no longer remembers there were forty.
-- **How Ponder fixes it:** Ponder puts the inventory on disk (`units.json`) and gates the exit. While `coverage < 1.0`, `ponder judge` returns **`blocked`** and `ponder decide stop` exits `2`, naming every unit that was never graded. There is no `--force` flag. An incomplete stop is not discouraged — it is **structurally impossible**.
+Every mainstream LLM is trained (via RLHF) to equate helpfulness with token generation. To a standard model, an empty response is a failure. That single training incentive creates three structural failure modes whenever you ask an AI agent to audit a codebase or plan a complex change:
 
-### 2. When an LLM doesn't know — or is asked to review a second time — it manufactures noise
-Current AI models are trained to equate helpfulness with token generation. If a route file is missing, a single-shot review will often assume what is inside it and hallucinate findings. Worse, if you run an unstructured multi-pass loop (*"Critique and improve your previous review"* for 4 passes), by Pass 3 the real bugs are already listed — yet the model feels compelled to justify its turn by inventing speculative nitpicks (`React.memo` everywhere, BEM class renaming, dark-mode wrappers) while never retracting its Pass-1 false positives.
-- **How Ponder fixes it (`Epistemic Silence`):** Ponder separates **having a perspective** from **mutating state**. Every pass records `voices` (how many perspectives inspected the evidence and argued in `deliberation.json`) separately from `deltaVoices` (how many emitted a revision in `deltas.jsonl`). When a finding already holds, **silence is the desired output**. Two consecutive passes where all voices verify the evidence (`voices >= 3`, `confidenceFloor == 0`) and almost nothing moves (`novelty < 0.05`, `churn < 0.10` — culminating in `0` deltas) earn **`stop (converged)`**.
+### 1. When an AI doesn't know — or is asked to review a second time — it is forced to manufacture noise
+If a route file is missing on disk, a standard single-shot prompt will often guess what is inside it and hallucinate findings. Worse, if you run an unstructured multi-pass loop (*"Critique and improve your previous review"* for 4 passes), by Pass 3 the real bugs are already listed — yet because the model does not know how to shut up, it justifies its turn by inventing speculative nitpicks (`React.memo` everywhere, BEM class renaming, dark-mode wrappers) while never retracting its Pass-1 false positives.
+- **Why Ponder knows when to shut up (`Epistemic Silence`):** Ponder separates **having a perspective** from **mutating state**. Every pass records `voices` (how many perspectives inspected the evidence and argued in `deliberation.json`) separately from `deltaVoices` (how many emitted a revision in `deltas.jsonl`). When a finding already holds, **silence is the desired output**. Two consecutive passes where all voices verify the evidence (`voices >= 3`, `confidenceFloor == 0`) and almost nothing moves (`novelty < 0.05`, `churn < 0.10` — culminating in `0` deltas) earn **`stop (converged)`**.
 
-| Pass 4 in an Unstructured LLM Loop | Pass 4 in Ponder (`Epistemic Silence`) |
+| Pass 4 in an Unstructured LLM Loop (`Forced Speech`) | Pass 4 in Ponder (`Epistemic Silence`) |
 |---|---|
-| *"You asked me to refine the review again, so here are 5 new items: wrap `DashboardScreen` in `React.memo`, adopt BEM class names, extract `$29` into a constants file, add OpenTelemetry spans..."*<br/><br/>**Outcome:** Actionable precision collapses to **29.4%**. Real bugs get buried under performative churn. | **`skeptic`:** *"VOTE: DONE. Re-verified all 11 open findings and 14 file:line anchors on disk. Emitting 0 deltas."*<br/>**`builder` · `dreamer` · `empath`:** *"VOTE: DONE. Emitting 0 deltas."*<br/><br/>**Outcome:** `voices: 4` · `deltaVoices: 0` · `churn: 0.00` · `surprise: 0.00` → **`stop (converged)`**. |
+| *"You asked me to refine the review again, so here are 5 new items: wrap `DashboardScreen` in `React.memo`, adopt BEM class names, extract `$29` into a constants file, add OpenTelemetry spans..."*<br/><br/>**Outcome:** Actionable precision collapses to **29.0%**. Real bugs get buried under performative churn (`170.8 min` of wasted developer time). | **`skeptic`:** *"VOTE: DONE. Re-verified all open findings and file:line anchors on disk. Emitting 0 deltas."*<br/>**`builder` · `dreamer` · `empath`:** *"VOTE: DONE. Emitting 0 deltas."*<br/><br/>**Outcome:** `voices: 4` · `deltaVoices: 0` · `churn: 0.00` · `surprise: 0.00` → **`stop (converged)`**. |
+
+### 2. Agents deliver half a goal and silently forget the rest
+A long sweep decays. The first ten screens get real attention, the last thirty get a sentence each, and after a context compaction the agent no longer remembers there were forty.
+- **Why Ponder knows when to keep speaking (`The Coverage Gate`):** Ponder puts the inventory on disk (`units.json`) and gates the exit. While `coverage < 1.0`, `ponder judge` returns **`blocked`** and `ponder decide stop` exits `2`, naming every unit that was never graded. There is no `--force` flag. An incomplete stop is not discouraged — it is **structurally impossible**.
 
 ### 3. Code-only review is blind to the human — and the emotion — on the other side of the screen
 Standard static review reads code from the compiler's point of view. It checks whether types match and handlers compile, but it never steps into the shoes and emotional state of the human using the software:
 - *How does a team member feel when the survey page promises their answers are only shown in aggregate after 3 responses, but the admin table prints their individual score next to their name at `N = 1`?*
 - *How does a first-time user feel when an onboarding wizard demands an "Internal schema version" and "Priority tier" before they have even seen the workspace?*
-- *Whose convenience won when an engineer built a 7-field form because the database table had 7 columns?*
 - **How Ponder fixes it:** Ponder's lenses ([`ui`](lenses/ui.md), [`product`](lenses/product.md), [`copy`](lenses/copy.md)) and the **Empath** voice force the agent to step outside the codebase, inhabit each actor's lived and emotional perspective, and re-rank findings by human trust and task survival rather than code proximity.
 
 > [!IMPORTANT]
@@ -102,7 +105,35 @@ Run the evaluator and ledger verifier yourself in `<100ms`:
 node studies/head-to-head-benchmark/evaluate.mjs
 ```
 
-### 2. Production Field Studies ([`studies/field-studies.md`](studies/field-studies.md))
+### 2. Human One-Shot, Temperature Variance ($K = 5$), & The Cost of Forced Speech ([`studies/one-shot-vs-ponder/`](studies/one-shot-vs-ponder/))
+
+A common question is: *"Isn't Ponder still a one-shot prompt from the human's perspective — and what happens across multiple runs when LLM sampling temperature varies?"*
+
+Yes: from the human's seat, typing `"Audit target-app and give me the bug-fix plan. Use ponder."` is **still 1 human prompt** (`0` follow-up babysitting turns). By contrast, a standard "one-shot" prompt without Ponder (`Ponder OFF`) averages **`5.8` human prompts** (`1` initial prompt + `4.8` follow-up debugging prompts to revert broken decoys and track down missed bugs).
+
+To prove that Ponder's advantage is structural rather than a lucky roll of the dice, we evaluated **`K = 5` independent trials (`Trial 1..5`)** under stochastic sampling variance across **5 conditions** — including standalone **[`/caveman`](https://github.com/JuliusBrussee/caveman)** (syntactic brevity) and a **Hybrid (`Ponder + Internal Caveman Deltas`)** mode:
+
+| Condition ($K = 5$ Trials Each) | Ground-Truth Recall ($\mu \pm \sigma$) | Actionable Precision ($\mu \pm \sigma$) | Cross-Run Stability (Jaccard $J$) | Mean False Positives | Human Prompts Required | Developer Time Cost | Mean Output Tokens |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **1. Standard 1-Prompt (`Ponder OFF`)** | `40.0% ± 9.4%` | `49.5% ± 8.7%` | `0.51` | `3.2` | `5.8` | `92.8 min` | `1,490` |
+| **2. Caveman 1-Prompt (`/caveman`, `Ponder OFF`)** | `40.0% ± 9.4%` | `49.5% ± 8.7%` | `0.51` | `3.2` | `5.8` | `92.8 min` | `387` (`-74%`) |
+| **3. Unstructured 4-Pass (`Forced Speech`)** | `62.5% ± 7.9%` | `29.0% ± 1.7%` | `0.86` | `12.2` | `8.2` | `205.3 min` | `6,954` |
+| **4. Ponder 1-Prompt (`Ponder ON` — Full Prose)** | **`97.5% ± 5.0%`** | **`100.0% ± 0.0%`** | **`0.95`** | **`0.0`** | **`1.0`** | **`13.5 min`** | `5,438` |
+| **5. Ponder + Internal Caveman Deltas (`Hybrid`)** | **`97.5% ± 5.0%`** | **`100.0% ± 0.0%`** | **`0.95`** | **`0.0`** | **`1.0`** | **`13.5 min`** | **`2,376` (`-56%`)** |
+
+- **Collapsing Temperature Variance (`0.51 → 0.95` Jaccard Stability):** Without Ponder, recall swings from `25.0%` to `50.0%` depending on sampling luck (`J = 0.51`). With Ponder ON, even when Pass 1's initial recall fluctuates between `50.0%` and `75.0%`, the **1.00 Coverage Gate** forces Pass 2 to open every ungraded unit and **Skeptic (`delete`)** retracts every decoy (`100.0% ± 0.0%` precision across all 5 trials).
+- **The Real Cost of Forced Speech (`92.8 min` vs. `205.3 min` vs. `13.5 min`):** Investigating and reverting a single hallucinated bug or false-positive decoy takes ~14 minutes of engineering time. Standard 1-Prompt wastes `44.8 min` on false positives (`92.8 min` total); an unstructured 4-pass loop wastes `170.8 min` on performative noise (`205.3 min` total); Ponder takes **`13.5 min` total (`6.9x` faster)**.
+- **Two Axes of AI Compression (`/caveman` vs. `Ponder`):**
+  - **Syntactic Brevity (`/caveman` alone):** Cuts prose tokens by `74%` (`1,490 → 387`), but saves **`0` minutes** of debugging because it still reports all `3.2` false positives in 5 terse words (*`"team-actions.js:15 SQLi. Parameterize query."`*).
+  - **Epistemic Silence (`Ponder`) + Internal Terse Deltas (`Hybrid`):** Using terse causal notation (`"safe-query.js:5 binds $1 -> SQLi false -> delete"`) inside Ponder's internal machine-to-machine `deliberation.json` and `deltas.jsonl` `why` strings cuts Ponder's token footprint by **56%** (`5,438 → 2,376` tokens) while keeping human-facing `report.md` and `apply-plan.md` in full, clear prose.
+
+Run the multi-trial evaluator yourself:
+
+```sh
+node studies/one-shot-vs-ponder/evaluate-trials.mjs
+```
+
+### 3. Production Field Studies ([`studies/field-studies.md`](studies/field-studies.md))
 
 | Field Study | Surface Size | Key Discovery Made Only After Pass 1 |
 |---|---:|---|
@@ -531,12 +562,25 @@ Nothing about this is silent. `ponder start` prints the root, the store and what
 
 ---
 
+## The Oneiro Skill Ecosystem
+
+Ponder is part of the [Oneiro Cognitive Architecture (`oneiro-oca`)](https://github.com/Quinnod345/oneiro-oca) skill suite — each skill targets a distinct failure mode of standard single-shot AI:
+
+| Skill | Role | Core Mechanism |
+|---|---|---|
+| **[`ponder`](https://github.com/Quinnod345/ponder)** | **Convergent Audit & Deliberation** | **Epistemic Silence & 1.00 Coverage Gate** — 4 voices (`Skeptic` → `delete`, `Builder` → `edit`, `Dreamer` → `add`, `Empath` → `change`) argue over disk-enumerated units until `0` deltas remain. |
+| **`slate`** | **Design-First UI & Typography Craft** | Replaces generic AI visual tropes with calibrated editorial hierarchy, intentional spacing, and production-grade layout constraints. |
+| **`visionary`** | **Divergent Product & Architecture Ideation** | Expands the solution space before convergence — generating orthogonal product frames that `ponder` can then stress-test and falsify. |
+
+---
+
 ## Documentation Index
 
 | Document | What it covers |
 |---|---|
 | [`SPEC.md`](SPEC.md) | The normative contract. Where an implementation and that document disagree, `SPEC.md` wins. |
 | [`studies/README.md`](studies/README.md) | Controlled head-to-head benchmark (`Single-Shot` vs. `Self-Refine` vs. `Ponder`) and empirical study index. |
+| [`studies/one-shot-vs-ponder/README.md`](studies/one-shot-vs-ponder/README.md) | Multi-trial ($K = 5$) temperature-variance study, human one-shot toggle (`5.8` vs. `1.0` prompts), cost of forced speech (`92.8m` vs. `13.5m`), and `/caveman` vs. `Ponder` analysis. |
 | [`studies/field-studies.md`](studies/field-studies.md) | Four production case studies (228-unit SaaS UI sweep, 154-surface security audit, 16-journey emotional/privacy audit, 37-unit portfolio deliberation). |
 | [`docs/example-session/`](docs/example-session/) | A real four-pass run: blocked on pass 1, three phantom units checked against disk, ending converged. Read `report.md` first. |
 | [`docs/example-session-ponder-docs/`](docs/example-session-ponder-docs/) | A second run, over ponder's own docs. Full coverage throughout, so it shows thrash and a retraction instead of the gate. |

@@ -5,7 +5,8 @@ This directory contains empirical evaluations of **Ponder** against standard sin
 | Study | Type | Subject | Key Question Answered |
 |---|---|---|---|
 | **[1. Head-to-Head Benchmark](#1-controlled-head-to-head-benchmark)** ([`head-to-head-benchmark/`](head-to-head-benchmark/)) | Controlled experiment with planted ground truth | Full-stack SaaS app (`target-app/`) with 8 planted bugs + 3 adversarial traps | How do **Single-Shot Review**, **4-Pass Unstructured Self-Refine**, and **4-Pass Ponder** compare on recall, precision, false-positive retraction, and late-pass hallucination? |
-| **[2. Production Field Studies](field-studies.md)** ([`field-studies.md`](field-studies.md)) | Empirical telemetry from 4 production runs | 228-screen SaaS UI, 154-surface security audit, 16-journey emotional/privacy audit, 37-unit design sweep | How does Ponder behave at scale on real codebases, and what classes of bugs are caught *only* after Pass 1? |
+| **[2. Human One-Shot, Temperature Variance ($K=5$) & Cost of Forced Speech](one-shot-vs-ponder/README.md)** ([`one-shot-vs-ponder/`](one-shot-vs-ponder/)) | Multi-trial stochastic evaluation ($K = 5$ runs $\times$ 5 conditions) | Same 1-line human prompt (`Ponder OFF` vs. `Ponder ON`), `/caveman`, and unstructured 4-pass loops | Is Ponder still a **1-shot prompt for the human** (`1.0` vs. `5.8` prompts)? Does it survive **temperature variance** (`0.51` → `0.95` Jaccard stability)? How much developer time does **forced speech** waste (`92.8m` vs. `13.5m`), and how does **`/caveman`** interact with **Ponder**? |
+| **[3. Production Field Studies](field-studies.md)** ([`field-studies.md`](field-studies.md)) | Empirical telemetry from 4 production runs | 228-screen SaaS UI, 154-surface security audit, 16-journey emotional/privacy audit, 37-unit design sweep | How does Ponder behave at scale on real codebases, and what classes of bugs are caught *only* after Pass 1? |
 
 ---
 
