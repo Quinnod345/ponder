@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "blocked",
+  "reason": "coverage",
+  "rule": 1,
+  "message": "1 of 5 module has never been graded. Stopping is not permitted.",
+  "notes": [],
+  "ungraded": [
+    "scripts.skill_lint"
+  ],
+  "signals": {
+    "coverage": 0.8,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:16:26.919Z",
+  "decision": "continue",
+  "why": "Coverage is 0.80 (4/5 units) and Pass-1 hypothesis f-0004 on hooks/sdd-cache-pre.sh requires Skeptic verification.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:16:27.119Z",
+  "coverageAtDecision": 0.8
+}

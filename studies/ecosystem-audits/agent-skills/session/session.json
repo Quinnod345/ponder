@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "slug": "agent-skills-hooks",
+  "subject": "Audit addyosmani/agent-skills simplify-ignore, sdd-cache, and session-start hooks",
+  "lens": "architecture",
+  "rubric": null,
+  "unitLabel": "module",
+  "dimensions": [
+    "coupling",
+    "cohesion",
+    "boundary-integrity",
+    "dependency-direction",
+    "data-ownership",
+    "ubiquitous-language",
+    "contract-stability",
+    "testability",
+    "failure-modes",
+    "observability",
+    "migration-debt"
+  ],
+  "project": "/Users/quinnodonnell/.gemini/antigravity/scratch/agent-skills",
+  "projectFrom": {
+    "how": "explicit",
+    "marker": null,
+    "cwd": "/Users/quinnodonnell/.gemini/antigravity/scratch/agent-skills"
+  },
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-10-29T21:16:25.636Z",
+  "updatedAt": "2026-10-29T21:16:31.532Z",
+  "status": "applied",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": false,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "blocked",
+      "decision": "continue",
+      "reason": "Coverage is 0.80 (4/5 units) and Pass-1 hypothesis f-0004 on hooks/sdd-cache-pre.sh requires Skeptic verification.",
+      "override": false,
+      "at": "2026-10-29T21:16:27.119Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Coverage is now 1.00 and f-0004 is retracted; continuing to pin test targets and confirm convergence.",
+      "override": false,
+      "at": "2026-10-29T21:16:28.320Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Recommendations finalized; running Pass 4 to verify epistemic silence and convergence.",
+      "override": false,
+      "at": "2026-10-29T21:16:29.587Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "continue",
+      "decision": "stop",
+      "reason": "Converged across 4 passes after retracting 1 false positive in Pass 2 and verifying 2 must and 1 should findings with deterministic tests.",
+      "override": true,
+      "at": "2026-10-29T21:16:30.778Z"
+    }
+  ],
+  "appliedAt": "2026-10-29T21:16:31.532Z",
+  "appliedSeverity": "must"
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 2,
+  "churn": 0.3,
+  "claim": "Pass 2 will falsify and retract f-0004 on hooks.sdd_cache_pre, record clean notes on hooks.sdd_cache_pre and scripts.skill_lint to reach coverage 1.00.",
+  "at": "2026-10-29T21:16:27.345Z"
+}

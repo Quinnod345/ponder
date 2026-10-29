@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.45,
+  "claim": "Pass 1 will identify placeholder expansion and Stop-loop defects in hooks/simplify-ignore.sh and test a printf/heredoc expansion hypothesis on hooks/sdd-cache-pre.sh.",
+  "at": "2026-10-29T21:16:25.837Z"
+}

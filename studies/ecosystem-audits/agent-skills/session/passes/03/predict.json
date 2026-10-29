@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.1,
+  "claim": "Pass 3 will refine f-0001 recommendation with the exact test targets in hooks/simplify-ignore-test.sh (Tests 19-21) and approach convergence.",
+  "at": "2026-10-29T21:16:28.564Z"
+}

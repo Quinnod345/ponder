@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "pass": 4,
+  "at": "2026-10-29T21:16:30.550Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0,
+  "thrash": 0,
+  "surprise": 0,
+  "stall": 1,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 0,
+  "deltaVoiceNames": [],
+  "predictedChurn": 0,
+  "claim": "Pass 4 will produce zero deltas across all 4 voices as all findings and module grades have converged.",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 8,
+    "open": 7,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 7
+  },
+  "deltas": {
+    "total": 0,
+    "byOp": {},
+    "seeded": 0,
+    "revisions": 0
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "lens": "architecture",
+  "units": [
+    {
+      "id": "hooks.simplify_ignore",
+      "label": "Block-level code-simplify protection hook (hooks/simplify-ignore.sh)",
+      "path": "hooks/simplify-ignore.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.sdd_cache_pre",
+      "label": "PreToolUse WebFetch 304 cache hook (hooks/sdd-cache-pre.sh)",
+      "path": "hooks/sdd-cache-pre.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.sdd_cache_post",
+      "label": "PostToolUse WebFetch validator capture hook (hooks/sdd-cache-post.sh)",
+      "path": "hooks/sdd-cache-post.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.session_start",
+      "label": "SessionStart meta-skill injection hook (hooks/session-start.sh)",
+      "path": "hooks/session-start.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "scripts.skill_lint",
+      "label": "Shared skill and persona linter (scripts/lib/skill-lint.js)",
+      "path": "scripts/lib/skill-lint.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}

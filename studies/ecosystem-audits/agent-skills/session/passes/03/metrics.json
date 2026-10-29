@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "pass": 3,
+  "at": "2026-10-29T21:16:29.279Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0.1429,
+  "thrash": 0,
+  "surprise": 0.0429,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "builder"
+  ],
+  "predictedChurn": 0.1,
+  "claim": "Pass 3 will refine f-0001 recommendation with the exact test targets in hooks/simplify-ignore-test.sh (Tests 19-21) and approach convergence.",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 8,
+    "open": 7,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 7
+  },
+  "deltas": {
+    "total": 1,
+    "byOp": {
+      "edit": 1
+    },
+    "seeded": 0,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

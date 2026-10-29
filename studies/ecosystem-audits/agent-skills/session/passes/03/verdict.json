@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 3,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.00, churn 0.14 - the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0.1429,
+    "thrash": 0,
+    "surprise": 0.0429,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:16:29.281Z",
+  "decision": "continue",
+  "why": "Recommendations finalized; running Pass 4 to verify epistemic silence and convergence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:16:29.587Z",
+  "coverageAtDecision": 1
+}

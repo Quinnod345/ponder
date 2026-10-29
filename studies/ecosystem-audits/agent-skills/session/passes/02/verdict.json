@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.29, churn 0.43 - the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.2857,
+    "churn": 0.4286,
+    "thrash": 0,
+    "surprise": 0.1286,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 2
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:16:28.043Z",
+  "decision": "continue",
+  "why": "Coverage is now 1.00 and f-0004 is retracted; continuing to pin test targets and confirm convergence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:16:28.320Z",
+  "coverageAtDecision": 1
+}

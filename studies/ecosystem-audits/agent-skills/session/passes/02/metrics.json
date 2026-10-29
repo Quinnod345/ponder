@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-10-29T21:16:28.040Z",
+  "coverage": 1,
+  "novelty": 0.2857,
+  "churn": 0.4286,
+  "thrash": 0,
+  "surprise": 0.1286,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 2,
+  "deltaVoiceNames": [
+    "dreamer",
+    "skeptic"
+  ],
+  "predictedChurn": 0.3,
+  "claim": "Pass 2 will falsify and retract f-0004 on hooks.sdd_cache_pre, record clean notes on hooks.sdd_cache_pre and scripts.skill_lint to reach coverage 1.00.",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 8,
+    "open": 7,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 7
+  },
+  "deltas": {
+    "total": 3,
+    "byOp": {
+      "delete": 1,
+      "add": 2
+    },
+    "seeded": 0,
+    "revisions": 3
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}
