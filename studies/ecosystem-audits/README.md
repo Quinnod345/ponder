@@ -1,12 +1,12 @@
 # Live Open-Source Ecosystem Audits (4-Pass `ponder` Case Studies)
 
-> **"AI that knows when to speak — and when to shut up."**
+> **"AI that knows when to speak - and when to shut up."**
 
 To test `Ponder` outside of synthetic benchmarks, we ran 4-pass `architecture` lens sessions against three popular open-source AI developer repositories (**72,300+ combined GitHub stars**):
 
-1. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) — Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-2. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) — macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-3. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) — Deterministic AI harness builder and self-hosted workflow server
+1. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+2. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+3. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
 
 ---
 
@@ -14,7 +14,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass `architecture` l
 
 | Repository | Stars | Enumerated Units | Pass 1 Coverage | Pass 2 `Skeptic` Falsification (`op: "delete"`) | Verified `must` Bugs | Verified `should` Bugs | Pass 3–4 Silence (`churn`) | Final Verdict | Artifacts, Live Issue & Fix PR |
 | :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
-| **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** | `25.7k`★ | `5/5` (`1.00`) | `0.80` (`blocked`) | Retracted manifest path-traversal alarm after verifying `resolveWithinRoot` (`src/parsers/claude.ts:263-270`) | **3** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./compound-engineering-plugin/report.md) · [`apply-plan.md`](./compound-engineering-plugin/apply-plan.md) · [Issue #1916](https://github.com/EveryInc/compound-engineering-plugin/issues/1916) · [PR #1919](https://github.com/EveryInc/compound-engineering-plugin/pull/1919) |
+| **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** | `25.7k`★ | `5/5` (`1.00`) | `0.80` (`blocked`) | Retracted manifest path-traversal alarm after verifying `resolveWithinRoot` (`src/parsers/claude.ts:263-270`) | **3** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./compound-engineering-plugin/report.md) · [`apply-plan.md`](./compound-engineering-plugin/apply-plan.md) · [Issue #1916](https://github.com/EveryInc/compound-engineering-plugin/issues/1916) · [PR #1919 (`MERGED`)](https://github.com/EveryInc/compound-engineering-plugin/pull/1919) |
 | **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** | `22.9k`★ | `4/4` (`1.00`) | `0.75` (`blocked`) | Retracted credential symlink/permission-window alarm after verifying `0700` staging + `O_EXCL` `0600` + atomic `rename(2)` (`CredentialFileWriter.swift:38-74`) | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./codexbar/report.md) · [`apply-plan.md`](./codexbar/apply-plan.md) · [Issue #4829](https://github.com/steipete/CodexBar/issues/4829) (`🦞 diamond lobster`) · [PR #4830](https://github.com/steipete/CodexBar/pull/4830) |
 | **[`coleam00/Archon`](https://github.com/coleam00/Archon)** | `23.8k`★ | `3/3` (`1.00`) | `0.67` (`blocked`) | Retracted login `rd` open-redirect alarm after verifying `isSafeRedirect` (`auth-service/server.js:62-65`) blocks `//`, `/\`, and `://` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./archon/report.md) · [`apply-plan.md`](./archon/apply-plan.md) · [Issue #5256](https://github.com/coleam00/Archon/issues/5256) · [PR #5257](https://github.com/coleam00/Archon/pull/5257) |
 
