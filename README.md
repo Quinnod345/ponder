@@ -233,12 +233,13 @@ ponder start "the UI" --lens ui --max-passes 6 --min-passes 2
 ponder predict --churn 0.9 --claim "Pass 1 builds the finding set from nothing."
 
 # 3. enumerate every unit - coverage is measured against this list
+#    (or let the CLI walk git/disk directly: ponder units --scan src/routes)
 cat > .ponder/tmp/units.json <<'JSON'
 {"version":1,"units":[
   {"id":"screen.settings.billing","label":"Settings → Billing","path":"src/routes/settings/billing.tsx"}
 ]}
 JSON
-ponder units --file .ponder/tmp/units.json
+ponder units --file .ponder/tmp/units.json --scan src/routes --strict-scope
 
 # 4. grade every unit against the lens rubric
 cat > .ponder/tmp/findings.json <<'JSON'
@@ -324,6 +325,14 @@ The engine **advises**. `ponder decide` commits, and may override - except `bloc
 
 ## Adversarial Hardening Against Agent Shortcuts
 
+### Deterministic scope verification (`--scan` & `--strict-scope`)
+
+Before the coverage gate even opens, there is an earlier shortcut: what if the agent lazily omits files on Pass 1 when writing `units.json` so it has less work to grade?
+
+`ponder units` closes that blind spot directly in the CLI:
+- **`ponder units --scan <dir>`**: Instead of trusting the agent to author `units.json` by hand, the CLI itself walks `git ls-files` (or the directory tree when not in git) and seeds every in-scope file into `units.json` and `ledger.jsonl`.
+- **`ponder units --file units.json --scan <dir> --strict-scope`**: When the agent supplies custom semantic units (for example, multiple UI states per route), `--scan <dir> --strict-scope` cross-checks every `unit.path` against the actual files on disk under `<dir>`. If any file on disk is missing from `units.json`, `ponder units` refuses the seed (`exit 2`) and names the omitted files.
+
 ### The phantom rule
 
 A gate is only as good as its cheapest bypass, and the cheapest bypass here is obvious: enumerate twelve screens, grade eleven, delete the twelfth. So `unit-delete` - the one op that can shorten the ungraded list - is priced by whether the unit was ever looked at.
@@ -407,7 +416,7 @@ Every command takes `--session <slug>` (defaults to the most recently touched *o
 |---|---|
 | `ponder start "<subject>" --lens <lens>` | Open a session. `[--rubric <file>] [--project <path>] [--slug <slug>] [--max-passes N] [--min-passes N]` |
 | `ponder predict --churn <0-1> --claim "<line>"` | State what this pass will find, before the work. Scored against reality as `surprise`. |
-| `ponder units --file <units.json>` | Seed the inventory. Pass 1 only - later passes amend it with `unit-add` / `unit-edit` / `unit-delete` deltas. Also takes `--stdin`. |
+| `ponder units [--file <units.json>] [--scan <dir>] [--strict-scope]` | Seed the inventory on Pass 1. `--scan <dir>` walks `git ls-files` (or disk) to auto-seed or verify scope; `--strict-scope` exits `2` if any file under `<dir>` is omitted from `units.json`. Also takes `--stdin`. |
 | `ponder grade --file <findings.json>` | Seed the finding set. Pass 1 only - later passes appraise *by* revising. Also takes `--stdin`. |
 | `ponder deliberate --file <deliberation.json>` | Record the four perspectives' arguments. Or `--stdin`. Or `--skip --why "<reason>"`, which records a metacognitive observation when the OCA is reachable and says so plainly when it is not. |
 | `ponder delta --file <deltas.jsonl>` | Apply revisions. One JSON object per line, every one carrying a `why`. A single bad line rejects the whole batch. Also takes `--stdin`. |
