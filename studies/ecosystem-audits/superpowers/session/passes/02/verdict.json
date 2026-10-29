@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.20, churn 0.40 — the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.2,
+    "churn": 0.4,
+    "thrash": 0,
+    "surprise": 0.05,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 2
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T18:59:38.236Z",
+  "decision": "continue",
+  "why": "Pass 2 retracted the false worktree hypothesis; Pass 3 will verify the exact fixes and test assertions needed.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T18:59:38.458Z",
+  "coverageAtDecision": 1
+}

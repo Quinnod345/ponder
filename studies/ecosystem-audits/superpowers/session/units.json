@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "lens": "architecture",
+  "units": [
+    {
+      "id": "script.sdd.workspace",
+      "label": "SDD workspace resolver & plan-path marker (skills/subagent-driven-development/scripts/sdd-workspace)",
+      "path": "skills/subagent-driven-development/scripts/sdd-workspace",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "script.sdd.task_brief",
+      "label": "Task brief markdown extractor (skills/subagent-driven-development/scripts/task-brief)",
+      "path": "skills/subagent-driven-development/scripts/task-brief",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "script.sdd.review_package",
+      "label": "Review package diff generator (skills/subagent-driven-development/scripts/review-package)",
+      "path": "skills/subagent-driven-development/scripts/review-package",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "script.ep.task_start",
+      "label": "Inline task-start helper (skills/executing-plans/scripts/task-start)",
+      "path": "skills/executing-plans/scripts/task-start",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "script.ep.task_done",
+      "label": "Inline task-done runner & ledger writer (skills/executing-plans/scripts/task-done)",
+      "path": "skills/executing-plans/scripts/task-done",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}

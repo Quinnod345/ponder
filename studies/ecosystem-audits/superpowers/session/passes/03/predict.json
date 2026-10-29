@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.1,
+  "claim": "Pass 3 will refine the regression test recommendations for test-executing-plans-scripts.sh and test-sdd-workspace.sh with minimal churn.",
+  "at": "2026-10-29T18:59:38.679Z"
+}

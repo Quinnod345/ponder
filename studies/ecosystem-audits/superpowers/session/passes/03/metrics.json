@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "pass": 3,
+  "at": "2026-10-29T18:59:39.341Z",
+  "coverage": 1,
+  "novelty": 0,
+  "churn": 0.2,
+  "thrash": 0,
+  "surprise": 0.1,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "builder"
+  ],
+  "predictedChurn": 0.1,
+  "claim": "Pass 3 will refine the regression test recommendations for test-executing-plans-scripts.sh and test-sdd-workspace.sh with minimal churn.",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 6,
+    "open": 5,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 5
+  },
+  "deltas": {
+    "total": 1,
+    "byOp": {
+      "edit": 1
+    },
+    "seeded": 0,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

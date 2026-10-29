@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 3,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.00, churn 0.20 — the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0.2,
+    "thrash": 0,
+    "surprise": 0.1,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T18:59:39.379Z",
+  "decision": "continue",
+  "why": "One final zero-churn confirmation pass to satisfy two-pass stability convergence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T18:59:39.594Z",
+  "coverageAtDecision": 1
+}

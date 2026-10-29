@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "slug": "superpowers-sdd",
+  "subject": "SDD workspace, task-brief parser, and executing-plans helper scripts in obra/superpowers",
+  "lens": "architecture",
+  "rubric": null,
+  "unitLabel": "module",
+  "dimensions": [
+    "coupling",
+    "cohesion",
+    "boundary-integrity",
+    "dependency-direction",
+    "data-ownership",
+    "ubiquitous-language",
+    "contract-stability",
+    "testability",
+    "failure-modes",
+    "observability",
+    "migration-debt"
+  ],
+  "project": "/Users/quinnodonnell/.gemini/antigravity/scratch/superpowers",
+  "projectFrom": {
+    "how": "marker",
+    "marker": ".git",
+    "cwd": "/Users/quinnodonnell/.gemini/antigravity/scratch/superpowers"
+  },
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-10-29T18:53:31.655Z",
+  "updatedAt": "2026-10-29T19:01:38.427Z",
+  "status": "applied",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": false,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Pass 1 seeded 5 findings across all 5 modules; Pass 2 must empirically test the sdd.workspace worktree collision claim and verify test suite coverage.",
+      "override": false,
+      "at": "2026-10-29T18:59:37.303Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Pass 2 retracted the false worktree hypothesis; Pass 3 will verify the exact fixes and test assertions needed.",
+      "override": false,
+      "at": "2026-10-29T18:59:38.458Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "One final zero-churn confirmation pass to satisfy two-pass stability convergence.",
+      "override": false,
+      "at": "2026-10-29T18:59:39.594Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "continue",
+      "decision": "stop",
+      "reason": "Converged across 4 passes after retracting 1 false positive in Pass 2 and verifying 3 must findings with deterministic tests.",
+      "override": true,
+      "at": "2026-10-29T18:59:40.735Z"
+    }
+  ],
+  "appliedAt": "2026-10-29T19:01:38.427Z",
+  "appliedSeverity": "must"
+}

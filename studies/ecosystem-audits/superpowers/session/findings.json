@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "id": "f-0001",
+      "unit": "script.ep.task_start",
+      "title": "task-start invokes $sdd/task-brief directly instead of via ${BASH:-bash}, failing with Permission denied (exit 126) when unpacked without +x",
+      "detail": "PR #2040 fixed task-brief:26 and review-package:35 to invoke sibling scripts via \"${BASH:-bash}\" because Python zipfile and marketplace skill extractors strip Unix execute bits. However, skills/executing-plans/scripts/task-start:23 still runs out=$(\"$sdd/task-brief\" \"$plan\" \"$n\") directly, failing with exit 126 when execute bits are stripped.",
+      "dimension": "portability",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.95,
+      "effort": "xs",
+      "evidence": [
+        "skills/executing-plans/scripts/task-start:23",
+        "skills/subagent-driven-development/scripts/task-brief:26"
+      ],
+      "recommendation": "Invoke \"$sdd/task-brief\" via \"${BASH:-bash}\" \"$sdd/task-brief\" \"$plan\" \"$n\" in skills/executing-plans/scripts/task-start:23, and add a chmod -x regression check in tests/claude-code/test-executing-plans-scripts.sh.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 3,
+      "history": [
+        {
+          "pass": 3,
+          "op": "edit",
+          "field": "recommendation",
+          "from": "Invoke \"$sdd/task-brief\" via \"${BASH:-bash}\" \"$sdd/task-brief\" \"$plan\" \"$n\" to match task-brief:26 and review-package:35.",
+          "to": "Invoke \"$sdd/task-brief\" via \"${BASH:-bash}\" \"$sdd/task-brief\" \"$plan\" \"$n\" in skills/executing-plans/scripts/task-start:23, and add a chmod -x regression check in tests/claude-code/test-executing-plans-scripts.sh."
+        }
+      ]
+    },
+    {
+      "id": "f-0002",
+      "unit": "script.ep.task_done",
+      "title": "task-done invokes $sdd/sdd-workspace directly instead of via ${BASH:-bash}, failing with Permission denied (exit 126) when unpacked without +x",
+      "detail": "skills/executing-plans/scripts/task-done:25 runs dir=$(\"$sdd/sdd-workspace\" \"$plan\") directly without \"${BASH:-bash}\", so recording task completion fails with exit 126 when installed via marketplace archive extractors that strip +x.",
+      "dimension": "portability",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.95,
+      "effort": "xs",
+      "evidence": [
+        "skills/executing-plans/scripts/task-done:25",
+        "skills/subagent-driven-development/scripts/review-package:35"
+      ],
+      "recommendation": "Invoke \"$sdd/sdd-workspace\" via \"${BASH:-bash}\" \"$sdd/sdd-workspace\" \"$plan\" to match task-brief:26 and review-package:35.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0003",
+      "unit": "script.sdd.task_brief",
+      "title": "task-brief AWK parser never closes the last Task section on trailing non-Task headings (e.g. ## Self-Review, ## Execution Handoff) and toggles infence on nested backticks",
+      "detail": "In skills/subagent-driven-development/scripts/task-brief:30-36, intask is only updated when matching /^#+[ \\t]+Task[ \\t]+[0-9]+/. When extracting the final task of a plan written by skills/writing-plans/SKILL.md (which mandates trailing ## Self-Review and ## Execution Handoff sections), intask remains 1 and leaks every trailing section into the implementer subagent brief. In addition, /^```/ { infence = !infence } ignores fence length and ~~~ fences, so a 4-backtick outer fence containing a single 3-backtick block inverts infence for the rest of the plan.",
+      "dimension": "correctness",
+      "score": 1,
+      "severity": "must",
+      "confidence": 0.95,
+      "effort": "s",
+      "evidence": [
+        "skills/subagent-driven-development/scripts/task-brief:30-36",
+        "skills/writing-plans/SKILL.md:163-204"
+      ],
+      "recommendation": "In skills/subagent-driven-development/scripts/task-brief:30-36, track opening fence delimiter length/char (3+ backticks or tildes) and task heading depth; close intask when encountering any non-Task markdown heading outside a fence whose depth is <= task_depth.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": [
+        {
+          "pass": 1,
+          "op": "edit",
+          "field": "recommendation",
+          "from": "Track the opening fence delimiter (3+ backticks or tildes) and task heading depth, and terminate intask when encountering any non-Task heading outside a fence with depth <= the current task heading depth.",
+          "to": "In skills/subagent-driven-development/scripts/task-brief:30-36, track opening fence delimiter length/char (3+ backticks or tildes) and task heading depth; close intask when encountering any non-Task markdown heading outside a fence whose depth is <= task_depth."
+        }
+      ]
+    },
+    {
+      "id": "f-0004",
+      "unit": "script.sdd.workspace",
+      "title": "sdd-workspace repo-relative plan_id could collide across git worktrees if top-level path resolves to shared git common dir",
+      "detail": "sdd-workspace:56-59 hashes the path relative to git rev-parse --show-toplevel; if worktrees shared the same top-level path, workspaces would collide.",
+      "dimension": "state-integrity",
+      "score": 3,
+      "severity": "should",
+      "confidence": 0.6,
+      "effort": "s",
+      "evidence": [
+        "skills/subagent-driven-development/scripts/sdd-workspace:56-59"
+      ],
+      "recommendation": "Verify git rev-parse --show-toplevel behavior in linked worktrees.",
+      "status": "retracted",
+      "createdInPass": 1,
+      "lastTouchedPass": 2,
+      "history": [
+        {
+          "pass": 2,
+          "op": "delete",
+          "field": "status",
+          "from": "open",
+          "to": "retracted"
+        }
+      ]
+    },
+    {
+      "id": "f-0005",
+      "unit": "script.sdd.review_package",
+      "title": "review-package properly delegates to sdd-workspace via ${BASH:-bash} and handles base..head empty diff",
+      "detail": "review-package:35 uses \"${BASH:-bash}\" \"$here/sdd-workspace\" \"$plan\" and validates git rev-parse before assembling review.md.",
+      "dimension": "correctness",
+      "score": 5,
+      "severity": "note",
+      "confidence": 0.9,
+      "effort": "xs",
+      "evidence": [
+        "skills/subagent-driven-development/scripts/review-package:35-65"
+      ],
+      "recommendation": "No change needed.",
+      "status": "open",
+      "createdInPass": 1,
+      "lastTouchedPass": 1,
+      "history": []
+    },
+    {
+      "id": "f-0006",
+      "unit": "script.sdd.workspace",
+      "title": "sdd-workspace isolates linked git worktrees via per-worktree git rev-parse --show-toplevel hashing",
+      "detail": "Empirical check and tests/claude-code/test-sdd-workspace.sh:203-216 confirm each git worktree gets a distinct top-level path hash and isolated workspace directory.",
+      "dimension": "state-integrity",
+      "score": 5,
+      "severity": "note",
+      "confidence": 0.95,
+      "effort": "xs",
+      "evidence": [
+        "skills/subagent-driven-development/scripts/sdd-workspace:56-59",
+        "tests/claude-code/test-sdd-workspace.sh:203-216"
+      ],
+      "recommendation": "No change needed.",
+      "status": "open",
+      "createdInPass": 2,
+      "lastTouchedPass": 2,
+      "history": []
+    }
+  ]
+}
