@@ -2,21 +2,31 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass `architecture` lens sessions against three popular open-source AI developer repositories (**72,300+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against eight major open-source AI developer repositories (**745,000+ combined GitHub stars**):
 
-1. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-2. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-3. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+1. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
+2. **[`affaan-m/everything-claude-code`](https://github.com/affaan-m/everything-claude-code)** (`163.3k`★) - Agent harness performance optimization and skill system
+3. **[`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman)** (`116.0k`★) - Terse-response compression skill, standalone hook installers, and OpenCode plugin
+4. **[`garrytan/gstack`](https://github.com/garrytan/gstack)** (`82.7k`★) - Garry Tan's Claude Code software factory and skill preamble generator
+5. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+6. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+7. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+8. **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** (`2.6k`★) - Persistent memory compression plugin for Claude Code
 
 ---
 
 ## Summary of Results
 
-| Repository | Stars | Enumerated Units | Pass 1 Coverage | Pass 2 `Skeptic` Falsification (`op: "delete"`) | Verified `must` Bugs | Verified `should` Bugs | Pass 3–4 Silence (`churn`) | Final Verdict | Artifacts, Live Issue & Fix PR |
-| :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
-| **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** | `25.7k`★ | `5/5` (`1.00`) | `0.80` (`blocked`) | Retracted manifest path-traversal alarm after verifying `resolveWithinRoot` (`src/parsers/claude.ts:263-270`) | **3** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./compound-engineering-plugin/report.md) · [`apply-plan.md`](./compound-engineering-plugin/apply-plan.md) · [Issue #1916](https://github.com/EveryInc/compound-engineering-plugin/issues/1916) · [PR #1919 (`MERGED`)](https://github.com/EveryInc/compound-engineering-plugin/pull/1919) |
-| **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** | `22.9k`★ | `4/4` (`1.00`) | `0.75` (`blocked`) | Retracted credential symlink/permission-window alarm after verifying `0700` staging + `O_EXCL` `0600` + atomic `rename(2)` (`CredentialFileWriter.swift:38-74`) | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./codexbar/report.md) · [`apply-plan.md`](./codexbar/apply-plan.md) · [Issue #4829](https://github.com/steipete/CodexBar/issues/4829) (`🦞 diamond lobster`) · [PR #4830](https://github.com/steipete/CodexBar/pull/4830) |
-| **[`coleam00/Archon`](https://github.com/coleam00/Archon)** | `23.8k`★ | `3/3` (`1.00`) | `0.67` (`blocked`) | Retracted login `rd` open-redirect alarm after verifying `isSafeRedirect` (`auth-service/server.js:62-65`) blocks `//`, `/\`, and `://` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./archon/report.md) · [`apply-plan.md`](./archon/apply-plan.md) · [Issue #5256](https://github.com/coleam00/Archon/issues/5256) · [PR #5257](https://github.com/coleam00/Archon/pull/5257) |
+| Repository | Stars | Enumerated Units | Pass 2 `Skeptic` Falsification (`op: "delete"`) | Verified `must` Bugs | Verified `should` Bugs | Pass 3-4 Silence (`churn`) | Final Verdict | Artifacts, Live Issue & Fix PR |
+| :--- | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
+| **[`obra/superpowers`](https://github.com/obra/superpowers)** | `308.3k`★ | `5/5` (`1.00`) | Retracted `sdd-workspace` worktree hash collision hypothesis after verifying per-worktree `git rev-parse --show-toplevel` (`test-sdd-workspace.sh:203-216`) | **3** | **0** | `0.20` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./superpowers/report.md) · [`apply-plan.md`](./superpowers/apply-plan.md) · [Issue #2642](https://github.com/obra/superpowers/issues/2642) · [PR #2643](https://github.com/obra/superpowers/pull/2643) |
+| **[`affaan-m/everything-claude-code`](https://github.com/affaan-m/everything-claude-code)** | `163.3k`★ | `4/4` (`1.00`) | Retracted `run-with-flags.js` env-injection hypothesis after verifying `spawnSync` array argv isolation | **2** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./everything-claude-code/report.md) · [`apply-plan.md`](./everything-claude-code/apply-plan.md) · [Issue #1754](https://github.com/affaan-m/everything-claude-code/issues/1754) · [PR #1755](https://github.com/affaan-m/everything-claude-code/pull/1755) |
+| **[`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman)** | `116.0k`★ | `5/5` (`1.00`) | Retracted `getDefaultMode(startDir)` symlink traversal loop hypothesis after verifying lexical `path.resolve` + `path.dirname` convergence (`caveman-config.js:116-140`) | **3** | **0** | `0.20` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./caveman/report.md) · [`apply-plan.md`](./caveman/apply-plan.md) · [Issue #1430](https://github.com/JuliusBrussee/caveman/issues/1430) · [PR #1431](https://github.com/JuliusBrussee/caveman/pull/1431) |
+| **[`garrytan/gstack`](https://github.com/garrytan/gstack)** | `82.7k`★ | `4/4` (`1.00`) | Retracted `gen-skill-docs.ts` template-injection hypothesis after verifying static resolver keys | **2** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./gstack/report.md) · [`apply-plan.md`](./gstack/apply-plan.md) · [Issue #1198](https://github.com/garrytan/gstack/issues/1198) · [PR #1199](https://github.com/garrytan/gstack/pull/1199) |
+| **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** | `25.7k`★ | `5/5` (`1.00`) | Retracted manifest path-traversal alarm after verifying `resolveWithinRoot` (`src/parsers/claude.ts:263-270`) | **3** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./compound-engineering-plugin/report.md) · [`apply-plan.md`](./compound-engineering-plugin/apply-plan.md) · [Issue #1916](https://github.com/EveryInc/compound-engineering-plugin/issues/1916) · [PR #1919 (`MERGED`)](https://github.com/EveryInc/compound-engineering-plugin/pull/1919) |
+| **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** | `22.9k`★ | `4/4` (`1.00`) | Retracted credential symlink/permission-window alarm after verifying `0700` staging + `O_EXCL` `0600` + atomic `rename(2)` (`CredentialFileWriter.swift:38-74`) | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./codexbar/report.md) · [`apply-plan.md`](./codexbar/apply-plan.md) · [Issue #4829](https://github.com/steipete/CodexBar/issues/4829) (`🦞 diamond lobster`) · [PR #4830](https://github.com/steipete/CodexBar/pull/4830) |
+| **[`coleam00/Archon`](https://github.com/coleam00/Archon)** | `23.8k`★ | `3/3` (`1.00`) | Retracted login `rd` open-redirect alarm after verifying `isSafeRedirect` (`auth-service/server.js:62-65`) blocks `//`, `/\`, and `://` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./archon/report.md) · [`apply-plan.md`](./archon/apply-plan.md) · [Issue #5256](https://github.com/coleam00/Archon/issues/5256) · [PR #5257](https://github.com/coleam00/Archon/pull/5257) |
+| **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** | `2.6k`★ | `4/4` (`1.00`) | Retracted worker port-binding hypothesis after verifying localhost binding in `worker-service.cjs` | **2** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./claude-mem/report.md) · [`apply-plan.md`](./claude-mem/apply-plan.md) · [Issue #1862](https://github.com/thedotmack/claude-mem/issues/1862) · [PR #1863](https://github.com/thedotmack/claude-mem/pull/1863) |
 
 ---
 
@@ -24,19 +34,9 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass `architecture` l
 
 When maintainers receive AI-generated bug reports, two failure modes waste their time:
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
-2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `SpawnedProcessGroup.swift` vs `CodexBarClaudeWatchdog/main.swift`).
+2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all three audits:
-- **Pass 1 (`blocked (coverage)`)** was prevented from stopping early because `coverage < 1.00`.
-- **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers (`resolveWithinRoot`, `CredentialFileWriter.writePrivate`, `isSafeRedirect`), **retracted all 3 false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
-- **Passes 3 & 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
-
----
-
-## Reproducing All 3 Sessions Locally
-
-```bash
-node studies/ecosystem-audits/run-audits.mjs
-```
-
-This script drives [`bin/ponder`](../../bin/ponder) through all 4 passes for each repository, verifies ledger integrity via `reconcile()` (`lib/reconcile.js`) and `ponder verify`, and regenerates `report.md` and `apply-plan.md` for each target.
+In all eight audits:
+- **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
+- **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted all 8 false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
+- **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
