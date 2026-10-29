@@ -8,7 +8,7 @@
 
 `MIT LICENSE` · `0 NPM DEPENDENCIES` · `101/101 CONFORMANCE` · `NODE >= 18` · `CLAUDE CODE / CODEX / OPENCLAW`
 
-[**The Plot Hole in AI**](#the-critical-plot-hole-in-ai-forced-speech) · [**How It Works**](#the-four-perspectives-are-the-four-delta-operations) · [**Studies & Benchmarks**](#empirical-studies--benchmarks) · [**One-Shot & Temperature Study**](#2-human-one-shot-temperature-variance-k--5--the-cost-of-forced-speech-studiesone-shot-vs-ponder) · [**Install**](#install) · [**60s Quickstart**](#60-second-quickstart) · [**Full Spec**](SPEC.md)
+[**The Plot Hole in AI**](#the-critical-plot-hole-in-ai-forced-speech) · [**How It Works**](#the-four-perspectives-are-the-four-delta-operations) · [**Research Paper**](paper/README.md) · [**Studies & Benchmarks**](#empirical-studies--benchmarks) · [**One-Shot & Temperature Study**](#2-human-one-shot-temperature-variance-k--5--the-cost-of-forced-speech-studiesone-shot-vs-ponder) · [**Install**](#install) · [**60s Quickstart**](#60-second-quickstart) · [**Full Spec**](SPEC.md)
 
 </div>
 
@@ -597,6 +597,8 @@ Ponder is part of the [Oneiro Cognitive Architecture (`oneiro-oca`)](https://git
 
 | Document | What it covers |
 |---|---|
+| [`paper/README.md`](paper/README.md) | Formal research paper: *Forced Speech vs. Epistemic Silence: Why Multi-Pass LLM Self-Refinement Degrades Precision and How Loss-Function Isomorphism Restores Convergence*. |
+| [`CITATION.cff`](CITATION.cff) | Citation metadata for citing Ponder and its empirical studies in academic papers. |
 | [`SPEC.md`](SPEC.md) | The normative contract. Where an implementation and that document disagree, `SPEC.md` wins. |
 | [`studies/README.md`](studies/README.md) | Controlled head-to-head benchmark (`Single-Shot` vs. `Self-Refine` vs. `Ponder`) and empirical study index. |
 | [`studies/one-shot-vs-ponder/README.md`](studies/one-shot-vs-ponder/README.md) | Multi-trial ($K = 5$) temperature-variance study, human one-shot toggle (`5.8` vs. `1.0` prompts), cost of forced speech (`92.8m` vs. `13.5m`), and `/caveman` vs. `Ponder` analysis. |

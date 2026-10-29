@@ -1,7 +1,7 @@
 {
   "name": "ponder",
   "version": "1.0.0",
-  "description": "Convergent deliberation loop for coding agents — multi-pass, coverage-gated, append-only ledger review and planning.",
+  "description": "Convergent deliberation loop for coding agents - multi-pass, coverage-gated, append-only ledger review and planning.",
   "type": "module",
   "license": "MIT",
   "author": "Quinn O'Donnell",

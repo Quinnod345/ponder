@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "Ponder: Epistemic Silence and Loss-Function Isomorphism for Convergent Multi-Pass AI Deliberation"
+message: "If you use Ponder or its empirical studies in your research, please cite it using this metadata."
+type: software
+authors:
+  - family-names: "O'Donnell"
+    given-names: "Quinn"
+repository-code: "https://github.com/Quinnod345/ponder"
+url: "https://github.com/Quinnod345/ponder/tree/main/paper"
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-28"
+keywords:
+  - llm-agents
+  - self-refinement
+  - epistemic-silence
+  - forced-speech
+  - code-review
+  - cognitive-architecture
+  - multi-agent-deliberation
