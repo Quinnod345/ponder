@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 2,
+  "churn": 0.35,
+  "claim": "Pass 2 will falsify and retract f-0004 after verifying the POSIX early-return guard in gstack_hook_normalize_path and grade careful.hook_extract and careful.check_careful to reach 1.00 coverage.",
+  "at": "2026-10-29T21:19:08.151Z"
+}

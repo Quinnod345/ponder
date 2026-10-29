@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-10-29T21:19:08.619Z",
+  "coverage": 1,
+  "novelty": 0.4,
+  "churn": 0.8,
+  "thrash": 0,
+  "surprise": 0.45,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 3,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "skeptic"
+  ],
+  "predictedChurn": 0.35,
+  "claim": "Pass 2 will falsify and retract f-0004 after verifying the POSIX early-return guard in gstack_hook_normalize_path and grade careful.hook_extract and careful.check_careful to reach 1.00 coverage.",
+  "units": {
+    "enumerated": 4,
+    "graded": 4,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 6,
+    "open": 5,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 5
+  },
+  "deltas": {
+    "total": 4,
+    "byOp": {
+      "delete": 1,
+      "add": 2,
+      "edit": 1
+    },
+    "seeded": 0,
+    "revisions": 4
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

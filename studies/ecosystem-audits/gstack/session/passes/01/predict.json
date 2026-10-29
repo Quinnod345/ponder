@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.45,
+  "claim": "Pass 1 will identify _resolve_path missing-directory and intermediate-symlink boundary escapes plus tilde and BSD sed normalization bugs in check-freeze.sh",
+  "at": "2026-10-29T21:19:06.904Z"
+}

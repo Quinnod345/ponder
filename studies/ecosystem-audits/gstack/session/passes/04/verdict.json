@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 4,
+  "verdict": "stop",
+  "reason": "converged",
+  "rule": 6,
+  "message": "novelty 0.00 and churn 0.00, two passes running. Further passes stopped changing the answer.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0,
+    "churn": 0,
+    "thrash": 0,
+    "surprise": 0,
+    "stall": 2,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 0
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:19:10.184Z",
+  "decision": "stop",
+  "why": "Two consecutive quiet passes with coverage 1.00 and 4 voices in epistemic silence; converged under Rule 6.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:19:10.353Z",
+  "coverageAtDecision": 1
+}

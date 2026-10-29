@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "slug": "gstack-hooks-boundary",
+  "subject": "Audit garrytan/gstack PreToolUse boundary and safety hooks (freeze and careful)",
+  "lens": "architecture",
+  "rubric": null,
+  "unitLabel": "module",
+  "dimensions": [
+    "coupling",
+    "cohesion",
+    "boundary-integrity",
+    "dependency-direction",
+    "data-ownership",
+    "ubiquitous-language",
+    "contract-stability",
+    "testability",
+    "failure-modes",
+    "observability",
+    "migration-debt"
+  ],
+  "project": "/Users/quinnodonnell/.gemini/antigravity/scratch/gstack",
+  "projectFrom": {
+    "how": "explicit",
+    "marker": null,
+    "cwd": "/Users/quinnodonnell/.gemini/antigravity/scratch/gstack"
+  },
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-10-29T21:19:06.697Z",
+  "updatedAt": "2026-10-29T21:19:10.827Z",
+  "status": "applied",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": false,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "blocked",
+      "decision": "continue",
+      "reason": "Coverage is 0.75 (3/4 units) and f-0004 requires Skeptic verification of the POSIX guard in careful/bin/hook-extract.sh.",
+      "override": false,
+      "at": "2026-10-29T21:19:08.000Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Coverage reached 1.00 and f-0004 was falsified and retracted; continuing to verify stability across two quiet passes.",
+      "override": false,
+      "at": "2026-10-29T21:19:08.777Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "First quiet pass (0 deltas across 4 voices); one more quiet pass required for Rule 6 convergence.",
+      "override": false,
+      "at": "2026-10-29T21:19:09.553Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "stop",
+      "decision": "stop",
+      "reason": "Two consecutive quiet passes with coverage 1.00 and 4 voices in epistemic silence; converged under Rule 6.",
+      "override": false,
+      "at": "2026-10-29T21:19:10.353Z"
+    }
+  ],
+  "appliedAt": "2026-10-29T21:19:10.827Z",
+  "appliedSeverity": "must"
+}

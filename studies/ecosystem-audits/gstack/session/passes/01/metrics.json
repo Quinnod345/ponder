@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "pass": 1,
+  "at": "2026-10-29T21:19:07.846Z",
+  "coverage": 0.75,
+  "novelty": null,
+  "churn": null,
+  "thrash": null,
+  "surprise": null,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "builder"
+  ],
+  "predictedChurn": 0.45,
+  "claim": "Pass 1 will identify _resolve_path missing-directory and intermediate-symlink boundary escapes plus tilde and BSD sed normalization bugs in check-freeze.sh",
+  "units": {
+    "enumerated": 4,
+    "graded": 3,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [
+    "careful.check_careful"
+  ],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 4,
+    "open": 4,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 4
+  },
+  "deltas": {
+    "total": 5,
+    "byOp": {
+      "add": 4,
+      "edit": 1
+    },
+    "seeded": 4,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

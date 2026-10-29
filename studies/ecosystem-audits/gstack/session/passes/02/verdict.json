@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.40, churn 0.80 - the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.4,
+    "churn": 0.8,
+    "thrash": 0,
+    "surprise": 0.45,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 3
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:19:08.620Z",
+  "decision": "continue",
+  "why": "Coverage reached 1.00 and f-0004 was falsified and retracted; continuing to verify stability across two quiet passes.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:19:08.777Z",
+  "coverageAtDecision": 1
+}

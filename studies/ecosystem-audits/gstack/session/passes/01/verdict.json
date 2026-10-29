@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "blocked",
+  "reason": "coverage",
+  "rule": 1,
+  "message": "1 of 4 module has never been graded. Stopping is not permitted.",
+  "notes": [],
+  "ungraded": [
+    "careful.check_careful"
+  ],
+  "signals": {
+    "coverage": 0.75,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T21:19:07.848Z",
+  "decision": "continue",
+  "why": "Coverage is 0.75 (3/4 units) and f-0004 requires Skeptic verification of the POSIX guard in careful/bin/hook-extract.sh.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T21:19:08.000Z",
+  "coverageAtDecision": 0.75
+}

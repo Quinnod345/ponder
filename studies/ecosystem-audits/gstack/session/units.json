@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "lens": "architecture",
+  "units": [
+    {
+      "id": "freeze.check_freeze",
+      "label": "PreToolUse freeze boundary hook (freeze/bin/check-freeze.sh)",
+      "path": "freeze/bin/check-freeze.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "freeze.freeze_state",
+      "label": "Atomic freeze boundary state manager (freeze/bin/freeze-state.sh)",
+      "path": "freeze/bin/freeze-state.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "careful.hook_extract",
+      "label": "Shared hook JSON extractor and path normalizer (careful/bin/hook-extract.sh)",
+      "path": "careful/bin/hook-extract.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "careful.check_careful",
+      "label": "PreToolUse destructive command guard (careful/bin/check-careful.sh)",
+      "path": "careful/bin/check-careful.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}
