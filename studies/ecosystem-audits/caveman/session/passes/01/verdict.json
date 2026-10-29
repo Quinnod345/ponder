@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 1,
+  "verdict": "continue",
+  "reason": "min-passes",
+  "rule": 2,
+  "message": "pass 1 of a 2-pass minimum. One pass is an opinion, not a pondering.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": null,
+    "churn": null,
+    "thrash": null,
+    "surprise": null,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 1
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T19:13:36.915Z",
+  "decision": "continue",
+  "why": "Pass 1 seeded 5 findings across all 5 modules; Pass 2 must test the f-0004 lexical traversal hypothesis and check regression test suites.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T19:13:54.434Z",
+  "coverageAtDecision": 1
+}

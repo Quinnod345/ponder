@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 2,
+  "churn": 0.25,
+  "claim": "Pass 2 will falsify f-0004 (path.dirname on path.resolve is strictly decreasing in segment count) and replace it with a verified note on hooks.config.",
+  "at": "2026-10-29T19:13:54.700Z"
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.1,
+  "claim": "Pass 3 will refine f-0001 recommendation with the exact regression test target in tests/hooks/standalone-install-safety.test.mjs and approach convergence.",
+  "at": "2026-10-29T19:13:56.103Z"
+}

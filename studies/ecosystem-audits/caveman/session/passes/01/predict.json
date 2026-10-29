@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.45,
+  "claim": "Pass 1 will find JSONC parser divergence in install.sh/install.ps1 ALREADY_INSTALLED probes and missing projectDir + defaultMode=off guard in OpenCode plugin.js",
+  "at": "2026-10-29T19:12:49.150Z"
+}

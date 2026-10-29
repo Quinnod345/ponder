@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "lens": "architecture",
+  "units": [
+    {
+      "id": "hooks.install_sh",
+      "label": "Standalone POSIX hook installer (src/hooks/install.sh)",
+      "path": "src/hooks/install.sh",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.install_ps1",
+      "label": "Standalone PowerShell hook installer (src/hooks/install.ps1)",
+      "path": "src/hooks/install.ps1",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "opencode.plugin",
+      "label": "OpenCode plugin runtime & system prompt transform (src/plugins/opencode/plugin.js)",
+      "path": "src/plugins/opencode/plugin.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.config",
+      "label": "Shared caveman config & repo .caveman.json resolver (src/hooks/caveman-config.js)",
+      "path": "src/hooks/caveman-config.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.activate",
+      "label": "SessionStart activation hook & mode tracker (src/hooks/caveman-activate.js)",
+      "path": "src/hooks/caveman-activate.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}

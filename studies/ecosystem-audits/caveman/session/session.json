@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "slug": "caveman-hooks-opencode",
+  "subject": "Audit JuliusBrussee/caveman standalone hook installers and OpenCode plugin config resolution",
+  "lens": "architecture",
+  "rubric": null,
+  "unitLabel": "module",
+  "dimensions": [
+    "coupling",
+    "cohesion",
+    "boundary-integrity",
+    "dependency-direction",
+    "data-ownership",
+    "ubiquitous-language",
+    "contract-stability",
+    "testability",
+    "failure-modes",
+    "observability",
+    "migration-debt"
+  ],
+  "project": "/Users/quinnodonnell/.gemini/antigravity/scratch/caveman",
+  "projectFrom": {
+    "how": "marker",
+    "marker": ".git",
+    "cwd": "/Users/quinnodonnell/.gemini/antigravity/scratch/caveman"
+  },
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-10-29T19:12:48.877Z",
+  "updatedAt": "2026-10-29T19:15:20.688Z",
+  "status": "applied",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": true,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Pass 1 seeded 5 findings across all 5 modules; Pass 2 must test the f-0004 lexical traversal hypothesis and check regression test suites.",
+      "override": false,
+      "at": "2026-10-29T19:13:54.434Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Pass 2 falsified f-0004 and confirmed 3 must findings; Pass 3 will refine regression test locations in tests/hooks/standalone-install-safety.test.mjs and tests/installer/opencode.test.mjs.",
+      "override": false,
+      "at": "2026-10-29T19:13:55.848Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Run Pass 4 zero-churn verification pass to confirm convergence.",
+      "override": false,
+      "at": "2026-10-29T19:13:57.227Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "continue",
+      "decision": "stop",
+      "reason": "Converged across 4 passes after retracting 1 false positive in Pass 2 and verifying 3 must findings with deterministic reproducers.",
+      "override": true,
+      "at": "2026-10-29T19:15:20.141Z"
+    }
+  ],
+  "appliedAt": "2026-10-29T19:15:20.688Z",
+  "appliedSeverity": "must"
+}

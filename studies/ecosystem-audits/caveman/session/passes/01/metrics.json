@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "pass": 1,
+  "at": "2026-10-29T19:13:36.873Z",
+  "coverage": 1,
+  "novelty": null,
+  "churn": null,
+  "thrash": null,
+  "surprise": null,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "builder"
+  ],
+  "predictedChurn": 0.45,
+  "claim": "Pass 1 will find JSONC parser divergence in install.sh/install.ps1 ALREADY_INSTALLED probes and missing projectDir + defaultMode=off guard in OpenCode plugin.js",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 5,
+    "open": 5,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 5
+  },
+  "deltas": {
+    "total": 6,
+    "byOp": {
+      "add": 5,
+      "edit": 1
+    },
+    "seeded": 5,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

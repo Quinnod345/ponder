@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.20, churn 0.40 — the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.2,
+    "churn": 0.4,
+    "thrash": 0,
+    "surprise": 0.15,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 2
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-29T19:13:55.603Z",
+  "decision": "continue",
+  "why": "Pass 2 falsified f-0004 and confirmed 3 must findings; Pass 3 will refine regression test locations in tests/hooks/standalone-install-safety.test.mjs and tests/installer/opencode.test.mjs.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-29T19:13:55.848Z",
+  "coverageAtDecision": 1
+}
