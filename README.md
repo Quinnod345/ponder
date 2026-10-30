@@ -12,6 +12,20 @@
 
 </div>
 
+```sh
+# Install in 1 line (Claude Code, Codex, OpenClaw + CLI on PATH)
+curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
+# Or via Claude Code Plugin Marketplace / Agent Skills CLI:
+#   /plugin install ponder --marketplace Quinnod345/ponder
+#   npx skills add Quinnod345/ponder
+```
+
+<div align="center">
+<img src="docs/assets/terminal-demo.svg" alt="Ponder CLI terminal demo: coverage gate blocking an incomplete stop (exit 2), then converging with 0 deltas on Pass 4" width="100%" />
+</div>
+
+> **Verified in the wild on 1M+★ of production open-source repos ([`studies/ecosystem-audits/`](studies/ecosystem-audits/)):** [**MERGED** in `EveryInc/compound-engineering-plugin#1919`](https://github.com/EveryInc/compound-engineering-plugin/pull/1919) (`25.8k`★) · [**ADOPTED** in `JuliusBrussee/caveman#1395`](https://github.com/JuliusBrussee/caveman/pull/1431) (`116.1k`★) · [**`5/6 🦞 diamond lobster`** on `steipete/CodexBar#4830`](https://github.com/steipete/CodexBar/pull/4830) (`22.9k`★) · [**`5/5` Greptile confidence** on `affaan-m/ECC#3822`](https://github.com/affaan-m/ECC/pull/3822) (`292.6k`★).
+
 ---
 
 ## The Critical Plot Hole in AI: Forced Speech
