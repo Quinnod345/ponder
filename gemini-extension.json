@@ -1,0 +1,6 @@
+{
+  "name": "ponder",
+  "version": "1.0.0",
+  "description": "Coverage-gated multi-pass review, auditing, and planning engine for coding agents with a 4-voice deliberation ledger.",
+  "contextFileName": "skill/ponder/SKILL.md"
+}

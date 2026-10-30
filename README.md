@@ -15,9 +15,11 @@
 ```sh
 # Install in 1 line (Claude Code, Codex, OpenClaw + CLI on PATH)
 curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
-# Or via Claude Code Plugin Marketplace / Agent Skills CLI:
+# Or via Homebrew / Claude Code Marketplace / Agent Skills CLI / Gemini CLI:
+#   brew install quinnod345/tap/ponder
 #   /plugin install ponder --marketplace Quinnod345/ponder
 #   npx skills add Quinnod345/ponder
+#   gemini extensions install https://github.com/Quinnod345/ponder
 ```
 
 <div align="center">
@@ -248,6 +250,28 @@ Three more ops amend the inventory rather than the finding set, and any voice ma
 
 ---
 
+## Install
+
+```sh
+# 1. One-line installer (puts `ponder` on PATH and links skill for Claude Code, Codex, and OpenClaw)
+curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
+
+# 2. Homebrew (macOS & Linux)
+brew install quinnod345/tap/ponder
+
+# 3. Claude Code Plugin Marketplace
+/plugin marketplace add Quinnod345/ponder
+/plugin install ponder --marketplace Quinnod345/ponder
+
+# 4. Vercel / Multi-Agent Skills CLI (Claude Code, Cursor, Codex, GitHub Copilot)
+npx skills add Quinnod345/ponder
+
+# 5. Gemini CLI Extension
+gemini extensions install https://github.com/Quinnod345/ponder
+```
+
+---
+
 ## 60-Second Quickstart
 
 Drive it by hand once and the shape sticks. Every command ends with a `NEXT:` line naming the phase you now owe and the literal command that satisfies it - that line is the engine driving the agent, and it is what survives a context compaction.
@@ -341,12 +365,11 @@ The numerator for novelty and churn counts *revising* deltas only. The seed `add
 | 1 | `coverage < 1.0` | **`blocked`** - stopping is not permitted. The verdict names every ungraded unit, and names apart the ones deleted without ever being graded, saying why they still count. No override. |
 | 2 | `pass < minPasses` | `continue` - a single pass is an opinion, not a pondering. |
 | 3 | `thrash > 0.25` | `escalate` - the loop is reversing itself. Rotate perspectives, widen evidence, or split the subject. Skipped when `thrash` is null. |
-| 3a | Any open must below 0.5 confidence, or fewer than 3 perspectives | `continue`, or `escalate` if stalled; at max passes, `stop` (`budget`). Quiet uncertainty cannot converge. |
-| 4 | `stall >= 2` and `coverage == 1.0` | `stop` (`perseveration`) - nothing is moving; further passes are theatre. A pass with no churn cannot contribute to `stall`. |
-| 5 | `confidenceFloor > 0` | `continue` - too many important findings are still guesses. |
-| 6 | `novelty < 0.05` and `churn < 0.10`, two passes running; both with at least 3 voices and no low-confidence must | **`stop` (`converged`)** |
+| 4 | Any open `must` below 0.5 confidence (`confidenceFloor > 0`), or fewer than 3 perspectives (`voices < 3`) | `continue` (or `escalate` if `stall >= 2`; at max passes, `stop` with reason `budget`). Stillness with unresolved uncertainty cannot converge. |
+| 5 | `novelty < 0.05` and `churn < 0.10`, two passes running; both with at least 3 voices and no low-confidence `must` | **`stop` (`converged`, engine rule id `6`)** - checked before the fallback perseveration stop so two fully reviewed, confident quiet passes earn `converged`. |
+| 6 | `stall >= 2` and `coverage == 1.0` | `stop` (`perseveration`, engine rule id `4`) - nothing is moving and the two-pass convergence check did not match. A pass with no churn cannot contribute to `stall`. |
 | 7 | `pass >= maxPasses` | `stop` (`budget`) - reported as a budget stop, never as convergence. |
-| 8 | otherwise | `continue` |
+| 8 | otherwise | `continue` (unless high-severity OCA metacognitive observations tip it into `escalate`) |
 
 The engine **advises**. `ponder decide` commits, and may override - except `blocked`, which a `stop` may never override. That is the whole point: the harness cannot silently quit, and the agent is never railroaded into a loop it can justify leaving.
 
@@ -653,7 +676,3 @@ node --test test/*.test.mjs        # unit tests for evidence-loop verdict rules 
 ```
 
 Written against [`SPEC.md`](SPEC.md) rather than against the engine, which is the only way a suite catches a bug instead of documenting one. It is hermetic: `PONDER_OCA=off` for the whole run, `HOME` pointed at a scratch directory, every session in a throwaway project under `$TMPDIR`.
-
-### Evidence-loop amendment - 2026-09-12
-
-After coverage, minimum passes, thrash and the evidence/review guard, check two-pass convergence **before** the fallback perseveration stop. Two fully reviewed, confident zero-delta passes earn convergence; stillness with unresolved uncertainty does not.
