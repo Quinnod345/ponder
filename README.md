@@ -300,7 +300,7 @@ Computed at `ponder judge` and written to `passes/NN/metrics.json`.
 | `confidenceFloor` | fraction of open `must` findings with `confidence < 0.5` | Are the important calls still guesses? |
 | `voices` | distinct perspectives that spoke in this pass's deliberation | Did the pass argue with itself? |
 
-**Pass 1 reports novelty, churn, thrash and surprise as `, `, and `, ` is not a zero.** All four measure change against a previous pass, and pass 1 has none - everything is new because nothing was there, and there is no actual churn to score the prediction against. They start reading at pass 2. Coverage, `confidenceFloor`, `stall` and `voices` describe a state rather than a change, so they read from pass 1 onward.
+**Pass 1 shows novelty, churn, thrash and surprise as a blank dash, and that dash is not a zero.** All four measure change against a previous pass, and pass 1 has none - everything is new because nothing was there, and there is no actual churn to score the prediction against. They start reading at pass 2. Coverage, `confidenceFloor`, `stall` and `voices` describe a state rather than a change, so they read from pass 1 onward.
 
 The numerator for novelty and churn counts *revising* deltas only. The seed `add`s that `ponder grade` writes are excluded, so both numbers describe what a pass changed rather than what it created.
 
