@@ -1,13 +1,13 @@
-# Apply plan — Audit JuliusBrussee/caveman standalone hook installers and OpenCode plugin config resolution
+# Apply plan - Audit JuliusBrussee/caveman standalone hook installers and OpenCode plugin config resolution
 
 `caveman-hooks-opencode` · lens **architecture** · 3 open findings at severity **must** or above · generated 2026-10-29T19:15:20.677Z
 
-Work top to bottom. Ponder does not edit source — this plan is the handoff.
+Work top to bottom. Ponder does not edit source - this plan is the handoff.
 
 ## 1. Standalone POSIX hook installer (src/hooks/install.sh) `hooks.install_sh`
 `src/hooks/install.sh`
 
-- [ ] **f-0001 · must · score 1 · effort xs** — install.sh ALREADY_INSTALLED probe omits CAVEMAN_SETTINGS_HELPER and calls bare JSON.parse, overwriting JSONC settings.json on re-run without --force
+- [ ] **f-0001 · must · score 1 · effort xs** - install.sh ALREADY_INSTALLED probe omits CAVEMAN_SETTINGS_HELPER and calls bare JSON.parse, overwriting JSONC settings.json on re-run without --force
       src/hooks/install.sh loads installer/lib/settings.js via CAVEMAN_SETTINGS_HELPER in the JSONC preflight check (lines 54-75) and the settings merge step (lines 173-181), allowing // comments, /* */ comments, and trailing commas in settings.json. However, the ALREADY_INSTALLED fast-path check at lines 93-114 omits CAVEMAN_SETTINGS_HELPER and calls bare JSON.parse(fs.readFileSync(process.env.CAVEMAN_SETTINGS, 'utf8')). If a user with caveman hooks already wired adds a JSONC comment or trailing comma to settings.json and re-runs install.sh without --force, JSON.parse throws inside the silenced >/dev/null 2>&1 block, ALREADY_INSTALLED falls back to 0, and the merge step rewrites settings.json via JSON.stringify, destroying all comments without updating .bak if settings.json.bak already exists.
       Evidence: `src/hooks/install.sh:54-75`, `src/hooks/install.sh:93-114`, `src/hooks/install.sh:173-181`
       Do: Pass CAVEMAN_SETTINGS_HELPER to the ALREADY_INSTALLED node probe in src/hooks/install.sh:95-106 and parse via helper.parseSettingsText(raw).data before falling back to JSON.parse, and add a JSONC idempotency regression test in tests/hooks/standalone-install-safety.test.mjs.
@@ -15,7 +15,7 @@ Work top to bottom. Ponder does not edit source — this plan is the handoff.
 ## 2. Standalone PowerShell hook installer (src/hooks/install.ps1) `hooks.install_ps1`
 `src/hooks/install.ps1`
 
-- [ ] **f-0002 · must · score 1 · effort xs** — install.ps1 ALREADY_INSTALLED probe uses PowerShell ConvertFrom-Json instead of CAVEMAN_SETTINGS_HELPER, failing on JSONC comments in Windows PowerShell 5.1
+- [ ] **f-0002 · must · score 1 · effort xs** - install.ps1 ALREADY_INSTALLED probe uses PowerShell ConvertFrom-Json instead of CAVEMAN_SETTINGS_HELPER, failing on JSONC comments in Windows PowerShell 5.1
       src/hooks/install.ps1 uses node with CAVEMAN_SETTINGS_HELPER for both the preflight check (lines 36-59) and the settings merge step (lines 150-222), but lines 80-112 use Get-Content $SettingsFile -Raw \| ConvertFrom-Json for the ALREADY_INSTALLED check. In Windows PowerShell 5.1 (powershell.exe), ConvertFrom-Json rejects // comments and trailing commas, throwing inside the try/catch block so $alreadyInstalled stays $false and the merge step overwrites settings.json as plain JSON.
       Evidence: `src/hooks/install.ps1:36-59`, `src/hooks/install.ps1:80-112`, `src/hooks/install.ps1:150-166`
       Do: Replace the ConvertFrom-Json ALREADY_INSTALLED check in src/hooks/install.ps1:80-112 with a node probe that uses CAVEMAN_SETTINGS_HELPER.
@@ -23,7 +23,7 @@ Work top to bottom. Ponder does not edit source — this plan is the handoff.
 ## 3. OpenCode plugin runtime & system prompt transform (src/plugins/opencode/plugin.js) `opencode.plugin`
 `src/plugins/opencode/plugin.js`
 
-- [ ] **f-0003 · must · score 1 · effort s** — OpenCode plugin ignores _ctx directory and injects caveman system prompt even when repo .caveman.json sets defaultMode to off
+- [ ] **f-0003 · must · score 1 · effort s** - OpenCode plugin ignores _ctx directory and injects caveman system prompt even when repo .caveman.json sets defaultMode to off
       In src/plugins/opencode/plugin.js:280-355, CavemanPlugin = async (_ctx) => discards the OpenCode plugin context (_ctx) instead of extracting projectDir (ctx?.location?.directory \|\| ctx?.directory \|\| ctx?.worktree), calls getDefaultMode() with no startDir at lines 291 and 332, and in experimental.chat.system.transform (lines 345-355) unconditionally appends buildActivationPrompt(mode) without checking whether getDefaultMode(projectDir) === 'off'. Unlike caveman-activate.js:305 and caveman-mode-tracker.js:372 (#634), OpenCode sessions ignore repo-level .caveman.json opt-out.
       Evidence: `src/plugins/opencode/plugin.js:280-355`, `src/hooks/caveman-activate.js:305`, `src/hooks/caveman-mode-tracker.js:372`
       Do: Extract projectDir from ctx in src/plugins/opencode/plugin.js:280, pass projectDir to getDefaultMode(projectDir), and in experimental.chat.system.transform strip any existing staleBlock and return early without injecting buildActivationPrompt(mode) when getDefaultMode(projectDir) === 'off'.
@@ -34,4 +34,4 @@ Work top to bottom. Ponder does not edit source — this plan is the handoff.
 
 ---
 
-*Generated by [Ponder](https://github.com/Quinnod345/ponder) — AI that knows when to speak, and when to shut up.*
+*Generated by [Ponder](https://github.com/Quinnod345/ponder) - AI that knows when to speak, and when to shut up.*

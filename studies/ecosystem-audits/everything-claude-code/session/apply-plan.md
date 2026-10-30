@@ -1,6 +1,6 @@
 # Apply plan - Audit affaan-m/everything-claude-code (ECC) PreToolUse config-protection, PostToolUse TypeScript typecheck, and Stop format-typecheck hooks
 
-`everything-claude-code-hooks` · lens **architecture** · 3 open findings at severity **must** or above · generated 2026-10-30T12:58:01.547Z
+`everything-claude-code-hooks` · lens **architecture** · 2 open findings at severity **must** or above (plus `f-0001` resolved upstream in `#3775`) · generated 2026-10-30T12:58:01.547Z
 
 Work top to bottom. Ponder does not edit source - this plan is the handoff.
 
@@ -8,25 +8,21 @@ Work top to bottom. Ponder does not edit source - this plan is the handoff.
 `scripts/hooks/config-protection.js`
 
 - [ ] **f-0002 · must · score 1 · effort xs** - Unconditional top-level process.stdin listeners in config-protection.js and post-edit-typecheck.js leak on require()
-      scripts/hooks/config-protection.js:216-243 and scripts/hooks/post-edit-typecheck.js:20-105 attach `process.stdin.setEncoding("utf8")`, `process.stdin.on("data", ...)`, and `process.stdin.on("end", ...)` at module top level without guarding behind `if (require.main === module)`. When `tests/hooks/hook-input.test.js:10` requires `config-protection.js` with an open stdin descriptor, the process hangs indefinitely after finishing all assertions because the leaked `stdin` data listener keeps the Node.js event loop alive. When required in-process before stdin closes, the top-level `end` listener also races the caller by writing raw stdin to stdout or calling `process.exit(2)`.
-      Evidence: `scripts/hooks/config-protection.js:216-243`, `scripts/hooks/post-edit-typecheck.js:20-105`, `tests/hooks/hook-input.test.js:10`
-      Do: Wrap the CLI stdin fallback in both `scripts/hooks/config-protection.js` and `scripts/hooks/post-edit-typecheck.js` inside `if (require.main === module)`, and verify in `tests/hooks/config-protection.test.js` that `process.stdin.listenerCount("data")` and `process.stdin.listenerCount("end")` remain unchanged across `require()`.
-- [ ] **f-0001 · must · score 1 · effort s** - MultiEdit payloads bypass pre:config-protection because run() only inspects top-level file_path or file
-      hooks/hooks.json:63 registers pre:config-protection with matcher "Write\|Edit\|MultiEdit", but scripts/hooks/config-protection.js:160 reads only `const filePath = input?.tool_input?.file_path \|\| input?.tool_input?.file \|\| ""` and ignores `input?.tool_input?.edits` (as well as `tool_input.path`). A MultiEdit call with `{ edits: [{ file_path: ".eslintrc.js", old_string: "error", new_string: "off" }] }` or a benign top-level `file_path` paired with a protected path in `edits` returns exitCode 0 and modifies the protected config.
-      Evidence: `scripts/hooks/config-protection.js:160`, `hooks/hooks.json:63`
-      Do: Add `extractFilePaths(input)` in `scripts/hooks/config-protection.js` to collect trimmed paths from top-level `file_path`/`file`/`path` and each object entry in `tool_input.edits`; iterate over all candidate paths and use `continue` when a protected basename does not exist (`ENOENT`) so any existing protected file later in the batch is still blocked with exitCode 2.
+      scripts/hooks/config-protection.js and scripts/hooks/post-edit-typecheck.js attach `process.stdin.setEncoding("utf8")`, `process.stdin.on("data", ...)`, and `process.stdin.on("end", ...)` at module top level without guarding behind `if (require.main === module)` (unlike `stop-format-typecheck.js` and `quality-gate.js`). When `tests/hooks/hook-input.test.js:10` requires `config-protection.js` with an open stdin descriptor, the process hangs after finishing all assertions because the leaked `stdin` data listener keeps the Node.js event loop alive. When required in-process before stdin closes, the top-level `end` listener also races the caller by writing raw stdin to stdout or calling `process.exit(2)`.
+      Evidence: `scripts/hooks/config-protection.js:215-243`, `scripts/hooks/post-edit-typecheck.js:17-105`, `tests/hooks/hook-input.test.js:10`
+      Do: Wrap the CLI stdin fallback in both `scripts/hooks/config-protection.js` and `scripts/hooks/post-edit-typecheck.js` inside `if (require.main === module)`, and verify in `tests/hooks/config-protection.test.js` and `tests/hooks/post-edit-typecheck.test.js` that `process.stdin.listenerCount("data")` and `process.stdin.listenerCount("end")` remain unchanged across `require()`.
 
 ## 2. PostToolUse TypeScript diagnostic filtering hook (scripts/hooks/post-edit-typecheck.js) `hooks.post_edit_typecheck`
 `scripts/hooks/post-edit-typecheck.js`
 
 - [ ] **f-0003 · must · score 1 · effort s** - post-edit-typecheck.js filters tsc diagnostics with raw line.includes(candidate), causing false positives on root/nested files and missing Windows backslash paths
-      While `stop-format-typecheck.js:135-143` was updated to parse the leading file path from `tsc --pretty false` diagnostics (`diagnosticMatchesFile`), `post-edit-typecheck.js:84-86` still checks `if (line.includes(candidate)) return true`. When editing root `index.ts` (`relPath = "index.ts"`), `line.includes("index.ts")` matches diagnostics from `src/index.ts(1,14): error TS2322` and `other-index.ts`. Conversely, on Windows where `filePath`, `resolvedPath`, and `relPath` use backslashes (`src\index.ts`) while `tsc` outputs forward slashes (`src/index.ts(1,14)`), `line.includes(candidate)` fails to match any candidate.
+      While `stop-format-typecheck.js:135-143` parses the leading file path from `tsc --pretty false` diagnostics (`diagnosticMatchesFile`), `post-edit-typecheck.js:84-86` checks `if (line.includes(candidate)) return true`. When editing root `index.ts` (`relPath = "index.ts"`), `line.includes("index.ts")` matches diagnostics from `src/index.ts(1,14): error TS2322` and `other-index.ts`. Conversely, on Windows where `filePath`, `resolvedPath`, and `relPath` use backslashes (`src\index.ts`) while `tsc` outputs forward slashes (`src/index.ts(1,14)`), `line.includes(candidate)` fails to match any candidate.
       Evidence: `scripts/hooks/post-edit-typecheck.js:79-89`, `scripts/hooks/stop-format-typecheck.js:135-143`
-      Do: In `scripts/hooks/post-edit-typecheck.js`, extract diagnostic file headers via non-greedy `/^(.+?)\(\d+,\d+\):\s/` or `/^(.+?):\d+:\d+(?:\s+-\s+\|\s*:\s*)/`, normalize `\\` to `/` and strip leading `./`, split output on `/\r?\n/`, and export `diagnosticMatchesFile`.
+      Do: In `scripts/hooks/post-edit-typecheck.js`, extract diagnostic file headers via `diagnosticMatchesFile(line, candidates)`, normalize `\\` to `/` and strip leading `./`, split output on `/\r?\n/`, export `diagnosticMatchesFile`, and add unit tests in `tests/hooks/post-edit-typecheck.test.js`.
 
 ## Shape of the work
 
-2 modules · 3 findings · effort 1×xs, 2×s
+2 modules · 2 open findings (`f-0001` `MultiEdit` resolved upstream in `#3775`) · effort 1xxs, 1xs
 
 ---
 

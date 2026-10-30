@@ -124,7 +124,7 @@ Resolution: 2 add, 1 delete.
 
 ### Pass 3
 
-- **skeptic** (confidence 0.98) - All 3 open findings in hooks/simplify-ignore.sh (f-0001, f-0002, f-0003) fail deterministically before the fix and pass all 73 assertions in hooks/simplify-ignore-test.sh after the fix.
+- **skeptic** (confidence 0.98) - All 3 open findings in hooks/simplify-ignore.sh (f-0001, f-0002, f-0003) fail deterministically before the fix and pass all 74 assertions in hooks/simplify-ignore-test.sh after the fix.
 - **builder** (confidence 0.98) - Pin hooks/simplify-ignore-test.sh in f-0001 recommendation so the implementation and regression tests (Tests 19-21) stay coupled.
 - **dreamer** (confidence 0.97) - All 5 enumerated modules are graded (coverage 1.00) and all repository validators pass.
 - **empath** (confidence 0.97) - Coupling the minimal hook diff with self-contained bash tests makes the PR effortless for maintainers to verify.
@@ -134,7 +134,7 @@ Resolution: 1 edit.
 ### Pass 4
 
 - **skeptic** (confidence 0.99) - Zero remaining unverified claims; f-0004 was falsified and retracted in Pass 2, and f-0001, f-0002, and f-0003 have deterministic reproducers in hooks/simplify-ignore-test.sh.
-- **builder** (confidence 0.99) - Diffs in hooks/simplify-ignore.sh and hooks/simplify-ignore-test.sh are minimal, POSIX/Bash 3.2 compatible, and pass all 73 hook assertions.
+- **builder** (confidence 0.99) - Diffs in hooks/simplify-ignore.sh and hooks/simplify-ignore-test.sh are minimal, POSIX/Bash 3.2 compatible, and pass all 74 hook assertions.
 - **dreamer** (confidence 0.99) - Full unit coverage (5/5) achieved with zero churn in Pass 4.
 - **empath** (confidence 0.99) - Audit report is concise, evidence-backed, and ready for addyosmani/agent-skills maintainers.
 
