@@ -1,0 +1,45 @@
+{
+  "name": "ponder",
+  "owner": {
+    "name": "Quinn O'Donnell",
+    "email": "90010678+Quinnod345@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Convergent deliberation loop for coding agents - multi-pass, coverage-gated, append-only ledger review and planning."
+  },
+  "plugins": [
+    {
+      "name": "ponder",
+      "source": "./",
+      "description": "Convergent deliberation loop for coding agents - multi-pass, coverage-gated, append-only ledger review and planning.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Quinn O'Donnell",
+        "email": "90010678+Quinnod345@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/Quinnod345/ponder",
+      "repository": "https://github.com/Quinnod345/ponder",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "skills",
+        "code-review",
+        "audit",
+        "deliberation",
+        "verification",
+        "agents"
+      ],
+      "category": "workflow",
+      "tags": [
+        "claude-code",
+        "skills",
+        "code-review",
+        "audit",
+        "deliberation",
+        "verification",
+        "agents"
+      ],
+      "strict": false
+    }
+  ]
+}

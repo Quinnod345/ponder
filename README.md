@@ -51,6 +51,16 @@ One-line install (clones to `~/code/ponder` or `$PONDER_HOME` and symlinks into 
 curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
 ```
 
+Or install directly as a Claude Code plugin or agent skill:
+
+```sh
+# Claude Code plugin marketplace (Claude Code 2.1.275+)
+/plugin install ponder --marketplace Quinnod345/ponder
+
+# Agent Skills CLI (Claude Code, Codex, Cursor, OpenClaw)
+npx skills add Quinnod345/ponder
+```
+
 Or from a local checkout:
 
 ```sh
