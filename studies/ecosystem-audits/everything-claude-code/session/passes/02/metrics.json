@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "pass": 2,
+  "at": "2026-10-30T12:56:55.650Z",
+  "coverage": 1,
+  "novelty": 0.1667,
+  "churn": 0.5,
+  "thrash": 0,
+  "surprise": 0.25,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 3,
+  "deltaVoiceNames": [
+    "builder",
+    "dreamer",
+    "skeptic"
+  ],
+  "predictedChurn": 0.25,
+  "claim": "Pass 2 will retract the falsified symlink hypothesis f-0004, grade hooks.hooks_json to reach 1.00 coverage, and harden post-edit-typecheck diagnostic matching.",
+  "units": {
+    "enumerated": 5,
+    "graded": 5,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 7,
+    "open": 6,
+    "resolved": 0,
+    "retracted": 1,
+    "deferred": 0,
+    "live": 6
+  },
+  "deltas": {
+    "total": 3,
+    "byOp": {
+      "delete": 1,
+      "add": 1,
+      "edit": 1
+    },
+    "seeded": 0,
+    "revisions": 3
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

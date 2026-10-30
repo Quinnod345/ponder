@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "lens": "architecture",
+  "units": [
+    {
+      "id": "hooks.config_protection",
+      "label": "PreToolUse linter/formatter config protection hook (scripts/hooks/config-protection.js)",
+      "path": "scripts/hooks/config-protection.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.post_edit_typecheck",
+      "label": "PostToolUse TypeScript diagnostic filtering hook (scripts/hooks/post-edit-typecheck.js)",
+      "path": "scripts/hooks/post-edit-typecheck.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.stop_format_typecheck",
+      "label": "Stop batch formatter and TypeScript checker (scripts/hooks/stop-format-typecheck.js)",
+      "path": "scripts/hooks/stop-format-typecheck.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.run_with_flags",
+      "label": "Profile-gated hook runner (scripts/hooks/run-with-flags.js)",
+      "path": "scripts/hooks/run-with-flags.js",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    },
+    {
+      "id": "hooks.hooks_json",
+      "label": "Declarative hook registry (hooks/hooks.json)",
+      "path": "hooks/hooks.json",
+      "kind": "module",
+      "meta": {},
+      "addedInPass": 1
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "slug": "everything-claude-code-hooks",
+  "subject": "Audit affaan-m/everything-claude-code (ECC) PreToolUse config-protection, PostToolUse TypeScript typecheck, and Stop format-typecheck hooks",
+  "lens": "architecture",
+  "rubric": null,
+  "unitLabel": "module",
+  "dimensions": [
+    "coupling",
+    "cohesion",
+    "boundary-integrity",
+    "dependency-direction",
+    "data-ownership",
+    "ubiquitous-language",
+    "contract-stability",
+    "testability",
+    "failure-modes",
+    "observability",
+    "migration-debt"
+  ],
+  "project": "/Users/quinnodonnell/.gemini/antigravity/scratch/ECC",
+  "projectFrom": {
+    "how": "explicit",
+    "marker": null,
+    "cwd": "/Users/quinnodonnell/.gemini/antigravity/scratch/ECC"
+  },
+  "maxPasses": 6,
+  "minPasses": 2,
+  "createdAt": "2026-10-30T12:56:53.859Z",
+  "updatedAt": "2026-10-30T12:58:01.558Z",
+  "status": "applied",
+  "currentPass": 4,
+  "phase": "decide",
+  "oca": {
+    "enabled": true,
+    "reachable": false,
+    "sessionRef": null
+  },
+  "history": [
+    {
+      "pass": 1,
+      "verdict": "blocked",
+      "decision": "continue",
+      "reason": "Coverage is 0.80 (4/5 units) and Pass-1 hypothesis f-0004 on config-protection.js symlink handling requires Skeptic verification.",
+      "override": false,
+      "at": "2026-10-30T12:56:55.006Z"
+    },
+    {
+      "pass": 2,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Coverage is now 1.00 and f-0004 is retracted; continuing to pin regression tests in tests/hooks/config-protection.test.js and confirm convergence.",
+      "override": false,
+      "at": "2026-10-30T12:56:55.833Z"
+    },
+    {
+      "pass": 3,
+      "verdict": "continue",
+      "decision": "continue",
+      "reason": "Regression test recommendations finalized; running Pass 4 to verify epistemic silence and convergence.",
+      "override": false,
+      "at": "2026-10-30T12:56:56.656Z"
+    },
+    {
+      "pass": 4,
+      "verdict": "continue",
+      "decision": "stop",
+      "reason": "Converged across 4 passes after retracting 1 false positive in Pass 2 and verifying 3 must findings with deterministic tests.",
+      "override": true,
+      "at": "2026-10-30T12:57:13.406Z"
+    }
+  ],
+  "appliedAt": "2026-10-30T12:58:01.558Z",
+  "appliedSeverity": "must"
+}

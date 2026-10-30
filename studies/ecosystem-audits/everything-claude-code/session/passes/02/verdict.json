@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "pass": 2,
+  "verdict": "continue",
+  "reason": "default",
+  "rule": 8,
+  "message": "novelty 0.17, churn 0.50 - the finding set is still moving.",
+  "notes": [],
+  "ungraded": [],
+  "signals": {
+    "coverage": 1,
+    "novelty": 0.1667,
+    "churn": 0.5,
+    "thrash": 0,
+    "surprise": 0.25,
+    "stall": 0,
+    "confidenceFloor": 0,
+    "voices": 4,
+    "deltaVoices": 3
+  },
+  "removedUngraded": [],
+  "phantoms": [],
+  "advisedAt": "2026-10-30T12:56:55.678Z",
+  "decision": "continue",
+  "why": "Coverage is now 1.00 and f-0004 is retracted; continuing to pin regression tests in tests/hooks/config-protection.test.js and confirm convergence.",
+  "override": false,
+  "warnings": [],
+  "decidedAt": "2026-10-30T12:56:55.833Z",
+  "coverageAtDecision": 1
+}

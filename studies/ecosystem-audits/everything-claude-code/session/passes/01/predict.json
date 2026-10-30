@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 1,
+  "churn": 0.45,
+  "claim": "Pass 1 will identify MultiEdit bypass and stdin listener leak in config-protection.js, diagnostic matching defects in post-edit-typecheck.js, and test a dangling-symlink hypothesis on config-protection.js.",
+  "at": "2026-10-30T12:56:54.039Z"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "pass": 1,
+  "at": "2026-10-30T12:56:54.826Z",
+  "coverage": 0.8,
+  "novelty": null,
+  "churn": null,
+  "thrash": null,
+  "surprise": null,
+  "stall": 0,
+  "confidenceFloor": 0,
+  "voices": 4,
+  "voiceNames": [
+    "builder",
+    "dreamer",
+    "empath",
+    "skeptic"
+  ],
+  "deliberationSkipped": false,
+  "deltaVoices": 1,
+  "deltaVoiceNames": [
+    "builder"
+  ],
+  "predictedChurn": 0.45,
+  "claim": "Pass 1 will identify MultiEdit bypass and stdin listener leak in config-protection.js, diagnostic matching defects in post-edit-typecheck.js, and test a dangling-symlink hypothesis on config-protection.js.",
+  "units": {
+    "enumerated": 5,
+    "graded": 4,
+    "removed": 0,
+    "removedUngraded": 0,
+    "phantom": 0
+  },
+  "ungraded": [
+    "hooks.hooks_json"
+  ],
+  "removedUngraded": [],
+  "phantoms": [],
+  "findings": {
+    "total": 6,
+    "open": 6,
+    "resolved": 0,
+    "retracted": 0,
+    "deferred": 0,
+    "live": 6
+  },
+  "deltas": {
+    "total": 7,
+    "byOp": {
+      "add": 6,
+      "edit": 1
+    },
+    "seeded": 6,
+    "revisions": 1
+  },
+  "reversals": [],
+  "shakyMustFindings": [],
+  "minPasses": 2,
+  "maxPasses": 6
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "pass": 3,
+  "churn": 0.08,
+  "claim": "Pass 3 will pin regression test targets in tests/hooks/config-protection.test.js for f-0001, f-0002, and f-0003.",
+  "at": "2026-10-30T12:56:55.983Z"
+}
