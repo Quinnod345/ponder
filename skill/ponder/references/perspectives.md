@@ -51,8 +51,9 @@ UNITS IN SCOPE: <id, label, path for each>
 CURRENT FINDINGS: <the finding objects, verbatim, with ids>
 LEDGER FOR THESE UNITS: <what earlier passes already did to them, and why>
 
-Output JSONL - one delta object per line, nothing else. No prose, no code fences.
-Every line needs a non-empty `why` that would survive being read back in three passes' time.
+Write your deliberation entry (`{"argument": "<2-4 sentence summary of what holds, what changed, and your DONE/NOT DONE vote>", "confidence": 0.0-1.0}`) to `.ponder/tmp/<voice>-argument.json`.
+Write your deltas to `.ponder/tmp/<voice>.jsonl` - one delta object per line, nothing else. No prose, no code fences. On a quiet pass where the set holds, write an empty `.jsonl` file and still write `<voice>-argument.json`.
+Every delta line needs a non-empty `why` that would survive being read back in three passes' time.
 Emit only your own operation.
 ```
 
@@ -321,13 +322,20 @@ exists because of exactly this.
 
 ### Parallel - four subagents, one per voice
 
-Each agent gets the shared preamble and one perspective prompt, and returns JSONL for its own op.
-The parent concatenates the four files in Skeptic → Builder → Empath → Dreamer order (deletes and
-edits land before adds, so the Dreamer's additions are numbered after the survivors) and calls
-`ponder delta --file` once. Name the four files explicitly rather than globbing - a glob that
+Each agent gets the shared preamble and one perspective prompt, writes its deliberation entry (`argument` and `confidence`) to `.ponder/tmp/<voice>-argument.json`, and writes JSONL for its own op to `.ponder/tmp/<voice>.jsonl` (which may be empty on a quiet pass).
+The parent first assembles `.ponder/tmp/deliberation-3.json` from the four `<voice>-argument.json` files and calls `ponder deliberate --file .ponder/tmp/deliberation-3.json` so all four voices and their arguments are recorded even when zero deltas are emitted. Next, the parent concatenates the four delta files in Skeptic → Builder → Empath → Dreamer order (deletes and edits land before adds, so the Dreamer's additions are numbered after the survivors) and calls `ponder delta --file` once. Name the four files explicitly rather than globbing - a glob that
 matches its own output truncates the target and then reads the file it is writing.
 
 ```sh
+jq -n \
+  --slurpfile skeptic .ponder/tmp/skeptic-argument.json \
+  --slurpfile builder .ponder/tmp/builder-argument.json \
+  --slurpfile empath  .ponder/tmp/empath-argument.json \
+  --slurpfile dreamer .ponder/tmp/dreamer-argument.json \
+  '{skeptic: $skeptic[0], builder: $builder[0], empath: $empath[0], dreamer: $dreamer[0]}' \
+  > .ponder/tmp/deliberation-3.json
+ponder deliberate --file .ponder/tmp/deliberation-3.json
+
 cat .ponder/tmp/skeptic.jsonl .ponder/tmp/builder.jsonl \
     .ponder/tmp/empath.jsonl  .ponder/tmp/dreamer.jsonl > .ponder/tmp/deltas-3.jsonl
 ponder delta --file .ponder/tmp/deltas-3.jsonl

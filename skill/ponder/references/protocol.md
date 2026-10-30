@@ -685,21 +685,26 @@ First match wins.
 2. `pass < minPasses` → **`continue`**. A single pass is an opinion, not a pondering.
 3. `thrash > 0.25` → **`escalate`**. Another identical pass will not help - rotate perspectives,
    widen the evidence, or split the subject. Skipped when `thrash` is null.
-3a. **Evidence/review guard:** any open must below 0.5 confidence or fewer than three
-   perspectives → `continue`; if stalled, `escalate`; if the budget is exhausted,
-   `stop` with reason `budget`. No quiet pass bypasses this guard.
-4. `stall >= 2` and `coverage == 1.0` → **`stop`**, reason `perseveration`. Nothing is moving.
-   `stall` only counts passes whose churn was a number, so a pass with no churn cannot feed it.
-5. `confidenceFloor > 0` → **`continue`**. Too many important calls are still guesses.
-6. `novelty < 0.05` and `churn < 0.10`, sustained two consecutive passes → **`stop`**, reason
-   `converged`.
+4. **Evidence and review guard (`confidenceFloor > 0` or `voices < 3`):** any open `must` finding
+   below 0.5 confidence (`confidenceFloor > 0`) or fewer than three reviewing perspectives
+   (`voices < 3`) blocks convergence → if `pass >= maxPasses`, **`stop`** with reason `budget`;
+   else if `stall >= 2`, **`escalate`**; else **`continue`** with reason `low-confidence` or
+   `insufficient-perspectives`. Stillness with unresolved uncertainty does not earn convergence,
+   and no quiet pass bypasses this guard.
+5. `novelty < 0.05` and `churn < 0.10`, with `voices >= 3` and `confidenceFloor == 0`, sustained
+   two consecutive passes → **`stop`**, reason `converged` (engine rule id `6`). Checked before
+   the fallback perseveration stop so two fully reviewed, confident quiet passes earn `converged`.
+6. `stall >= 2` and `coverage == 1.0` → **`stop`**, reason `perseveration` (engine rule id `4`).
+   Nothing is moving, and the two-pass convergence check did not match (for example, because the
+   prior pass lacked full perspective review or confidence). `stall` only counts passes whose churn
+   was a number, so a pass with no churn cannot feed it.
 7. `pass >= maxPasses` → **`stop`**, reason `budget`. Report it as a budget stop, never as
    convergence.
 8. otherwise → **`continue`**, reason `default` - unless the OCA is holding open metacognitive
    observations of high severity about this loop, which tip an otherwise-`continue` into
    **`escalate`**, reason `oca-observations`.
 
-Pass 1 reports no `churn`, `novelty` or `thrash`, so rules 3, 4 and 6 have nothing to fire on there,
+Pass 1 reports no `churn`, `novelty` or `thrash`, so rules 3, 5 and 6 have nothing to fire on there,
 and the skip is explicit rather than a null comparison happening to come out false. Rule 1 still
 applies in full - coverage is computed from the inventory and the finding set, not from the ledger,
 and it blocks pass 1 exactly as hard as pass 6.
@@ -773,9 +778,3 @@ goes to stdout, so a failed command still tells you where you are.
 One failure prints no error at all: a `unit-delete` on a never-graded unit succeeds, and coverage does
 not move. That is not a bug to route around. The unit left the inventory and stayed in the coverage
 denominator, exactly as designed - grade it, or claim `"phantom": true` and let the engine check.
-
-### Evidence-loop amendment - 2026-09-12
-
-After coverage, minimum passes, thrash and the evidence/review guard, check two-pass
-convergence **before** the fallback perseveration stop. Two fully reviewed, confident
-zero-delta passes earn convergence; stillness with unresolved uncertainty does not.
