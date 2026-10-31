@@ -15,7 +15,7 @@
 set -eu
 
 REPO_URL="${PONDER_REPO:-https://github.com/Quinnod345/ponder.git}"
-REPO_REF="${PONDER_REF:-}"
+REPO_REF="${PONDER_REF:-7d33c62f98ce40c747c8814404f3d00cbb94612e}"
 CLAUDE_SKILLS="$HOME/.claude/skills"
 AGENTS_SKILLS="$HOME/.agents/skills"
 CODEX_SKILLS="$HOME/.codex/skills"
