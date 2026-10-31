@@ -15,6 +15,7 @@
 set -eu
 
 REPO_URL="${PONDER_REPO:-https://github.com/Quinnod345/ponder.git}"
+REPO_REF="${PONDER_REF:-}"
 CLAUDE_SKILLS="$HOME/.claude/skills"
 AGENTS_SKILLS="$HOME/.agents/skills"
 CODEX_SKILLS="$HOME/.codex/skills"
@@ -30,7 +31,7 @@ link() {
   if [ -L "$dest" ]; then
     rm "$dest"
   elif [ -e "$dest" ]; then
-    warn "$label: $dest exists and is not a symlink — leaving it alone."
+    warn "$label: $dest exists and is not a symlink - leaving it alone."
     warn "      move it aside and re-run if you want ponder linked there."
     return 0
   fi
@@ -51,14 +52,25 @@ else
   REPO="${PONDER_CHECKOUT:-$HOME/code/ponder}"
   command -v git >/dev/null 2>&1 || die "git is not installed. Install git and re-run."
   if [ -d "$REPO/.git" ]; then
-    say "Updating existing checkout at $REPO"
-    git -C "$REPO" pull --ff-only || warn "git pull --ff-only skipped (working tree has local changes)"
+    if [ -n "$REPO_REF" ]; then
+      say "Checking out pinned ref $REPO_REF at $REPO"
+      git -C "$REPO" fetch --quiet origin "$REPO_REF"
+      git -C "$REPO" checkout --quiet "$REPO_REF"
+    else
+      say "Updating existing checkout at $REPO"
+      git -C "$REPO" pull --ff-only || warn "git pull --ff-only skipped (working tree has local changes)"
+    fi
   elif [ -e "$REPO" ] && [ -f "$REPO/lib/cli.js" ]; then
     say "Using existing ponder directory at $REPO"
   else
     say "Cloning $REPO_URL -> $REPO"
     mkdir -p "$(dirname "$REPO")"
     git clone "$REPO_URL" "$REPO"
+    if [ -n "$REPO_REF" ]; then
+      say "Checking out pinned ref $REPO_REF at $REPO"
+      git -C "$REPO" fetch --quiet origin "$REPO_REF"
+      git -C "$REPO" checkout --quiet "$REPO_REF"
+    fi
   fi
 fi
 
@@ -66,7 +78,7 @@ say ""
 say "Installing ponder from $REPO"
 say ""
 
-[ -f "$REPO/lib/cli.js" ] || die "no lib/cli.js — is $REPO a ponder checkout?"
+[ -f "$REPO/lib/cli.js" ] || die "no lib/cli.js - is $REPO a ponder checkout?"
 chmod +x "$REPO/bin/ponder" 2>/dev/null || true
 chmod +x "$REPO/test/conformance.sh" 2>/dev/null || true
 
@@ -82,7 +94,7 @@ say "Binary"
 link "$REPO/bin/ponder" "$BIN_DIR/ponder" "ponder"
 case ":$PATH:" in
   *":$BIN_DIR:"*) ok "$BIN_DIR is on PATH" ;;
-  *) warn "$BIN_DIR is NOT on PATH — add it to your shell profile:"
+  *) warn "$BIN_DIR is NOT on PATH - add it to your shell profile:"
      warn "      export PATH=\"\$HOME/.local/bin:\$PATH\"" ;;
 esac
 
@@ -91,7 +103,7 @@ say "Checks"
 if "$REPO/bin/ponder" --help >/dev/null 2>&1; then
   ok "bin/ponder runs"
 else
-  die "bin/ponder failed to run — check node (>=18) is installed (node -v)"
+  die "bin/ponder failed to run - check node (>=18) is installed (node -v)"
 fi
 "$REPO/bin/ponder" doctor || true
 
