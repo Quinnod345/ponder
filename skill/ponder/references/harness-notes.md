@@ -9,12 +9,7 @@ differences that actually change what you type.
 One source of truth, symlinked everywhere:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
-```
-
-Or from a local checkout:
-
-```sh
+git clone https://github.com/Quinnod345/ponder.git ~/code/ponder
 ~/code/ponder/install.sh
 ```
 
