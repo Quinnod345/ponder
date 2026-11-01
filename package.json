@@ -21,6 +21,7 @@
     "lib",
     "lenses",
     "skill",
+    "skills",
     "oca",
     ".claude-plugin",
     ".codex-plugin",
