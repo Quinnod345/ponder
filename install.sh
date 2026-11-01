@@ -1,8 +1,8 @@
 #!/bin/sh
 # Install ponder: one canonical repo, symlinked into every agent harness that can use it.
 #
-# One-line install from anywhere:
-#   curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
+# One-line install from anywhere (pinned to a verified commit):
+#   curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/a27da06f2852c08d8f5a2a077dcb703c72ee5c9c/install.sh | sh
 #
 # Or from a local checkout:
 #   git clone https://github.com/Quinnod345/ponder.git ~/code/ponder
@@ -15,7 +15,7 @@
 set -eu
 
 REPO_URL="${PONDER_REPO:-https://github.com/Quinnod345/ponder.git}"
-REPO_REF="${PONDER_REF:-7d33c62f98ce40c747c8814404f3d00cbb94612e}"
+REPO_REF="${PONDER_REF:-a27da06f2852c08d8f5a2a077dcb703c72ee5c9c}"
 CLAUDE_SKILLS="$HOME/.claude/skills"
 AGENTS_SKILLS="$HOME/.agents/skills"
 CODEX_SKILLS="$HOME/.codex/skills"
