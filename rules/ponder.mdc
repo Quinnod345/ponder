@@ -1,0 +1,13 @@
+---
+description: Convergent deliberation loop for coding agents: multi-pass, coverage-gated review and planning
+globs: *
+alwaysApply: false
+---
+
+# Ponder Rule
+
+When conducting code reviews, architecture evaluations, or multi-unit audits:
+- Run repeated grading passes over every enumerated unit until findings stabilize.
+- Do not conclude or approve while units remain ungraded.
+- Verify findings across all four perspectives: Skeptic, Builder, Dreamer, and Empath.
+- Stop only when coverage reaches 1.00 and consecutive quiet passes show zero churn.

@@ -338,9 +338,9 @@ below. A unit that has left the inventory also carries `removedInPass`, `removal
 |---|---|---|
 | `unit` | a unit `id` | Must exist in the inventory |
 | `dimension` | one of the lens's dimensions | Drives duplicate detection and reversal detection |
-| `score` | integer 1–5 | 1 broken, 3 acceptable, 5 exemplary; the lens defines each rung |
+| `score` | integer 1-5 | 1 broken, 3 acceptable, 5 exemplary; the lens defines each rung |
 | `severity` | `must` \| `should` \| `could` \| `note` | |
-| `confidence` | 0–1 | Below 0.5 it is a hypothesis, not a conclusion |
+| `confidence` | 0-1 | Below 0.5 it is a hypothesis, not a conclusion |
 | `effort` | `xs` \| `s` \| `m` \| `l` \| `xl` | |
 | `evidence` | array of `path:line-line` | The thing that makes a finding arguable instead of an opinion |
 | `status` | `open` \| `resolved` \| `retracted` \| `deferred` | Engine-managed; starts `open` |
@@ -362,7 +362,7 @@ The engine assigns `id` (`f-NNNN`, never reused), `status`, `createdInPass`, `la
 
 The four keys and their `argument` / `confidence` map one-to-one onto the OCA `deliberations`
 columns (`skeptic_argument`, `skeptic_confidence`, …), which is why this is the shape to write.
-`argument` must be a non-empty string; `confidence` is optional and must be 0–1 if present. Fewer
+`argument` must be a non-empty string; `confidence` is optional and must be 0-1 if present. Fewer
 than four keys is accepted, and `deliberate` warns which voices were silent - those are exactly the
 ones missing from this pass's `voices`, so a two-key file is a pass that will warn again at
 `decide stop`.
@@ -769,7 +769,7 @@ goes to stdout, so a failed command still tells you where you are.
 | `1` | `"note" is not a settable unit field (label, path, kind, meta).` | A `unit-edit` setting something that is not one of the four | Those four, and nothing else |
 | `1` | `unit "<id>" was removed in pass 3 - a unit that has left the inventory is not edited back into shape, it is re-added.` | A `unit-edit` on a removed unit | `unit-add` it back if it belongs in the subject |
 | `2` | `session <slug> does not reconcile with its ledger - 2 divergences.` | `judge`, `decide`, `report` or `apply` on state that disagrees with the ledger | `ponder verify --session <slug>` for the diagnosis, then `ponder verify --repair` if the ledger is merely ahead. A state-ahead session is a hard error by design |
-| `1` | `--churn must be between 0 and 1 (got 1.2).` | A prediction outside the 0–1 range the metric lives in | Pick a number in range. `0` and `1.0` are both legal. On pass 1 nothing scores it - write the honest guess and put the content in `--claim` |
+| `1` | `--churn must be between 0 and 1 (got 1.2).` | A prediction outside the 0-1 range the metric lives in | Pick a number in range. `0` and `1.0` are both legal. On pass 1 nothing scores it - write the honest guess and put the content in `--claim` |
 | `1` | `overriding the "continue" advice with "stop" needs a --why of at least 12 characters (got 4).` | Thin override reason | Write the actual reason. It is permanent in `report.md` |
 | `1` | `session "ui-2026-08-24" already exists at …` | `--slug` collision | Pick another slug, or resume: `ponder status --session <slug>` |
 | `1` | `<path> line 1 is not valid JSON: …` | A truncated or fenced JSONL line | Ask the batch agent for JSONL and nothing else - no prose, no code fences |

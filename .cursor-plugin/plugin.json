@@ -13,11 +13,13 @@
   "license": "MIT",
   "keywords": [
     "skills",
+    "rules",
     "code-review",
     "audit",
     "deliberation",
     "verification",
     "agents"
   ],
-  "skills": "./skill/"
+  "skills": "./skills/ponder",
+  "rules": "./rules/"
 }

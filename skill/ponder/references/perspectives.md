@@ -380,7 +380,7 @@ for the pass you intend to stop on - that is the pass whose argument has to hold
 
 ## Confidence
 
-Ponder wants an explicit `confidence` on each argument in `deliberation.json` (0–1), and on each
+Ponder wants an explicit `confidence` on each argument in `deliberation.json` (0-1), and on each
 finding. State it - the number you write is the number that lands in `deliberations.skeptic_confidence`
 and friends, unchanged. Nothing re-derives it.
 

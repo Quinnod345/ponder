@@ -15,3 +15,4 @@
 # There are no npm dependencies (SPEC 8.5), so this directory should never exist.
 # It is listed so that an accidental `npm install` cannot be committed.
 node_modules/
+dist/
