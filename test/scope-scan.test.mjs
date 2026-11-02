@@ -272,6 +272,54 @@ try {
   const listDirJson = JSON.parse(res.stdout);
   assert.ok(listDirJson.sessions.some((s) => s.slug === 'ergo-plus'), 'list --dir should find ergo-plus session');
 
+  // 9. Test agent alias ergonomics: --surprise/--rationale, doc.units per-dimension scores, voices[].position, --reason
+  res = runPonder(['start', 'Agent alias ergonomics test', '--lens', 'code', '--slug', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['predict', '--surprise', '0.1', '--confidence', '0.9', '--rationale', 'Expect clean files', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['units', '--files', 'src/index.js', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  const unitGradesFile = path.join(tmpRoot, 'unit-grades.json');
+  fs.writeFileSync(
+    unitGradesFile,
+    JSON.stringify({
+      units: {
+        'src/index.js': {
+          scores: { correctness: 5, 'error-handling': 4, maintainability: 5 },
+          note: 'Clean entrypoint with minor error-handling note',
+        },
+      },
+      findings: [],
+    }),
+  );
+  res = runPonder(['grade', '--file', unitGradesFile, '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  const unitGradesJson = JSON.parse(res.stdout);
+  assert.equal(unitGradesJson.coverage, 1);
+  assert.equal(unitGradesJson.seeded, 1);
+
+  const posDelibFile = path.join(tmpRoot, 'pos-delib.json');
+  fs.writeFileSync(
+    posDelibFile,
+    JSON.stringify({
+      pass: 1,
+      voices: [
+        { voice: 'skeptic', position: 'Verified src/index.js. VOTE: DONE.' },
+        { voice: 'builder', position: 'No changes needed. VOTE: DONE.' },
+        { voice: 'dreamer', position: 'Scope complete. VOTE: DONE.' },
+        { voice: 'empath', position: 'Clear output. VOTE: DONE.' },
+      ],
+    }),
+  );
+  res = runPonder(['deliberate', '--file', posDelibFile, '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['delta', '--none', '--reason', 'No revisions needed on pass 1', '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['judge', '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['decide', 'continue', '--reason', 'Advance to pass 2', '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });

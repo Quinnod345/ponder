@@ -12,7 +12,7 @@
       "name": "ponder",
       "source": "./",
       "description": "Convergent deliberation loop for coding agents - multi-pass, coverage-gated, append-only ledger review and planning.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "Quinn O'Donnell",
         "email": "90010678+Quinnod345@users.noreply.github.com"
