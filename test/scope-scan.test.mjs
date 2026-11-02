@@ -320,6 +320,24 @@ try {
   res = runPonder(['decide', 'continue', '--reason', 'Advance to pass 2', '--pass', '1', '--session', 'alias-ergo', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
   assert.equal(res.status, 0, res.stderr);
 
+  // Test 7: ponder install (--openclaw, --all, --copy, --target-dir)
+  const fakeHome = path.join(tmpRoot, 'fake-home');
+  res = runPonder(['install', '--openclaw', '--target-dir', fakeHome, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  const installOpenclaw = JSON.parse(res.stdout);
+  assert.equal(installOpenclaw.installed.length, 1);
+  assert.equal(installOpenclaw.installed[0].target, 'openclaw');
+  assert.ok(fs.existsSync(path.join(fakeHome, '.agents', 'skills', 'ponder', 'SKILL.md')));
+
+  res = runPonder(['install', '--all', '--copy', '--target-dir', fakeHome, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  const installAll = JSON.parse(res.stdout);
+  assert.equal(installAll.installed.length, 3);
+  assert.equal(installAll.method, 'copy');
+  assert.ok(fs.existsSync(path.join(fakeHome, '.claude', 'skills', 'ponder', 'SKILL.md')));
+  assert.ok(fs.existsSync(path.join(fakeHome, '.codex', 'skills', 'ponder', 'SKILL.md')));
+  assert.ok(fs.existsSync(path.join(fakeHome, '.agents', 'skills', 'ponder', 'SKILL.md')));
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });

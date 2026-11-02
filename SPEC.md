@@ -607,6 +607,7 @@ ponder apply    [--dry-run] [--severity must,should]
 ponder list
 ponder abort    --why "<reason>"
 ponder doctor                                   # environment + OCA reachability
+ponder install  [--all] [--claude] [--codex] [--openclaw] [--copy] [--force] [--target-dir <dir>]
 ponder version                                  # print the engine version
 ```
 
