@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against nine major open-source AI developer repositories (**1,048,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against ten major open-source AI developer repositories (**1,049,000+ combined GitHub stars**):
 
 1. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
 2. **[`affaan-m/everything-claude-code`](https://github.com/affaan-m/ECC)** (`292.6k`★) - Agent harness performance optimization and hook system
@@ -13,6 +13,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 7. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
 8. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
 9. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
+10. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
 
 ---
 
@@ -29,6 +30,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`coleam00/Archon`](https://github.com/coleam00/Archon)** | `23.8k`★ | `3/3` (`1.00`) | Retracted login `rd` open-redirect alarm (`isSafeRedirect`), `GET /login` double-decode hypothesis (`handleLoginPage` encodes `rd`), and `SSETransport` hypothesis (`dev` clears `liveWritePending` per entry) | **1** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./archon/report.md) · [`apply-plan.md`](./archon/apply-plan.md) · [Issue #5256](https://github.com/coleam00/Archon/issues/5256) |
 | **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** | `22.9k`★ | `4/4` (`1.00`) | Retracted credential symlink/permission-window alarm after verifying `0700` staging + `O_EXCL` `0600` + atomic `rename(2)` (`CredentialFileWriter.swift:38-74`) | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./codexbar/report.md) · [`apply-plan.md`](./codexbar/apply-plan.md) · [Issue #4829 (`🦞 diamond lobster`)](https://github.com/steipete/CodexBar/issues/4829) · [PR #4830 (`MERGED` · `🦞 diamond lobster`)](https://github.com/steipete/CodexBar/pull/4830) |
 | **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** | `8.8k`★ | `3/3` (`1.00`) | Retracted NTFS ADS alternate data stream hypothesis after verifying `checkRelativePath` colon syntax rejection and host `realpath` validation | **1** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./sandcastle/report.md) · [`apply-plan.md`](./sandcastle/apply-plan.md) |
+| **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** | `1.0k`★ | `3/3` (`1.00`) | Retracted gate shell command injection hypothesis after verifying predefined gate dispatch and shlex argument parsing (`gates.py:40-95`) | **2** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./sssf/report.md) · [`apply-plan.md`](./sssf/apply-plan.md) · [PR #23](https://github.com/disler/super-simple-software-factory/pull/23) |
 
 ---
 
