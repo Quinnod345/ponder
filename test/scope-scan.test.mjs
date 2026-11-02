@@ -262,6 +262,16 @@ try {
   assert.equal(quietDelta.applied, 0);
   assert.equal(quietDelta.coverage, 1);
 
+  // 8. Test global --dir and --project flags from an external working directory
+  res = runPonder(['judge', '--session', 'ergo-plus', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['status', '--session', 'ergo-plus', '--project', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['list', '--dir', projDir, '--json'], { cwd: os.tmpdir() });
+  assert.equal(res.status, 0, res.stderr);
+  const listDirJson = JSON.parse(res.stdout);
+  assert.ok(listDirJson.sessions.some((s) => s.slug === 'ergo-plus'), 'list --dir should find ergo-plus session');
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });

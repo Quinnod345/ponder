@@ -15,7 +15,7 @@
 set -eu
 
 REPO_URL="${PONDER_REPO:-https://github.com/Quinnod345/ponder.git}"
-REPO_REF="${PONDER_REF:-a27da06f2852c08d8f5a2a077dcb703c72ee5c9c}"
+REPO_REF="${PONDER_REF:-}"
 CLAUDE_SKILLS="$HOME/.claude/skills"
 AGENTS_SKILLS="$HOME/.agents/skills"
 CODEX_SKILLS="$HOME/.codex/skills"
@@ -58,6 +58,7 @@ else
       git -C "$REPO" checkout --quiet "$REPO_REF"
     else
       say "Updating existing checkout at $REPO"
+      git -C "$REPO" checkout --quiet main 2>/dev/null || true
       git -C "$REPO" pull --ff-only || warn "git pull --ff-only skipped (working tree has local changes)"
     fi
   elif [ -e "$REPO" ] && [ -f "$REPO/lib/cli.js" ]; then
