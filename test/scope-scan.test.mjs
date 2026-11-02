@@ -225,8 +225,8 @@ try {
   fs.writeFileSync(
     letterGradeFile,
     JSON.stringify([
-      { unit: 'u1', dimension: 'correctness', score: 'A', summary: 'Auth checked.' },
-      { unit: 'u2', dimension: 'correctness', grade: 'B', summary: 'Admin checked.' },
+      { unit: 'src/routes/auth.js', dimension: 'correctness', score: 'A', summary: 'Auth checked via path reference.' },
+      { unit: 'src.routes.admin.js', dimension: 'correctness', grade: 'B', summary: 'Admin checked via dotted slug reference.' },
     ]),
   );
   res = runPonder(['grade', '--file', letterGradeFile, '--session', 'ergo-plus', '--json'], { cwd: projDir });
