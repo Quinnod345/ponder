@@ -15,7 +15,8 @@
 ```sh
 # Install in 1 line (Claude Code, Codex, OpenClaw + CLI on PATH)
 curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
-# Or via Homebrew / Claude Code / Agent Skills / ClawHub / Tessl / LobeHub / Gemini CLI:
+# Or via npm / Homebrew / Claude Code / Agent Skills / ClawHub / Tessl / LobeHub / Gemini CLI:
+#   npm install -g @quinnod345/ponder   # or: npx @quinnod345/ponder / npx ponder-cli
 #   brew install quinnod345/tap/ponder
 #   /plugin install ponder --marketplace Quinnod345/ponder
 #   npx skills add Quinnod345/ponder
@@ -73,6 +74,10 @@ curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh |
 Or install directly from any supported skill registry or package manager:
 
 ```sh
+# npm / npx (Node >= 18, zero runtime dependencies)
+npm install -g @quinnod345/ponder
+npx @quinnod345/ponder version      # or: npx ponder-cli version
+
 # Homebrew (macOS / Linux)
 brew install quinnod345/tap/ponder
 
