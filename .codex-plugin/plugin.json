@@ -23,6 +23,7 @@
   "interface": {
     "displayName": "Ponder",
     "shortDescription": "Coverage-gated multi-pass review and planning loop for coding agents.",
+    "composerIcon": "./assets/icon.svg",
     "longDescription": "Ponder runs repeated grading passes over a codebase, UI, or plan across four perspectives (Skeptic, Builder, Dreamer, Empath) with an append-only ledger and a coverage gate that refuses to stop until every unit is graded.",
     "developerName": "Quinn O'Donnell",
     "category": "Developer Tools",
