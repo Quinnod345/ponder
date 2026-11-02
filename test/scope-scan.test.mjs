@@ -122,6 +122,51 @@ try {
   assert.equal(sarif.runs[0].results[0].level, 'error');
   assert.equal(sarif.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, 'src/routes/admin.js');
 
+  // 5. Test --lens code and agent-ergonomic schema aliases (name/files, summary, text/array notes)
+  res = runPonder(['start', 'Code ergonomics review', '--lens', 'code', '--slug', 'code-ergo', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['predict', '--churn', '0.2', '--claim', 'alias pass', '--session', 'code-ergo', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  const aliasUnitsFile = path.join(tmpRoot, 'alias-units.json');
+  fs.writeFileSync(
+    aliasUnitsFile,
+    JSON.stringify([{ name: 'route.auth', files: ['src/routes/auth.js'] }]),
+  );
+  res = runPonder(['units', '--file', aliasUnitsFile, '--session', 'code-ergo', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  const aliasFindingsFile = path.join(tmpRoot, 'alias-findings.json');
+  fs.writeFileSync(
+    aliasFindingsFile,
+    JSON.stringify([
+      {
+        unit: 'route.auth',
+        summary: 'Auth constant is exported cleanly',
+        dimension: 'correctness',
+        score: 5,
+        severity: 'note',
+        confidence: 0.95,
+        evidence: ['src/routes/auth.js:1'],
+      },
+    ]),
+  );
+  res = runPonder(['grade', '--file', aliasFindingsFile, '--session', 'code-ergo', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  const aliasDelibFile = path.join(tmpRoot, 'alias-delib.json');
+  fs.writeFileSync(
+    aliasDelibFile,
+    JSON.stringify({
+      skeptic: [{ note: 'Verified export against source line 1.' }],
+      builder: { text: 'No code changes needed.' },
+      dreamer: { summary: 'All units covered.' },
+      empath: { note: 'Clear API surface.' },
+    }),
+  );
+  res = runPonder(['deliberate', '--file', aliasDelibFile, '--session', 'code-ergo', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
