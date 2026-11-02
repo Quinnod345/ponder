@@ -3826,7 +3826,7 @@ t_lens_every_pack() {
   # would hide a pack whose front matter does not parse (SPEC 7) until the day
   # somebody reaches for it.
   new_workdir lenses
-  for _lens in ui architecture docs tests product copy; do
+  for _lens in ui architecture docs tests product copy security; do
     SLUG="lens-$_lens"
     run_ponder start "the $_lens of the fixture app" --lens "$_lens" \
       --project "$WORK" --slug "$SLUG" --max-passes 6 --min-passes 2

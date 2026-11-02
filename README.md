@@ -377,13 +377,14 @@ The engine **advises**. `ponder decide` commits, and may override - except `bloc
 
 ## Adversarial Hardening Against Agent Shortcuts
 
-### Deterministic scope verification (`--scan` & `--strict-scope`)
+### Deterministic scope verification (`--scan`, `--diff`, & `--strict-scope`)
 
 Before the coverage gate even opens, there is an earlier shortcut: what if the agent lazily omits files on Pass 1 when writing `units.json` so it has less work to grade?
 
 `ponder units` closes that blind spot directly in the CLI:
 - **`ponder units --scan <dir>`**: Instead of trusting the agent to author `units.json` by hand, the CLI itself walks `git ls-files` (or the directory tree when not in git) and seeds every in-scope file into `units.json` and `ledger.jsonl`.
-- **`ponder units --file units.json --scan <dir> --strict-scope`**: When the agent supplies custom semantic units (for example, multiple UI states per route), `--scan <dir> --strict-scope` cross-checks every `unit.path` against the actual files on disk under `<dir>`. If any file on disk is missing from `units.json`, `ponder units` refuses the seed (`exit 2`) and names the omitted files.
+- **`ponder units --diff [<ref>]`**: Automatically enumerates every modified, added, or untracked file from `git diff` (for example `ponder units --diff` for working tree + staged changes against `HEAD`, or `ponder units --diff origin/main` for a PR branch) and seeds `units.json` and `ledger.jsonl` in one command.
+- **`ponder units --file units.json --scan <dir> --strict-scope` (or `--diff [<ref>] --strict-scope`)**: When the agent supplies custom semantic units (for example, multiple UI states per route), `--scan <dir> --strict-scope` or `--diff [<ref>] --strict-scope` cross-checks every `unit.path` against the actual files on disk or in the git diff. If any file is missing from `units.json`, `ponder units` refuses the seed (`exit 2`) and names the omitted files.
 
 ### The phantom rule
 
@@ -468,7 +469,7 @@ Every command takes `--session <slug>` (defaults to the most recently touched *o
 |---|---|
 | `ponder start "<subject>" --lens <lens>` | Open a session. `[--rubric <file>] [--project <path>] [--slug <slug>] [--max-passes N] [--min-passes N]` |
 | `ponder predict --churn <0-1> --claim "<line>"` | State what this pass will find, before the work. Scored against reality as `surprise`. |
-| `ponder units [--file <units.json>] [--scan <dir>] [--strict-scope]` | Seed the inventory on Pass 1. `--scan <dir>` walks `git ls-files` (or disk) to auto-seed or verify scope; `--strict-scope` exits `2` if any file under `<dir>` is omitted from `units.json`. Also takes `--stdin`. |
+| `ponder units [--file <units.json>] [--scan <dir>] [--diff [<ref>]] [--strict-scope]` | Seed the inventory on Pass 1. `--scan <dir>` walks `git ls-files` (or disk) and `--diff [<ref>]` walks `git diff` to auto-seed or verify scope; `--strict-scope` exits `2` if any file in scope is omitted from `units.json`. Also takes `--stdin`. |
 | `ponder grade --file <findings.json>` | Seed the finding set. Pass 1 only - later passes appraise *by* revising. Also takes `--stdin`. |
 | `ponder deliberate --file <deliberation.json>` | Record the four perspectives' arguments. Or `--stdin`. Or `--skip --why "<reason>"`, which records a metacognitive observation when the OCA is reachable and says so plainly when it is not. |
 | `ponder delta --file <deltas.jsonl>` | Apply revisions. One JSON object per line, every one carrying a `why`. A single bad line rejects the whole batch. Also takes `--stdin`. |
@@ -476,7 +477,7 @@ Every command takes `--session <slug>` (defaults to the most recently touched *o
 | `ponder decide <continue\|stop\|escalate> --why "<reason>"` | Commit. May override the advice - except `blocked`. An override needs a `--why` of 12+ characters and is surfaced permanently in `report.md`. |
 | `ponder status` | Where am I, what do I owe, what is still ungraded. |
 | `ponder verify [--repair]` | Replay `ledger.jsonl`, check `units.json` and `findings.json` against it, and check the ledger against the per-pass `deltas.jsonl` files. Exit `0` when the session reconciles, `2` with a full diagnosis when it does not. Run it first on a session you inherited. `--repair` rebuilds a ledger-ahead session - the one shape an interrupted command can leave - and refuses anything it cannot derive from the ledger. |
-| `ponder report [--out <path>]` | Write `report.md`: convergence table, overrides, prediction vs reality, coverage and phantom units, findings by unit, retractions, deliberations, ledger. |
+| `ponder report [--out <path>] [--format markdown\|pr-comment\|sarif]` | Write `report.md` (`markdown`), `pr-comment.md` (`pr-comment`, concise GitHub PR review comment with collapsible convergence and retracted false positives), or `report.sarif.json` (`sarif`, SARIF 2.1.0 for GitHub Code Scanning). |
 | `ponder apply [--dry-run] [--severity must,should]` | Emit the ordered work plan. Never edits source. Without `--dry-run` it writes `apply-plan.md` and marks the session `applied`. Refused on an aborted session - an abandoned pondering is not a plan. |
 | `ponder list` | Every session on this machine. |
 | `ponder abort --why "<reason>"` | Close a session unfinished. The honest exit from a blocked session - `report.md` still names what was never graded. |
@@ -510,6 +511,7 @@ A lens is the rubric pack that defines how to enumerate and how to grade. They l
 | [`tests`](lenses/tests.md) | behaviour | 7 | behaviour-coverage, failure-mode-coverage, honesty, speed… |
 | [`copy`](lenses/copy.md) | string | 7 | clarity, voice-consistency, next-action, state-honesty… |
 | [`docs`](lenses/docs.md) | document | 6 | accuracy, completeness, audience-fit, discoverability… |
+| [`security`](lenses/security.md) | boundary | 6 | trust-boundaries, input-validation, auth-and-authz, path-and-command-safety, secret-hygiene, fail-closed-defaults |
 
 Every pack scores 1-5 and defines each rung - for `ui`, *1 broken · 2 bad · 3 acceptable · 4 good · 5 exemplary*. The body covers what a unit is, how to enumerate exhaustively, what each dimension means with concrete 1 / 3 / 5 examples, what evidence looks like, and what each of the four perspectives should be hunting for.
 
