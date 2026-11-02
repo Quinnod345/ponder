@@ -208,6 +208,60 @@ try {
   const cardRes = await cmdHandler.fn(mockEngine, {});
   assert.ok(cardRes.text.includes('coverage  1/1 units (100%)'), `Expected coverage in card, got: ${cardRes.text}`);
 
+  // 7. Test units --files, letter grades, and delta --none / object wrappers
+  res = runPonder(['start', 'Test units --files and delta --none', '--lens', 'code', '--slug', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  res = runPonder(['predict', '--churn', '0.2', '--claim', 'initial pass', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  res = runPonder(['units', '--files', 'src/routes/auth.js', 'src/routes/admin.js', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  const filesUnits = JSON.parse(res.stdout);
+  assert.equal(filesUnits.units, 2);
+  assert.deepEqual(filesUnits.ids, ['u1', 'u2']);
+
+  const letterGradeFile = path.join(tmpRoot, 'letter-grades.json');
+  fs.writeFileSync(
+    letterGradeFile,
+    JSON.stringify([
+      { unit: 'u1', dimension: 'correctness', score: 'A', summary: 'Auth checked.' },
+      { unit: 'u2', dimension: 'correctness', grade: 'B', summary: 'Admin checked.' },
+    ]),
+  );
+  res = runPonder(['grade', '--file', letterGradeFile, '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  const letterGraded = JSON.parse(res.stdout);
+  assert.equal(letterGraded.seeded, 2);
+
+  res = runPonder(['deliberate', '--skip', '--why', 'Testing delta --none in pass 1', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  // Test delta --none flag in pass 1 revise phase
+  res = runPonder(['delta', '--none', '--why', 'All findings confirmed', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  const noneDelta = JSON.parse(res.stdout);
+  assert.equal(noneDelta.applied, 0);
+  assert.equal(noneDelta.coverage, 1);
+
+  res = runPonder(['judge', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['decide', 'continue', '--why', 'Proceed to pass 2 delta test', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['predict', '--churn', '0', '--claim', 'Zero churn pass 2', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  res = runPonder(['deliberate', '--skip', '--why', 'Testing quiet object delta in pass 2', '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+
+  // Test delta with {"added":[],"retracted":[],"modified":[]} in pass 2 revise phase
+  const quietObjFile = path.join(tmpRoot, 'quiet-delta.json');
+  fs.writeFileSync(quietObjFile, JSON.stringify({ added: [], retracted: [], modified: [] }));
+  res = runPonder(['delta', '--file', quietObjFile, '--session', 'ergo-plus', '--json'], { cwd: projDir });
+  assert.equal(res.status, 0, res.stderr);
+  const quietDelta = JSON.parse(res.stdout);
+  assert.equal(quietDelta.applied, 0);
+  assert.equal(quietDelta.coverage, 1);
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
