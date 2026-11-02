@@ -1,0 +1,6 @@
+{
+  "description": "Ponder (Mod): live deliberation status line and /ponder-status command for Claude Code. Reads .ponder/<slug>/session.json, units.json, and findings.json without modifying project files.",
+  "modules": [
+    "./register.mjs"
+  ]
+}

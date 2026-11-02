@@ -167,6 +167,47 @@ try {
   res = runPonder(['deliberate', '--file', aliasDelibFile, '--session', 'code-ergo', '--json'], { cwd: projDir });
   assert.equal(res.status, 0, res.stderr);
 
+  // 6. Test Claude Code Mod (hooks/register.mjs) against active .ponder session
+  const { register } = await import('../hooks/register.mjs');
+  const handlers = [];
+  register((event, matcherOrFn, maybeFn) => {
+    if (typeof matcherOrFn === 'function') {
+      handlers.push({ event, matcher: {}, fn: matcherOrFn });
+    } else {
+      handlers.push({ event, matcher: matcherOrFn || {}, fn: maybeFn });
+    }
+  });
+  let lastStatus = null;
+  const registeredCommands = [];
+  const mockEngine = {
+    session: { root: async () => projDir },
+    fs: {
+      exists: async (p) => fs.existsSync(p),
+      list: async (p) => fs.readdirSync(p),
+      read: async (p) => fs.readFileSync(p, 'utf8'),
+    },
+    command: {
+      register: async (cmd) => registeredCommands.push(cmd),
+    },
+    ui: {
+      status: (s) => {
+        lastStatus = s;
+      },
+    },
+  };
+  const startHandler = handlers.find((h) => h.event === 'session.start');
+  assert.ok(startHandler, 'session.start hook registered');
+  await startHandler.fn(mockEngine, {}, async () => ({}));
+  assert.equal(registeredCommands.length, 1);
+  assert.equal(registeredCommands[0].name, 'ponder-status');
+  assert.ok(lastStatus && lastStatus.includes('ponder (code-ergo)'), `Expected status line, got: ${lastStatus}`);
+  assert.ok(lastStatus.includes('1/1 units'), `Expected 1/1 units in status line, got: ${lastStatus}`);
+
+  const cmdHandler = handlers.find((h) => h.event === 'command.run' && h.matcher.command === 'ponder-status');
+  assert.ok(cmdHandler, 'command.run{command=ponder-status} hook registered');
+  const cardRes = await cmdHandler.fn(mockEngine, {});
+  assert.ok(cardRes.text.includes('coverage  1/1 units (100%)'), `Expected coverage in card, got: ${cardRes.text}`);
+
   console.log('scope-scan.test.mjs: all assertions passed');
 } finally {
   fs.rmSync(tmpRoot, { recursive: true, force: true });
