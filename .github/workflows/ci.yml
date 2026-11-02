@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Conformance & Scope Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify zero-dependency invariant and lens packs
+        run: |
+          ./bin/ponder doctor
+          ./test/conformance.sh -f deps
+          ./test/conformance.sh -f smoke
+          ./test/conformance.sh -f lens
+
+      - name: Run scope-scan, diff-seeding, and SARIF/PR-comment test suite
+        run: npm test
+
+      - name: Smoke test composite GitHub Action
+        uses: ./
+        with:
+          lens: security
+          diff-ref: HEAD~1

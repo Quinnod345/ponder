@@ -77,6 +77,15 @@ Or install directly as a Claude Code plugin or agent skill:
 npx skills add Quinnod345/ponder
 ```
 
+Or drop it into GitHub Actions (`.github/workflows/ponder.yml`) to verify ledgers, seed PR diff inventories, and export SARIF 2.1.0 + PR review comments:
+
+```yaml
+- uses: Quinnod345/ponder@main
+  with:
+    lens: security
+    diff-ref: origin/main
+```
+
 Or from a local checkout:
 
 ```sh

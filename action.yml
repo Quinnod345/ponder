@@ -1,0 +1,119 @@
+name: 'Ponder Deliberative Audit & Coverage Gate'
+description: 'Zero-dependency multi-pass deliberative review ledger, coverage gate, PR comment generator, and SARIF 2.1.0 exporter.'
+author: 'Quinn O''Donnell'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  session:
+    description: 'Ponder session slug to verify and export (optional; defaults to latest session in project).'
+    required: false
+    default: ''
+  project:
+    description: 'Project root directory containing .ponder/ or source files.'
+    required: false
+    default: '.'
+  lens:
+    description: 'Lens pack to use when seeding a diff session (code, security, architecture, ui, product, etc.).'
+    required: false
+    default: 'security'
+  diff-ref:
+    description: 'Optional git ref (e.g. origin/main or HEAD~1) to seed or validate units against via ponder units --diff.'
+    required: false
+    default: ''
+  sarif-output:
+    description: 'File path where SARIF 2.1.0 report will be written.'
+    required: false
+    default: 'ponder-report.sarif.json'
+  pr-comment-output:
+    description: 'File path where Markdown PR review summary will be written.'
+    required: false
+    default: 'ponder-pr-comment.md'
+
+outputs:
+  sarif-path:
+    description: 'Path to the generated SARIF 2.1.0 report file.'
+    value: ${{ steps.run-ponder.outputs.sarif_path }}
+  pr-comment-path:
+    description: 'Path to the generated Markdown PR review comment file.'
+    value: ${{ steps.run-ponder.outputs.pr_comment_path }}
+  status:
+    description: 'Session verification status.'
+    value: ${{ steps.run-ponder.outputs.status }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run Ponder CLI verification and report export
+      id: run-ponder
+      shell: bash
+      env:
+        PONDER_BIN: ${{ github.action_path }}/bin/ponder
+        PONDER_OCA: 'off'
+        INPUT_SESSION: ${{ inputs.session }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_LENS: ${{ inputs.lens }}
+        INPUT_DIFF_REF: ${{ inputs.diff-ref }}
+        INPUT_SARIF_OUT: ${{ inputs.sarif-output }}
+        INPUT_PR_COMMENT_OUT: ${{ inputs.pr-comment-output }}
+      run: |
+        set -euo pipefail
+        chmod +x "$PONDER_BIN"
+        "$PONDER_BIN" doctor
+
+        OUT_SARIF="${GITHUB_WORKSPACE:-$(pwd)}/$INPUT_SARIF_OUT"
+        OUT_PR_COMMENT="${GITHUB_WORKSPACE:-$(pwd)}/$INPUT_PR_COMMENT_OUT"
+
+        if [ -n "$INPUT_SESSION" ]; then
+          echo "Verifying Ponder session $INPUT_SESSION in $INPUT_PROJECT..."
+          (
+            cd "$INPUT_PROJECT"
+            "$PONDER_BIN" verify --session "$INPUT_SESSION"
+            "$PONDER_BIN" report --session "$INPUT_SESSION" --format sarif --out "$OUT_SARIF"
+            "$PONDER_BIN" report --session "$INPUT_SESSION" --format pr-comment --out "$OUT_PR_COMMENT"
+          )
+          echo "sarif_path=$OUT_SARIF" >> "$GITHUB_OUTPUT"
+          echo "pr_comment_path=$OUT_PR_COMMENT" >> "$GITHUB_OUTPUT"
+          echo "status=verified" >> "$GITHUB_OUTPUT"
+        elif [ -n "$INPUT_DIFF_REF" ]; then
+          echo "Seeding Ponder diff inventory against $INPUT_DIFF_REF with lens $INPUT_LENS..."
+          WORK_SLUG="ci-diff-$(date +%s)-$$"
+          HAD_PONDER_DIR=0
+          if [ -d "$INPUT_PROJECT/.ponder" ]; then
+            HAD_PONDER_DIR=1
+          fi
+          cleanup_diff_session() {
+            rm -rf "$INPUT_PROJECT/.ponder/$WORK_SLUG"
+            if [ "$HAD_PONDER_DIR" -eq 0 ] && [ -d "$INPUT_PROJECT/.ponder" ] && [ -z "$(ls -A "$INPUT_PROJECT/.ponder" 2>/dev/null || true)" ]; then
+              rmdir "$INPUT_PROJECT/.ponder" 2>/dev/null || true
+            fi
+          }
+          trap cleanup_diff_session EXIT
+          (
+            cd "$INPUT_PROJECT"
+            "$PONDER_BIN" start "CI diff audit ($INPUT_DIFF_REF)" --lens "$INPUT_LENS" --project . --slug "$WORK_SLUG"
+            "$PONDER_BIN" predict --session "$WORK_SLUG" --churn 0.15 --claim "Inspect changed files in git diff $INPUT_DIFF_REF"
+            "$PONDER_BIN" units --session "$WORK_SLUG" --diff "$INPUT_DIFF_REF"
+            "$PONDER_BIN" verify --session "$WORK_SLUG"
+            "$PONDER_BIN" report --session "$WORK_SLUG" --format sarif --out "$OUT_SARIF"
+            "$PONDER_BIN" report --session "$WORK_SLUG" --format pr-comment --out "$OUT_PR_COMMENT"
+          )
+          echo "sarif_path=$OUT_SARIF" >> "$GITHUB_OUTPUT"
+          echo "pr_comment_path=$OUT_PR_COMMENT" >> "$GITHUB_OUTPUT"
+          echo "status=seeded" >> "$GITHUB_OUTPUT"
+        elif [ -d "$INPUT_PROJECT/.ponder" ] && [ -n "$(ls -A "$INPUT_PROJECT/.ponder" 2>/dev/null || true)" ]; then
+          echo "Verifying latest Ponder session in $INPUT_PROJECT/.ponder..."
+          (
+            cd "$INPUT_PROJECT"
+            "$PONDER_BIN" verify
+            "$PONDER_BIN" report --format sarif --out "$OUT_SARIF"
+            "$PONDER_BIN" report --format pr-comment --out "$OUT_PR_COMMENT"
+          )
+          echo "sarif_path=$OUT_SARIF" >> "$GITHUB_OUTPUT"
+          echo "pr_comment_path=$OUT_PR_COMMENT" >> "$GITHUB_OUTPUT"
+          echo "status=verified" >> "$GITHUB_OUTPUT"
+        else
+          echo "No active .ponder sessions found and no diff-ref specified; environment verified."
+          echo "status=ready" >> "$GITHUB_OUTPUT"
+        fi
