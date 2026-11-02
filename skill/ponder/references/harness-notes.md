@@ -104,7 +104,7 @@ codex exec -C "$PWD" \
 ```
 
 - `-C, --cd <DIR>` - working root for the child.
-- `-s, --sandbox read-only|workspace-write|danger-full-access` - the child's own sandbox, independent
+- `-s, --sandbox read-only|workspace-write` - the child's own sandbox, independent
   of yours.
 - `--add-dir <DIR>` - extra writable directory, needed if the session state lives outside the workspace.
 - `-o, --output-last-message <FILE>` - writes the child's final message to a file. **This is what makes
@@ -190,13 +190,8 @@ Verified: `psql "postgres://localhost/oneiro" -tAc "select 1"` returns `1` from 
 into the project tree are fine. If a bridge call ever does get blocked, ponder degrades silently by
 design - check `.ponder/<slug>/oca.log`, not the engine.
 
-**Codex on this machine:** `~/.codex/config.toml` sets `sandbox_mode = "danger-full-access"` and
-`approval_policy = "never"`, so psql works and state can be written anywhere.
-
-**Codex under any other policy - including any `codex exec -s workspace-write` you spawn yourself.**
-The three below follow from Codex's documented sandbox semantics and were **not** reproduced on this
-machine, because the config above makes the failure path unreachable here. Treat them as what to
-expect, and check with `ponder doctor` rather than assuming:
+**Codex under `workspace-write` or `read-only` sandboxes (including any `codex exec -s workspace-write` you spawn yourself):**
+The three points below follow from Codex's documented sandbox semantics. Check with `ponder doctor` rather than assuming:
 
 - **Network is off under `workspace-write` by default.** `psql` to `postgres://localhost/oneiro` over
   TCP should fail. The bridge returns `null`, the loop runs identically, and you lose prior-pondering
