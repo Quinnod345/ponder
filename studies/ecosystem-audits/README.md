@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-four major open-source AI developer repositories (**2,326,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-five major open-source AI developer repositories (**2,514,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -28,6 +28,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 22. **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** (`92.5k`★) - Premier open-source AI software engineering agent platform, child conversation launcher, and canvas extension loader
 23. **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** (`119.8k`★) - Premier open-source browser agent library, CDP execution engine, and agent skill suite
 24. **[`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI)** (`60.4k`★) - Leading multi-agent role-playing framework, global hook unregistration leak, ZIP symlink traversal safety, and skill cache metadata integrity
+25. **[`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT)** (`187.9k`★) - Historic autonomous agent architecture, distributed cluster lock CAS refresh races, and dead pass cleanup
 
 ---
 
@@ -59,6 +60,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** | `92.5k`★ | `4/4` (`1.00`) | Retracted prototype pollution entrypoint bypass hypothesis after verifying ESM module namespace semantics and `typeof value.activate === "function"` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./openhands/report.md) · [`apply-plan.md`](./openhands/apply-plan.md) |
 | **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** | `119.8k`★ | `4/4` (`1.00`) | Retracted YAML unparseability hypothesis after verifying YAML 1.2 flow mapping specifications, refining finding to strict JSON trailing comma incompatibility | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./browser-use/report.md) · [`apply-plan.md`](./browser-use/apply-plan.md) |
 | **[`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI)** | `60.4k`★ | `4/4` (`1.00`) | Retracted prompt context injection crash hypothesis after verifying `format_skill_context` default fallback to `skill.name` (`tool.py:46-52`) | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./crewai/report.md) · [`apply-plan.md`](./crewai/apply-plan.md) |
+| **[`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT)** | `187.9k`★ | `4/4` (`1.00`) | Retracted memory scope graph corruption hypothesis after verifying `admit_sync_apply` fail-closed `DreamLockLostError` is safely handled by `orchestrator.py` returning `skipped=True` | **1** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./autogpt/report.md) · [`apply-plan.md`](./autogpt/apply-plan.md) |
 
 ---
 
@@ -68,7 +70,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all twenty-four audits:
+In all twenty-five audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
