@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-six major open-source AI developer repositories (**3,400,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-seven major open-source AI developer repositories (**3,460,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -50,6 +50,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 44. **[`run-llama/llama_index`](https://github.com/run-llama/llama_index)** (`52.8k`★) - Premier data framework and agent orchestration platform for LLMs, setup_agent in-place TextBlock state prompt mutation memory corruption, parse_agent_output retry_messages history duplication, handoff sender/receiver role inversion, ReActAgent system prompt dropping, and ChatMemoryBuffer multi-tool truncation
 45. **[`CopilotKit/CopilotKit`](https://github.com/CopilotKit/CopilotKit)** (`38.5k`★) - The frontend stack and agent runtime for Copilots and Generative UI, JSON Patch move ancestor deletion, intra-source MCP tool duplicate exposure, quadratic tool message search, and un-cancelled snapshot acquisition
 46. **[`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel)** (`28.7k`★) - Microsoft's enterprise agent orchestration framework, OrchestrationHandoffs operator precedence description wiping, multi-turn human input message cache omission, round-robin empty bounds, and concurrent collection lock escape
+47. **[`BerriAI/litellm`](https://github.com/BerriAI/litellm)** (`62.6k`★) - Universal AI gateway and proxy router, BudgetManager created_at import-time evaluation, unsorted kwargs cache key collision and miss hazards, non-atomic router metrics, and completion_cost candidate provider pollution
 
 ---
 
@@ -103,6 +104,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`run-llama/llama_index`](https://github.com/run-llama/llama_index)** | `52.8k`★ | `4/4` (`1.00`) | Retracted BaseWorkflowAgent unhashable type hypothesis after verifying `__hash__` returns `id(self)` explicitly (`base_agent.py:148-156`) | **3** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./llama-index/report.md) · [`apply-plan.md`](./llama-index/apply-plan.md) |
 | **[`CopilotKit/CopilotKit`](https://github.com/CopilotKit/CopilotKit)** | `38.5k`★ | `4/4` (`1.00`) | Retracted IPv4-mapped IPv6 address bypass hypothesis after verifying `buildAddressPolicy` normalizes addresses via `ipaddr.process` | **2** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./copilotkit/report.md) · [`apply-plan.md`](./copilotkit/apply-plan.md) |
 | **[`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel)** | `28.7k`★ | `4/4` (`1.00`) | Retracted DefaultTerminationStrategy infinite loop hypothesis after verifying outer range(maximum_iterations) loop bounds in AgentGroupChat (`agent_group_chat.py:145-165`) | **2** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./semantic-kernel/report.md) · [`apply-plan.md`](./semantic-kernel/apply-plan.md) |
+| **[`BerriAI/litellm`](https://github.com/BerriAI/litellm)** | `62.6k`★ | `4/4` (`1.00`) | Retracted _deployment_cost_map_rates KeyError hypothesis after verifying safe dict .get() fallback in router strategy (`lowest_cost.py:17-26`) | **3** | **6** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./litellm/report.md) · [`apply-plan.md`](./litellm/apply-plan.md) |
 
 ---
 
@@ -112,7 +114,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all forty-six audits:
+In all forty-seven audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
