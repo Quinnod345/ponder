@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-seven major open-source AI developer repositories (**3,460,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-eight major open-source AI developer repositories (**3,500,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -51,6 +51,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 45. **[`CopilotKit/CopilotKit`](https://github.com/CopilotKit/CopilotKit)** (`38.5k`★) - The frontend stack and agent runtime for Copilots and Generative UI, JSON Patch move ancestor deletion, intra-source MCP tool duplicate exposure, quadratic tool message search, and un-cancelled snapshot acquisition
 46. **[`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel)** (`28.7k`★) - Microsoft's enterprise agent orchestration framework, OrchestrationHandoffs operator precedence description wiping, multi-turn human input message cache omission, round-robin empty bounds, and concurrent collection lock escape
 47. **[`BerriAI/litellm`](https://github.com/BerriAI/litellm)** (`62.6k`★) - Universal AI gateway and proxy router, BudgetManager created_at import-time evaluation, unsorted kwargs cache key collision and miss hazards, non-atomic router metrics, and completion_cost candidate provider pollution
+48. **[`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy)** (`38.9k`★) - The framework for programming language models, Completions StopIteration on empty store and negative indexing rejection, _await_in_sync running event loop crash, ReAct extraction context exhaustion, Example unhashable type crash, and Evaluate parent directory creation
 
 ---
 
@@ -105,6 +106,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`CopilotKit/CopilotKit`](https://github.com/CopilotKit/CopilotKit)** | `38.5k`★ | `4/4` (`1.00`) | Retracted IPv4-mapped IPv6 address bypass hypothesis after verifying `buildAddressPolicy` normalizes addresses via `ipaddr.process` | **2** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./copilotkit/report.md) · [`apply-plan.md`](./copilotkit/apply-plan.md) |
 | **[`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel)** | `28.7k`★ | `4/4` (`1.00`) | Retracted DefaultTerminationStrategy infinite loop hypothesis after verifying outer range(maximum_iterations) loop bounds in AgentGroupChat (`agent_group_chat.py:145-165`) | **2** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./semantic-kernel/report.md) · [`apply-plan.md`](./semantic-kernel/apply-plan.md) |
 | **[`BerriAI/litellm`](https://github.com/BerriAI/litellm)** | `62.6k`★ | `4/4` (`1.00`) | Retracted _deployment_cost_map_rates KeyError hypothesis after verifying safe dict .get() fallback in router strategy (`lowest_cost.py:17-26`) | **3** | **6** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./litellm/report.md) · [`apply-plan.md`](./litellm/apply-plan.md) |
+| **[`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy)** | `38.9k`★ | `5/5` (`1.00`) | Retracted Example keys/values operator precedence hypothesis after confirming Python operator precedence binds not before or | **3** | **5** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./dspy/report.md) · [`apply-plan.md`](./dspy/apply-plan.md) |
 
 ---
 
@@ -114,7 +116,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all forty-seven audits:
+In all forty-eight audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
