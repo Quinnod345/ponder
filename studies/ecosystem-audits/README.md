@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against seventeen major open-source AI developer repositories (**1,857,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against eighteen major open-source AI developer repositories (**1,893,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -21,6 +21,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 15. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
 16. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
 17. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
+18. **[`continuedev/continue`](https://github.com/continuedev/continue)** (`36.4k`★) - Open-source AI coding assistant, security ignore boundaries, LanceDB dimension mismatch regex recovery, and DFS walker cache error handling
 
 ---
 
@@ -45,6 +46,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** | `40.5k`★ | `3/3` (`1.00`) | Retracted `stop-continuation.mjs` stdin hang hypothesis after verifying `readStdin` implements a strict 500ms safety timeout in `lib/stdin.mjs` | **2** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./oh-my-claudecode/report.md) · [`apply-plan.md`](./oh-my-claudecode/apply-plan.md) |
 | **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** | `110.7k`★ | `3/3` (`1.00`) | Retracted cloud provider credential stripping hypothesis after verifying `ENV_PRESERVE` explicit whitelist in `src/supervisor/env-sanitizer.ts:28-58` | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./claude-mem/report.md) · [`apply-plan.md`](./claude-mem/apply-plan.md) |
 | **[`cline/cline`](https://github.com/cline/cline)** | `71.2k`★ | `3/3` (`1.00`) | Retracted tool-policies environment expansion hypothesis after verifying static tool lookup without command shell interpolation in `apps/cli/src/runtime/tool-policies.ts:1-25` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./cline/report.md) · [`apply-plan.md`](./cline/apply-plan.md) |
+| **[`continuedev/continue`](https://github.com/continuedev/continue)** | `36.4k`★ | `3/3` (`1.00`) | Retracted non-recursive ignore bypass hypothesis after verifying `shouldIgnore` runs before recursive directory checks in `core/indexing/walkDir.ts:182-205` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./continue/report.md) · [`apply-plan.md`](./continue/apply-plan.md) |
 
 ---
 
@@ -54,7 +56,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all seventeen audits:
+In all eighteen audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
