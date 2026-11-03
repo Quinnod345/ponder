@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-seven major open-source AI developer repositories (**2,585,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-eight major open-source AI developer repositories (**2,615,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -31,6 +31,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 25. **[`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT)** (`187.9k`★) - Historic autonomous agent architecture, distributed cluster lock CAS refresh races, and dead pass cleanup
 26. **[`microsoft/autogen`](https://github.com/microsoft/autogen)** (`61.7k`★) - Multi-agent programming framework, single-threaded runtime task_done join stalls, cancellation token callback leaks, and context truncation
 27. **[`geekan/MetaGPT`](https://github.com/geekan/MetaGPT)** (`71.1k`★) - Multi-agent programming framework, team balance check archival bypass, subscription runner task leaks, and memory deletion guards
+28. **[`huggingface/smolagents`](https://github.com/huggingface/smolagents)** (`30.2k`★) - Hugging Face's code agent library, local python executor timeout thread pool blocking, agent state reset leakage, and MCP client list parameter normalization
 
 ---
 
@@ -65,6 +66,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT)** | `187.9k`★ | `4/4` (`1.00`) | Retracted memory scope graph corruption hypothesis after verifying `admit_sync_apply` fail-closed `DreamLockLostError` is safely handled by `orchestrator.py` returning `skipped=True` | **1** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./autogpt/report.md) · [`apply-plan.md`](./autogpt/apply-plan.md) |
 | **[`microsoft/autogen`](https://github.com/microsoft/autogen)** | `61.7k`★ | `4/4` (`1.00`) | Retracted queue shutdown task counter underflow hypothesis after verifying `shutdown(immediate=True)` checks `_unfinished_tasks > 0` before decrementing for drained unretrieved items (`_queue.py:201`) | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./autogen/report.md) · [`apply-plan.md`](./autogen/apply-plan.md) |
 | **[`geekan/MetaGPT`](https://github.com/geekan/MetaGPT)** | `71.1k`★ | `4/4` (`1.00`) | Retracted recover_path trailing slash hypothesis after verifying Path resolution normalizes directory separators on POSIX | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./metagpt/report.md) · [`apply-plan.md`](./metagpt/apply-plan.md) |
+| **[`huggingface/smolagents`](https://github.com/huggingface/smolagents)** | `30.2k`★ | `4/4` (`1.00`) | Retracted tool name shadowing hypothesis in `LocalPythonExecutor.send_tools` after verifying standard operations are properly scoped | **2** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./smolagents/report.md) · [`apply-plan.md`](./smolagents/apply-plan.md) |
 
 ---
 
@@ -74,7 +76,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all twenty-seven audits:
+In all twenty-eight audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
