@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Ponder",
+          "informationUri": "https://github.com/Quinnod345/ponder",
+          "version": "1.1.2",
+          "rules": [
+            {
+              "id": "failure-modes",
+              "name": "failure-modes",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: failure-modes"
+              }
+            },
+            {
+              "id": "correctness",
+              "name": "correctness",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: correctness"
+              }
+            },
+            {
+              "id": "reliability",
+              "name": "reliability",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: reliability"
+              }
+            },
+            {
+              "id": "performance",
+              "name": "performance",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: performance"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "failure-modes",
+          "level": "error",
+          "message": {
+            "text": "waitForCloudConversationId terminates polling on single transient network error and returns null conversation ID with launched status In src/services/child-conversation-launch.ts:360-376, waitForCloudConversationId polls getCloudAppConversationStartTask every 3 seconds until CLOUD_START_POLL_TIMEOUT_MS (180s) or until the conversation ID is populated. If getCloudAppConversationStartTask throws due to a transient network blip, gateway 502, or timeout, the .catch(() => null) handler returns null. The loop then executes if (!next) break, terminating the polling loop prematurely. The calling function launchCloudChild (lines 430-455) treats this as a successful launch, returning status: \"launched\" with url: null and conversation_id: null to the agent and user, falsely claiming the conversation started when polling merely aborted on a transient network fault. Recommendation: Implement an error retry counter in waitForCloudConversationId that tolerates up to 3 consecutive transient network errors with exponential backoff before aborting."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/services/child-conversation-launch.ts"
+                },
+                "region": {
+                  "startLine": 360,
+                  "endLine": 376
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/services/child-conversation-launch.ts"
+                },
+                "region": {
+                  "startLine": 430,
+                  "endLine": 455
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0001",
+            "unit": "module.openhands.child_conversation",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.98,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "correctness",
+          "level": "error",
+          "message": {
+            "text": "loadCanvasExtensionModule revokes blob object URL in synchronous finally block before async module evaluation settles In src/extensions/canvas-extension-module-loader.ts:33-44, loadCanvasExtensionModule creates a blob URL and calls await import(moduleUrl). In the finally block, it immediately invokes URL.revokeObjectURL(moduleUrl). While dynamic import resolves after the top-level script executes, revoking the object URL immediately invalidates import.meta.url and prevents the extension from loading secondary chunks, web workers, or dynamic assets referenced relative to the module URL. Recommendation: Defer URL.revokeObjectURL to extension deactivation or attach a short timeout (e.g. queueMicrotask / setTimeout) after module initialization to ensure all secondary resource fetches settle."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/extensions/canvas-extension-module-loader.ts"
+                },
+                "region": {
+                  "startLine": 33,
+                  "endLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0005",
+            "unit": "module.openhands.canvas_extension_loader",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.97,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "reliability",
+          "level": "warning",
+          "message": {
+            "text": "postClientToolResult drops client tool outcome silently without queued delivery when goal loop is active In src/services/client-tool-result.ts:20-25, postClientToolResult inspects useGoalStore.getState().statusByConversation[conversationId] and executes if (goalStatus?.active) return. While the comment explains the agent-server cancels active /goal loops on inbound messages, silently dropping client tool results without enqueueing them for delivery once the goal loop completes causes the conversation to lose tool receipts and state transitions initiated by client-side tools. Recommendation: Enqueue dropped tool results in a pending goal-completion buffer so the agent receives execution receipts when the active goal phase concludes."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/services/client-tool-result.ts"
+                },
+                "region": {
+                  "startLine": 20,
+                  "endLine": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0002",
+            "unit": "module.openhands.client_tool_result",
+            "severity": "should",
+            "score": 2,
+            "confidence": 0.95,
+            "effort": "s"
+          }
+        },
+        {
+          "ruleId": "performance",
+          "level": "warning",
+          "message": {
+            "text": "enqueue before completeSecretRequest creates ephemeral card flash for already-saved secrets In src/services/secret-request.ts:60-72, handleRequestSecretAction unconditionally calls useSecretRequestStore.getState().enqueue(request) before checking whether savedSecret exists. When savedSecret is found in Settings, it immediately calls completeSecretRequest(request, savedSecret), which calls store.dismiss(request.toolCallId). This triggers an unnecessary React render lifecycle and ephemeral card flash in the chat UI for secrets that are already persisted. Recommendation: Only call store.enqueue(request) when savedSecret is null, directly invoking completeSecretRequest without mounting the secret form card when the secret is already known."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/services/secret-request.ts"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0003",
+            "unit": "module.openhands.secret_request",
+            "severity": "should",
+            "score": 2,
+            "confidence": 0.94,
+            "effort": "xs"
+          }
+        }
+      ]
+    }
+  ]
+}
