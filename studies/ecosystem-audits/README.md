@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against fifteen major open-source AI developer repositories (**1,393,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against sixteen major open-source AI developer repositories (**1,464,000+ combined GitHub stars**):
 
 1. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
 2. **[`affaan-m/everything-claude-code`](https://github.com/affaan-m/ECC)** (`292.6k`★) - Agent harness performance optimization and hook system
@@ -11,14 +11,15 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 5. **[`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman)** (`116.1k`★) - Terse-response compression skill, standalone hook installers, and OpenCode plugin
 6. **[`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills)** (`111.7k`★) - Addy Osmani's production engineering skills and Claude Code hook suite
 7. **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** (`110.7k`★) - Persistent context across sessions for every agent (Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode)
-8. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
-9. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-10. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
-11. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-12. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
-13. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
-14. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
-15. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
+8. **[`cline/cline`](https://github.com/cline/cline)** (`71.2k`★) - Autonomous coding agent IDE extension and CLI, file access boundary controller, and detached hook process manager
+9. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
+10. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+11. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+12. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+13. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
+14. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
+15. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
+16. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
 
 ---
 
@@ -41,6 +42,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`anthropics/skills`](https://github.com/anthropics/skills)** | `186.8k`★ | `3/3` (`1.00`) | Retracted `quick_validate.py` kebab-case regex rejection hypothesis after verifying Agent Skills standard specification | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./anthropics-skills/report.md) · [`apply-plan.md`](./anthropics-skills/apply-plan.md) |
 | **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** | `40.5k`★ | `3/3` (`1.00`) | Retracted `stop-continuation.mjs` stdin hang hypothesis after verifying `readStdin` implements a strict 500ms safety timeout in `lib/stdin.mjs` | **2** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./oh-my-claudecode/report.md) · [`apply-plan.md`](./oh-my-claudecode/apply-plan.md) |
 | **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** | `110.7k`★ | `3/3` (`1.00`) | Retracted cloud provider credential stripping hypothesis after verifying `ENV_PRESERVE` explicit whitelist in `src/supervisor/env-sanitizer.ts:28-58` | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./claude-mem/report.md) · [`apply-plan.md`](./claude-mem/apply-plan.md) |
+| **[`cline/cline`](https://github.com/cline/cline)** | `71.2k`★ | `3/3` (`1.00`) | Retracted tool-policies environment expansion hypothesis after verifying static tool lookup without command shell interpolation in `apps/cli/src/runtime/tool-policies.ts:1-25` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./cline/report.md) · [`apply-plan.md`](./cline/apply-plan.md) |
 
 ---
 
@@ -50,7 +52,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all eight audits:
+In all sixteen audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
