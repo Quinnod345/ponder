@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-one major open-source AI developer repositories (**2,100,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-two major open-source AI developer repositories (**2,220,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -25,6 +25,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 19. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
 20. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
 21. **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** (`92.5k`★) - Premier open-source AI software engineering agent platform, child conversation launcher, and canvas extension loader
+22. **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** (`119.8k`★) - Premier open-source browser agent library, CDP execution engine, and agent skill suite
 
 ---
 
@@ -53,6 +54,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** | `49.9k`★ | `3/3` (`1.00`) | Retracted RepoMap SQLite tag drop hypothesis after verifying `tags_cache_error` falls through to `get_tags_raw` in `aider/repomap.py:250-265` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./aider/report.md) · [`apply-plan.md`](./aider/apply-plan.md) |
 | **[`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill)** | `66.4k`★ | `3/3` (`1.00`) | Retracted delivery channel webhook cleartext HTTP dispatch hypothesis after verifying `parsed.scheme == "https"` strict check (`watchlist.py:40-48`) | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./last30days-skill/report.md) · [`pr-comment.md`](./last30days-skill/pr-comment.md) · [PR #1364](https://github.com/mvanhorn/last30days-skill/pull/1364) |
 | **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** | `92.5k`★ | `4/4` (`1.00`) | Retracted prototype pollution entrypoint bypass hypothesis after verifying ESM module namespace semantics and `typeof value.activate === "function"` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./openhands/report.md) · [`apply-plan.md`](./openhands/apply-plan.md) |
+| **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** | `119.8k`★ | `4/4` (`1.00`) | Retracted YAML unparseability hypothesis after verifying YAML 1.2 flow mapping specifications, refining finding to strict JSON trailing comma incompatibility | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./browser-use/report.md) · [`apply-plan.md`](./browser-use/apply-plan.md) |
 
 ---
 
@@ -62,7 +64,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all twenty-one audits:
+In all twenty-two audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
