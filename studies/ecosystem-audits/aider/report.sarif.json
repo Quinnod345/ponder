@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Ponder",
+          "informationUri": "https://github.com/Quinnod345/ponder",
+          "version": "1.1.2",
+          "rules": [
+            {
+              "id": "reliability",
+              "name": "reliability",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: reliability"
+              }
+            },
+            {
+              "id": "failure-modes",
+              "name": "failure-modes",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: failure-modes"
+              }
+            },
+            {
+              "id": "robustness",
+              "name": "robustness",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: robustness"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "reliability",
+          "level": "error",
+          "message": {
+            "text": "getattr evaluates err.lineno before getattr execution and crashes with AttributeError on non-SyntaxError compile failures In aider/linter.py:177, lint_python_compile attempts to extract line numbers via getattr(err, \"end_lineno\", err.lineno). In Python, arguments to functions are evaluated before the function call executes. When compile(code, fname, \"exec\") raises a non-SyntaxError exception (such as ValueError: source code string cannot contain null bytes or a MemoryError), err has no lineno attribute. Evaluating err.lineno as the default argument immediately raises an unhandled AttributeError: \"ValueError\" object has no attribute \"lineno\", terminating the linter and crashing the agent turn. Recommendation: Use getattr(err, \"lineno\", 1) or check hasattr(err, \"lineno\") so default expression evaluation does not access non-existent attributes on ValueError exceptions."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "aider/linter.py"
+                },
+                "region": {
+                  "startLine": 175,
+                  "endLine": 185
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0001",
+            "unit": "module.aider.linter.python_compile",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.99,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "failure-modes",
+          "level": "error",
+          "message": {
+            "text": "auto_commit commits broken code with Ran the linter message before user confirm_ask or repair attempt In aider/coders/base_coder.py:1601, when auto_lint is enabled and edits are present, the coder calls self.auto_commit(edited, context=\"Ran the linter\") immediately before evaluating if lint_errors and asking ok = self.io.confirm_ask(\"Attempt to fix lint errors?\"). Consequently, files with syntax errors, broken imports, or fatal lint issues are committed to the git repository under a message claiming \"Ran the linter\", even when the linter returned fatal errors and before any repair attempt or user cancellation. Recommendation: Defer auto_commit until after lint errors are resolved or verify lint_errors is empty before committing."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "aider/coders/base_coder.py"
+                },
+                "region": {
+                  "startLine": 1599,
+                  "endLine": 1608
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0002",
+            "unit": "module.aider.coders.base_coder.auto_commit",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.98,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "robustness",
+          "level": "error",
+          "message": {
+            "text": "GitRepo subtree_only relative_to raises ValueError on symlinked working directories and silently ignores all repository files In aider/repo.py:536, when subtree_only is enabled, ignored_file_raw computes cwd_path = Path.cwd().resolve().relative_to(Path(self.root).resolve()). If self.root is a symlink or if cwd is traversed via a symlinked path where resolve() resolves to an alternate canonical prefix (such as /private/var on macOS or linked worktrees), relative_to raises ValueError. Line 537 catches ValueError and unconditionally returns True (\"Clearly, fname is not under cwd... so ignore it\"), silently causing all files in the repository to be treated as ignored. Recommendation: Compare resolved paths using commonpath or check os.path.realpath prefix before calling relative_to, or use Path.is_relative_to."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "aider/repo.py"
+                },
+                "region": {
+                  "startLine": 530,
+                  "endLine": 545
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0004",
+            "unit": "module.aider.repo.path_normalization",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.97,
+            "effort": "xs"
+          }
+        }
+      ]
+    }
+  ]
+}
