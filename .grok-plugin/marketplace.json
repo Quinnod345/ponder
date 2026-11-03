@@ -1,0 +1,25 @@
+{
+  "name": "ponder",
+  "owner": {
+    "name": "Quinn O'Donnell",
+    "url": "https://github.com/Quinnod345"
+  },
+  "description": "Marketplace for the Ponder convergent deliberation and code review plugin",
+  "plugins": [
+    {
+      "name": "ponder",
+      "description": "Convergent deliberation loop for coding agents - multi-pass, coverage-gated, append-only ledger review and planning.",
+      "version": "1.1.2",
+      "category": "developer-tools",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Quinnod345/ponder.git"
+      },
+      "homepage": "https://github.com/Quinnod345/ponder",
+      "keywords": [
+        "ponder",
+        "ponder review"
+      ]
+    }
+  ]
+}
