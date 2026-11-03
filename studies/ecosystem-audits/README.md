@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against fifty major open-source AI developer repositories (**3,660,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against fifty-one major open-source AI developer repositories (**3,750,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -54,6 +54,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 48. **[`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy)** (`38.9k`★) - The framework for programming language models, Completions StopIteration on empty store and negative indexing rejection, _await_in_sync running event loop crash, ReAct extraction context exhaustion, Example unhashable type crash, and Evaluate parent directory creation
 49. **[`openai/swarm`](https://github.com/openai/swarm)** (`22.1k`★) - OpenAI's lightweight multi-agent orchestration framework, handle_tool_calls local variable co_varnames collisions, ChatCompletionMessage sender serialization loss, streaming parallel tool call truncation, and REPL naive colon argument replacement
 50. **[`langchain-ai/langchain`](https://github.com/langchain-ai/langchain)** (`149.0k`★) - The flagship open-source agent engineering platform, AsyncCallbackManager on_llm_start non-inline handler drop, RunnableSequence batch uncaught exception output truncation, BaseTool direct invoke artifact discard, AgentFinish return_values in-place mutation, and non-monotonic wall-clock execution timeouts
+51. **[`modelcontextprotocol/servers`](https://github.com/modelcontextprotocol/servers)** (`91.8k`★) - Official Model Context Protocol reference servers, KnowledgeGraphManager saveGraph missing directory creation, intra-batch observation duplicate pollution, quadratic deletion array scans, and multiline thought ASCII box border destruction
 
 ---
 
@@ -111,6 +112,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy)** | `38.9k`★ | `5/5` (`1.00`) | Retracted Example keys/values operator precedence hypothesis after confirming Python operator precedence binds not before or | **3** | **5** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./dspy/report.md) · [`apply-plan.md`](./dspy/apply-plan.md) |
 | **[`openai/swarm`](https://github.com/openai/swarm)** | `22.1k`★ | `5/5` (`1.00`) | Retracted shared tool dict mutation hypothesis after verifying function_to_json allocates fresh parameters dictionaries on each invocation | **4** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./swarm/report.md) · [`apply-plan.md`](./swarm/apply-plan.md) |
 | **[`langchain-ai/langchain`](https://github.com/langchain-ai/langchain)** | `149.0k`★ | `4/4` (`1.00`) | Retracted asyncio_timeout AttributeError hypothesis after confirming backward compatibility wrapper in `langchain_classic.utilities.asyncio` | **3** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./langchain/report.md) · [`apply-plan.md`](./langchain/apply-plan.md) |
+| **[`modelcontextprotocol/servers`](https://github.com/modelcontextprotocol/servers)** | `91.8k`★ | `4/4` (`1.00`) | Retracted symlink traversal hypothesis after confirming realpathWithTimeout resolution in filesystem `lib.ts` validatePath | **2** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./mcp-servers/report.md) · [`apply-plan.md`](./mcp-servers/apply-plan.md) |
 
 ---
 
@@ -120,7 +122,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all fifty audits:
+In all fifty-one audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
