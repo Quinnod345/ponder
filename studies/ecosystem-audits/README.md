@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-one major open-source AI developer repositories (**3,182,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-two major open-source AI developer repositories (**3,237,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -45,6 +45,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 39. **[`khoj-ai/khoj`](https://github.com/khoj-ai/khoj)** (`38.0k`★) - Autonomous AI second brain and agent platform, remote E2B sandbox leaks, Terrarium mimetype AttributeError, GroundingAgent None tracer crash, and MCP SSE exit-stack leak
 40. **[`Mintplex-Labs/anything-llm`](https://github.com/Mintplex-Labs/anything-llm)** (`67.9k`★) - All-in-one local-first AI agent platform, unhandled tool execution crashes, monotonic CLI printing promise growth, RAG memory deduplication error poisoning, and DeepSeek search timeout absence
 41. **[`stanford-oval/storm`](https://github.com/stanford-oval/storm)** (`31.8k`★) - Stanford University's autonomous multi-perspective research and synthesis agent framework, update_section reference pruning off-by-one citation deletion, parse_article_into_dict line-wide hash level inflation and trailing title truncation, runner perspective argument override, and unencoded search URL queries
+42. **[`AntonOsika/gpt-engineer`](https://github.com/AntonOsika/gpt-engineer)** (`55.0k`★) - Foundational autonomous AI codegen agent and CLI, OrderedDict line 0 diff prepending bottom-append corruption, parse_hunk_header single-line anchor rejection, TokenUsageLog quadratic cumulative cost inflation, and subprocess readline pipe buffer deadlock
 
 ---
 
@@ -93,6 +94,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`khoj-ai/khoj`](https://github.com/khoj-ai/khoj)** | `38.0k`★ | `4/4` (`1.00`) | Retracted missing-close lifecycle hypothesis after verifying `BrowserEnvironment.close()` explicitly stops `self.browser` and `self.playwright` | **4** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./khoj/report.md) · [`apply-plan.md`](./khoj/apply-plan.md) |
 | **[`Mintplex-Labs/anything-llm`](https://github.com/Mintplex-Labs/anything-llm)** | `67.9k`★ | `4/4` (`1.00`) | Retracted tiktoken non-ASCII token counting crash hypothesis after verifying TokenManager multi-byte UTF-8 handling | **7** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./anything-llm/report.md) · [`apply-plan.md`](./anything-llm/apply-plan.md) |
 | **[`stanford-oval/storm`](https://github.com/stanford-oval/storm)** | `31.8k`★ | `5/5` (`1.00`) | Retracted citation bracket IndexError hypothesis after verifying `re.sub(r"\[(\d+)\]", ...)` strictly requires digits and ignores empty brackets safely | **6** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./storm/report.md) · [`apply-plan.md`](./storm/apply-plan.md) |
+| **[`AntonOsika/gpt-engineer`](https://github.com/AntonOsika/gpt-engineer)** | `55.0k`★ | `4/4` (`1.00`) | Retracted JPG suffix MIME hypothesis after verifying `disk_memory.py:121-127` handles `.jpg` safely via ternary check | **6** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./gpt-engineer/report.md) · [`apply-plan.md`](./gpt-engineer/apply-plan.md) |
 
 ---
 
@@ -102,7 +104,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all forty-one audits:
+In all forty-two audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
