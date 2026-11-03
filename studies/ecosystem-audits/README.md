@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirty-four major open-source AI developer repositories (**2,955,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirty-six major open-source AI developer repositories (**3,007,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -38,6 +38,8 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 32. **[`assafelovic/gpt-researcher`](https://github.com/assafelovic/gpt-researcher)** (`30.5k`★) - Leading open-source autonomous deep research agent, recursive context duplication, document loader event loop blocking, relative path collisions, and MCP client lifecycle cleanup
 33. **[`mem0ai/mem0`](https://github.com/mem0ai/mem0)** (`68.3k`★) - The memory layer for AI agents, daemon thread fire-and-forget ingestion drops, SQLite batch message timestamp collisions, synchronous event-loop ping blocking, and raw addition persistence bypass
 34. **[`agno-agi/agno`](https://github.com/agno-agi/agno)** (`43.0k`★) - The self-driving agent platform, parallel workflow mutable session_state race condition, team parallel task completion order non-determinism, and synchronous database event-loop blocking
+35. **[`camel-ai/camel`](https://github.com/camel-ai/camel)** (`18.0k`★) - Pioneering communicative multi-agent societies, task dependency cycle detection, workforce event loop thread blocking, step timeout executor hangs, and non-atomic chat storage clear
+36. **[`OpenBMB/ChatDev`](https://github.com/OpenBMB/ChatDev)** (`34.6k`★) - Communicative agent collaboration for software development, parallel executor human node serialization omission, cycle manager non-deterministic set stringification, and file tools workspace root deletion escape
 
 ---
 
@@ -80,6 +82,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`mem0ai/mem0`](https://github.com/mem0ai/mem0)** | `68.3k`★ | `4/4` (`1.00`) | Retracted `_prepare_messages` IndexError hypothesis after verifying system prompt prepending produces non-empty list of length 1 | **4** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./mem0/report.md) · [`apply-plan.md`](./mem0/apply-plan.md) |
 | **[`agno-agi/agno`](https://github.com/agno-agi/agno)** | `43.0k`★ | `4/4` (`1.00`) | Retracted `execute_task` dependency check alarm after verifying `TaskList._update_blocked_statuses()` marks dependent tasks `TaskStatus.blocked` on creation | **3** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./agno/report.md) · [`apply-plan.md`](./agno/apply-plan.md) |
 | **[`camel-ai/camel`](https://github.com/camel-ai/camel)** | `18.0k`★ | `4/4` (`1.00`) | Retracted `Task.set_state` transition check hypothesis after verifying Task is intentionally an open state holder for rollback/reset workflows, added `assert` stripping in `TaskManager.add_tasks` | **3** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./camel/report.md) · [`apply-plan.md`](./camel/apply-plan.md) |
+| **[`OpenBMB/ChatDev`](https://github.com/OpenBMB/ChatDev)** | `34.6k`★ | `4/4` (`1.00`) | Retracted `describe_available_files` symlink recursion alarm after verifying `iter_workspace_entries` enforces `max_depth=5` and path containment | **4** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./chatdev/report.md) · [`apply-plan.md`](./chatdev/apply-plan.md) |
 
 ---
 
@@ -89,7 +92,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all thirty-five audits:
+In all thirty-six audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
