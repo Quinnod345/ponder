@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-nine major open-source AI developer repositories (**2,775,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirty major open-source AI developer repositories (**2,794,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -33,6 +33,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 27. **[`geekan/MetaGPT`](https://github.com/geekan/MetaGPT)** (`71.1k`★) - Multi-agent programming framework, team balance check archival bypass, subscription runner task leaks, and memory deletion guards
 28. **[`huggingface/smolagents`](https://github.com/huggingface/smolagents)** (`30.2k`★) - Hugging Face's code agent library, local python executor timeout thread pool blocking, agent state reset leakage, and MCP client list parameter normalization
 29. **[`langgenius/dify`](https://github.com/langgenius/dify)** (`160.3k`★) - Premier open-source LLM app development and agent orchestration platform, parallel tool execution database session lifecycle, observation dictionary collision, thought duplication, and history token truncation
+30. **[`elizaOS/eliza`](https://github.com/elizaOS/eliza)** (`19.8k`★) - Premier open-source agentic operating system, container subcommand enforcement, unhandled service promise rejections on plugin unload, and conversation memory provenance mutation
 
 ---
 
@@ -69,6 +70,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`geekan/MetaGPT`](https://github.com/geekan/MetaGPT)** | `71.1k`★ | `4/4` (`1.00`) | Retracted recover_path trailing slash hypothesis after verifying Path resolution normalizes directory separators on POSIX | **1** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./metagpt/report.md) · [`apply-plan.md`](./metagpt/apply-plan.md) |
 | **[`huggingface/smolagents`](https://github.com/huggingface/smolagents)** | `30.2k`★ | `4/4` (`1.00`) | Retracted tool name shadowing hypothesis in `LocalPythonExecutor.send_tools` after verifying standard operations are properly scoped | **2** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./smolagents/report.md) · [`apply-plan.md`](./smolagents/apply-plan.md) |
 | **[`langgenius/dify`](https://github.com/langgenius/dify)** | `160.3k`★ | `4/4` (`1.00`) | Retracted prompt tool update mutation hypothesis after verifying update_prompt_message_tool creates cloned ToolPromptMessage objects | **2** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./dify/report.md) · [`apply-plan.md`](./dify/apply-plan.md) |
+| **[`elizaOS/eliza`](https://github.com/elizaOS/eliza)** | `19.8k`★ | `4/4` (`1.00`) | Retracted container command flag syntax hypothesis after verifying command allowlist and BLOCKED_CONTAINER_FLAGS pattern matching | **2** | **6** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./eliza/report.md) · [`apply-plan.md`](./eliza/apply-plan.md) |
 
 ---
 
@@ -78,7 +80,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all twenty-nine audits:
+In all thirty audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
