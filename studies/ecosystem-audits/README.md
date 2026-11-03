@@ -2,20 +2,21 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twelve major open-source AI developer repositories (**1,055,700+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirteen major open-source AI developer repositories (**1,242,500+ combined GitHub stars**):
 
 1. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
 2. **[`affaan-m/everything-claude-code`](https://github.com/affaan-m/ECC)** (`292.6k`★) - Agent harness performance optimization and hook system
-3. **[`garrytan/gstack`](https://github.com/garrytan/gstack)** (`138.2k`★) - Garry Tan's Claude Code software factory and PreToolUse safety/boundary hooks
-4. **[`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman)** (`116.1k`★) - Terse-response compression skill, standalone hook installers, and OpenCode plugin
-5. **[`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills)** (`111.7k`★) - Addy Osmani's production engineering skills and Claude Code hook suite
-6. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-7. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
-8. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-9. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
-10. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
-11. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
-12. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
+3. **[`anthropics/skills`](https://github.com/anthropics/skills)** (`186.8k`★) - Official Anthropic agent skills repository, skill-creator toolchain, and webapp-testing supervisor
+4. **[`garrytan/gstack`](https://github.com/garrytan/gstack)** (`138.2k`★) - Garry Tan's Claude Code software factory and PreToolUse safety/boundary hooks
+5. **[`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman)** (`116.1k`★) - Terse-response compression skill, standalone hook installers, and OpenCode plugin
+6. **[`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills)** (`111.7k`★) - Addy Osmani's production engineering skills and Claude Code hook suite
+7. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+8. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+9. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+10. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
+11. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
+12. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
+13. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
 
 ---
 
@@ -35,6 +36,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** | `6.7k`★ | `3/3` (`1.00`) | Retracted JSON syntax error hypothesis after verifying `.claude-plugin/marketplace.json` valid parser output and strict `jailPath` allowlists | **1** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./dev-browser/report.md) · [`apply-plan.md`](./dev-browser/apply-plan.md) |
 | **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** | `1.0k`★ | `3/3` (`1.00`) | Retracted gate shell command injection hypothesis after verifying predefined gate dispatch and shlex argument parsing (`gates.py:40-95`) | **2** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./sssf/report.md) · [`apply-plan.md`](./sssf/apply-plan.md) · [PR #23](https://github.com/disler/super-simple-software-factory/pull/23) |
 | **[`coleam00/skills`](https://github.com/coleam00/skills)** | `727`★ | `3/3` (`1.00`) | Retracted `_relative` out-of-tree symlink traversal hypothesis after verifying `path.resolve().relative_to(root.resolve())` fails closed via `ValueError` and is caught by `except Exception:` (`hooks/pre_tool_use_dependencies.py:64-72`) | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./cole-skills/report.md) · [`apply-plan.md`](./cole-skills/apply-plan.md) |
+| **[`anthropics/skills`](https://github.com/anthropics/skills)** | `186.8k`★ | `3/3` (`1.00`) | Retracted `quick_validate.py` kebab-case regex rejection hypothesis after verifying Agent Skills standard specification | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./anthropics-skills/report.md) · [`apply-plan.md`](./anthropics-skills/apply-plan.md) |
 
 ---
 
