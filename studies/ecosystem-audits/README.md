@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirty-two major open-source AI developer repositories (**2,844,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against thirty-three major open-source AI developer repositories (**2,912,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -36,6 +36,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 30. **[`elizaOS/eliza`](https://github.com/elizaOS/eliza)** (`19.8k`★) - Premier open-source agentic operating system, container subcommand enforcement, unhandled service promise rejections on plugin unload, and conversation memory provenance mutation
 31. **[`SWE-agent/SWE-agent`](https://github.com/SWE-agent/SWE-agent)** (`20.7k`★) - NeurIPS 2024 autonomous software engineering agent framework, chooser exception unbound locals, credential exposure in sandbox git configs, blocklist prefix overmatching, and trajectory export bounds
 32. **[`assafelovic/gpt-researcher`](https://github.com/assafelovic/gpt-researcher)** (`30.5k`★) - Leading open-source autonomous deep research agent, recursive context duplication, document loader event loop blocking, relative path collisions, and MCP client lifecycle cleanup
+33. **[`mem0ai/mem0`](https://github.com/mem0ai/mem0)** (`68.3k`★) - The memory layer for AI agents, daemon thread fire-and-forget ingestion drops, SQLite batch message timestamp collisions, synchronous event-loop ping blocking, and raw addition persistence bypass
 
 ---
 
@@ -75,6 +76,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`elizaOS/eliza`](https://github.com/elizaOS/eliza)** | `19.8k`★ | `4/4` (`1.00`) | Retracted container command flag syntax hypothesis after verifying command allowlist and BLOCKED_CONTAINER_FLAGS pattern matching | **2** | **6** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./eliza/report.md) · [`apply-plan.md`](./eliza/apply-plan.md) |
 | **[`SWE-agent/SWE-agent`](https://github.com/SWE-agent/SWE-agent)** | `20.7k`★ | `4/4` (`1.00`) | Retracted subprocess group termination hypothesis after verifying SWE-ReX BashInterruptAction handles container session signals cleanly | **2** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./swe-agent/report.md) · [`apply-plan.md`](./swe-agent/apply-plan.md) |
 | **[`assafelovic/gpt-researcher`](https://github.com/assafelovic/gpt-researcher)** | `30.5k`★ | `4/4` (`1.00`) | Retracted unextracted PDF false alarm after verifying `_MIN_PDF_MARKER_HITS = 2` requires multiple structural hits or `%PDF-` prefix | **2** | **4** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./gpt-researcher/report.md) · [`apply-plan.md`](./gpt-researcher/apply-plan.md) |
+| **[`mem0ai/mem0`](https://github.com/mem0ai/mem0)** | `68.3k`★ | `4/4` (`1.00`) | Retracted `_prepare_messages` IndexError hypothesis after verifying system prompt prepending produces non-empty list of length 1 | **4** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./mem0/report.md) · [`apply-plan.md`](./mem0/apply-plan.md) |
 
 ---
 
@@ -84,7 +86,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all thirty-two audits:
+In all thirty-three audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
