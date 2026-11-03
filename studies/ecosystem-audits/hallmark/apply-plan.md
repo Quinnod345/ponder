@@ -16,3 +16,6 @@ Generated from Ponder deliberation audit session `hallmark` (4 passes, 1.00 cove
 - **Target:** `skills/hallmark/scripts/install-hook.mjs:29-33`
 - **Action:** In `withoutOurs`, filter out entries where `hooks` is empty, and on `--remove`, delete `settings.hooks.PostToolUse` if empty.
 - **Impact:** Leaves `settings.json` clean without orphaned empty arrays.
+
+## Live PR Receipt
+- Submitted PR #122 (https://github.com/Nutlope/hallmark/pull/122) addressing Priority 1 and Priority 2 with unit test coverage.
