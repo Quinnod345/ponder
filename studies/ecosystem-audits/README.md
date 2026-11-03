@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-two major open-source AI developer repositories (**2,220,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty-three major open-source AI developer repositories (**2,266,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -15,17 +15,18 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 9. **[`cline/cline`](https://github.com/cline/cline)** (`71.2k`★) - Autonomous coding agent IDE extension and CLI, file access boundary controller, and detached hook process manager
 10. **[`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill)** (`66.4k`★) - AI agent research skill for Claude Code and Codex, batch duplicate URL collapsing, SQLite null engagement coalescing, and webhook delivery error telemetry
 11. **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** (`49.9k`★) - Terminal AI pair programming CLI, Python compilation linter error formatting, auto-commit lifecycle safety, and GitRepo subtree-only symlink path comparison
-12. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
-13. **[`continuedev/continue`](https://github.com/continuedev/continue)** (`36.4k`★) - Open-source AI coding assistant, security ignore boundaries, LanceDB dimension mismatch regex recovery, and DFS walker cache error handling
-14. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-15. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
-16. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-17. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
-18. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
-19. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
-20. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
-21. **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** (`92.5k`★) - Premier open-source AI software engineering agent platform, child conversation launcher, and canvas extension loader
-22. **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** (`119.8k`★) - Premier open-source browser agent library, CDP execution engine, and agent skill suite
+12. **[`Nutlope/hallmark`](https://github.com/Nutlope/hallmark)** (`46.1k`★) - Anti-AI-slop mechanical design linter and skill, PostToolUse lint-hook path separators, atomic install EXDEV handling, and settings cleanup
+13. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
+14. **[`continuedev/continue`](https://github.com/continuedev/continue)** (`36.4k`★) - Open-source AI coding assistant, security ignore boundaries, LanceDB dimension mismatch regex recovery, and DFS walker cache error handling
+15. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+16. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+17. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+18. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
+19. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
+20. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
+21. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
+22. **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** (`92.5k`★) - Premier open-source AI software engineering agent platform, child conversation launcher, and canvas extension loader
+23. **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** (`119.8k`★) - Premier open-source browser agent library, CDP execution engine, and agent skill suite
 
 ---
 
@@ -52,6 +53,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`cline/cline`](https://github.com/cline/cline)** | `71.2k`★ | `3/3` (`1.00`) | Retracted tool-policies environment expansion hypothesis after verifying static tool lookup without command shell interpolation in `apps/cli/src/runtime/tool-policies.ts:1-25` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./cline/report.md) · [`apply-plan.md`](./cline/apply-plan.md) |
 | **[`continuedev/continue`](https://github.com/continuedev/continue)** | `36.4k`★ | `3/3` (`1.00`) | Retracted non-recursive ignore bypass hypothesis after verifying `shouldIgnore` runs before recursive directory checks in `core/indexing/walkDir.ts:182-205` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./continue/report.md) · [`apply-plan.md`](./continue/apply-plan.md) |
 | **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** | `49.9k`★ | `3/3` (`1.00`) | Retracted RepoMap SQLite tag drop hypothesis after verifying `tags_cache_error` falls through to `get_tags_raw` in `aider/repomap.py:250-265` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./aider/report.md) · [`apply-plan.md`](./aider/apply-plan.md) |
+| **[`Nutlope/hallmark`](https://github.com/Nutlope/hallmark)** | `46.1k`★ | `4/4` (`1.00`) | Retracted atomic save() symlink clobbering hypothesis after verifying `realpathSync` canonical path resolution (`install-hook.mjs:40`) | **1** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./hallmark/report.md) · [`apply-plan.md`](./hallmark/apply-plan.md) |
 | **[`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill)** | `66.4k`★ | `3/3` (`1.00`) | Retracted delivery channel webhook cleartext HTTP dispatch hypothesis after verifying `parsed.scheme == "https"` strict check (`watchlist.py:40-48`) | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./last30days-skill/report.md) · [`pr-comment.md`](./last30days-skill/pr-comment.md) · [PR #1364](https://github.com/mvanhorn/last30days-skill/pull/1364) |
 | **[`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands)** | `92.5k`★ | `4/4` (`1.00`) | Retracted prototype pollution entrypoint bypass hypothesis after verifying ESM module namespace semantics and `typeof value.activate === "function"` | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./openhands/report.md) · [`apply-plan.md`](./openhands/apply-plan.md) |
 | **[`browser-use/browser-use`](https://github.com/browser-use/browser-use)** | `119.8k`★ | `4/4` (`1.00`) | Retracted YAML unparseability hypothesis after verifying YAML 1.2 flow mapping specifications, refining finding to strict JSON trailing comma incompatibility | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./browser-use/report.md) · [`apply-plan.md`](./browser-use/apply-plan.md) |
@@ -64,7 +66,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all twenty-two audits:
+In all twenty-three audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
