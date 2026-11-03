@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Ponder",
+          "informationUri": "https://github.com/Quinnod345/ponder",
+          "version": "1.1.2",
+          "rules": [
+            {
+              "id": "reliability",
+              "name": "reliability",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: reliability"
+              }
+            },
+            {
+              "id": "robustness",
+              "name": "robustness",
+              "shortDescription": {
+                "text": "Ponder architecture lens dimension: robustness"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "reliability",
+          "level": "error",
+          "message": {
+            "text": "Duplicate source_url entries within a single store_findings batch trigger conflict handling and inflate sighting_count prematurely When multiple findings share the same source_url in a single store_findings call, the first tuple inserts while the second tuple triggers ON CONFLICT(source_url) DO UPDATE in the same run. This increments sighting_count to 2 immediately and returns both new and updated counts for a single run. Recommendation: Collapse duplicate source_url entries in memory before executing the batch SQLite insert."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/last30days/scripts/store.py"
+                },
+                "region": {
+                  "startLine": 300,
+                  "endLine": 340
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0001",
+            "unit": "module.last30days.store.store_findings",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.99,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "reliability",
+          "level": "error",
+          "message": {
+            "text": "Scalar max(NULL, score) in SQLite returns NULL during conflict updates when existing engagement_score is NULL In SQLite scalar max(a, b) returns NULL if either argument is NULL. An existing finding with engagement_score IS NULL drops incoming engagement scores during conflict updates unless explicitly coalesced with coalesce(engagement_score, 0). Recommendation: Use max(coalesce(engagement_score, 0), excluded.engagement_score) in the conflict update clause."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/last30days/scripts/store.py"
+                },
+                "region": {
+                  "startLine": 320,
+                  "endLine": 335
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0002",
+            "unit": "module.last30days.store.findings_from_report",
+            "severity": "must",
+            "score": 1,
+            "confidence": 0.98,
+            "effort": "xs"
+          }
+        },
+        {
+          "ruleId": "robustness",
+          "level": "warning",
+          "message": {
+            "text": "Webhook delivery suppresses HTTP connection errors via broad Exception catch without structured retry telemetry In watchlist.py:53, _deliver_findings catches all Exception instances with a generic print to stderr. While this prevents research runs from failing on transient webhook outages, downstream callers receive no structured exit code or telemetry regarding whether topic announcements were successfully delivered. Recommendation: Log structured webhook delivery status and record delivery failures in the store audit log."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skills/last30days/scripts/watchlist.py"
+                },
+                "region": {
+                  "startLine": 50,
+                  "endLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "f-0004",
+            "unit": "module.last30days.watchlist",
+            "severity": "should",
+            "score": 1,
+            "confidence": 0.96,
+            "effort": "xs"
+          }
+        }
+      ]
+    }
+  ]
+}

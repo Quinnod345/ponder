@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against nineteen major open-source AI developer repositories (**1,942,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against twenty major open-source AI developer repositories (**2,008,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -13,16 +13,17 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 7. **[`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills)** (`111.7k`★) - Addy Osmani's production engineering skills and Claude Code hook suite
 8. **[`thedotmack/claude-mem`](https://github.com/thedotmack/claude-mem)** (`110.7k`★) - Persistent context across sessions for every agent (Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode)
 9. **[`cline/cline`](https://github.com/cline/cline)** (`71.2k`★) - Autonomous coding agent IDE extension and CLI, file access boundary controller, and detached hook process manager
-10. **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** (`49.9k`★) - Terminal AI pair programming CLI, Python compilation linter error formatting, auto-commit lifecycle safety, and GitRepo subtree-only symlink path comparison
-11. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
-12. **[`continuedev/continue`](https://github.com/continuedev/continue)** (`36.4k`★) - Open-source AI coding assistant, security ignore boundaries, LanceDB dimension mismatch regex recovery, and DFS walker cache error handling
-13. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
-14. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
-15. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
-16. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
-17. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
-18. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
-19. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
+10. **[`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill)** (`66.4k`★) - AI agent research skill for Claude Code and Codex, batch duplicate URL collapsing, SQLite null engagement coalescing, and webhook delivery error telemetry
+11. **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** (`49.9k`★) - Terminal AI pair programming CLI, Python compilation linter error formatting, auto-commit lifecycle safety, and GitRepo subtree-only symlink path comparison
+12. **[`Yeachan-Heo/oh-my-claudecode`](https://github.com/Yeachan-Heo/oh-my-claudecode)** (`40.5k`★) - Teams-first multi-agent orchestration for Claude Code, thinking block validator, and todo continuation hooks
+13. **[`continuedev/continue`](https://github.com/continuedev/continue)** (`36.4k`★) - Open-source AI coding assistant, security ignore boundaries, LanceDB dimension mismatch regex recovery, and DFS walker cache error handling
+14. **[`EveryInc/compound-engineering-plugin`](https://github.com/EveryInc/compound-engineering-plugin)** (`25.7k`★) - Multi-target AI coding plugin installer/converter (`Claude Code`, `Codex`, `Pi`, `OpenCode`, `Cursor`, etc.)
+15. **[`coleam00/Archon`](https://github.com/coleam00/Archon)** (`23.8k`★) - Deterministic AI harness builder and self-hosted workflow server
+16. **[`steipete/CodexBar`](https://github.com/steipete/CodexBar)** (`22.9k`★) - macOS menu-bar usage monitor and CLI process supervisor for Codex, Claude, Cursor, and Copilot
+17. **[`mattpocock/sandcastle`](https://github.com/mattpocock/sandcastle)** (`8.8k`★) - TypeScript agent sandboxing and orchestration engine (`Bubblewrap`, `Seatbelt`, Docker, Podman)
+18. **[`SawyerHood/dev-browser`](https://github.com/SawyerHood/dev-browser)** (`6.7k`★) - Persistent browser automation skill, CLI, and Puppeteer daemon for Claude Code and coding agents
+19. **[`disler/super-simple-software-factory`](https://github.com/disler/super-simple-software-factory)** (`1.0k`★) - Deterministic graph execution harness and multi-agent workflow framework (`SSSF`)
+20. **[`coleam00/skills`](https://github.com/coleam00/skills)** (`727`★) - Cole Medin's PIV loop agent skills, planning workflows, worktrees, and Claude Code lifecycle hooks (`Stop`, `PreToolUse`, `SessionStart`)
 
 ---
 
@@ -49,6 +50,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`cline/cline`](https://github.com/cline/cline)** | `71.2k`★ | `3/3` (`1.00`) | Retracted tool-policies environment expansion hypothesis after verifying static tool lookup without command shell interpolation in `apps/cli/src/runtime/tool-policies.ts:1-25` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./cline/report.md) · [`apply-plan.md`](./cline/apply-plan.md) |
 | **[`continuedev/continue`](https://github.com/continuedev/continue)** | `36.4k`★ | `3/3` (`1.00`) | Retracted non-recursive ignore bypass hypothesis after verifying `shouldIgnore` runs before recursive directory checks in `core/indexing/walkDir.ts:182-205` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./continue/report.md) · [`apply-plan.md`](./continue/apply-plan.md) |
 | **[`paul-gauthier/aider`](https://github.com/paul-gauthier/aider)** | `49.9k`★ | `3/3` (`1.00`) | Retracted RepoMap SQLite tag drop hypothesis after verifying `tags_cache_error` falls through to `get_tags_raw` in `aider/repomap.py:250-265` | **3** | **0** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./aider/report.md) · [`apply-plan.md`](./aider/apply-plan.md) |
+| **[`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill)** | `66.4k`★ | `3/3` (`1.00`) | Retracted delivery channel webhook cleartext HTTP dispatch hypothesis after verifying `parsed.scheme == "https"` strict check (`watchlist.py:40-48`) | **2** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./last30days-skill/report.md) · [`pr-comment.md`](./last30days-skill/pr-comment.md) · [PR #1364](https://github.com/mvanhorn/last30days-skill/pull/1364) |
 
 ---
 
