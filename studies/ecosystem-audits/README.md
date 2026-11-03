@@ -2,7 +2,7 @@
 
 > **"AI that knows when to speak - and when to shut up."**
 
-To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-three major open-source AI developer repositories (**3,281,000+ combined GitHub stars**):
+To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against forty-four major open-source AI developer repositories (**3,334,000+ combined GitHub stars**):
 
 1. **[`openclaw/openclaw`](https://github.com/openclaw/openclaw)** (`393.8k`★) - Flagship autonomous agent runtime, execution decision receipts, and non-blocking audit event ledger
 2. **[`obra/superpowers`](https://github.com/obra/superpowers)** (`308.3k`★) - Core agentic skills framework and subagent-driven development methodology (`SDD`)
@@ -47,6 +47,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 41. **[`stanford-oval/storm`](https://github.com/stanford-oval/storm)** (`31.8k`★) - Stanford University's autonomous multi-perspective research and synthesis agent framework, update_section reference pruning off-by-one citation deletion, parse_article_into_dict line-wide hash level inflation and trailing title truncation, runner perspective argument override, and unencoded search URL queries
 42. **[`AntonOsika/gpt-engineer`](https://github.com/AntonOsika/gpt-engineer)** (`55.0k`★) - Foundational autonomous AI codegen agent and CLI, OrderedDict line 0 diff prepending bottom-append corruption, parse_hunk_header single-line anchor rejection, TokenUsageLog quadratic cumulative cost inflation, and subprocess readline pipe buffer deadlock
 43. **[`langchain-ai/langgraph`](https://github.com/langchain-ai/langgraph)** (`44.4k`★) - Premier stateful multi-agent orchestration framework, ToolNode synchronous wrapper event loop blocking, chat history validation KeyError on omitted tool call identifiers, should_continue empty messages list IndexError, model input state in-place mutation, and PregelLoop checkpoint reference identity double-counting
+44. **[`run-llama/llama_index`](https://github.com/run-llama/llama_index)** (`52.8k`★) - Premier data framework and agent orchestration platform for LLMs, setup_agent in-place TextBlock state prompt mutation memory corruption, parse_agent_output retry_messages history duplication, handoff sender/receiver role inversion, ReActAgent system prompt dropping, and ChatMemoryBuffer multi-tool truncation
 
 ---
 
@@ -97,6 +98,7 @@ To test `Ponder` outside of synthetic benchmarks, we ran 4-pass sessions against
 | **[`stanford-oval/storm`](https://github.com/stanford-oval/storm)** | `31.8k`★ | `5/5` (`1.00`) | Retracted citation bracket IndexError hypothesis after verifying `re.sub(r"\[(\d+)\]", ...)` strictly requires digits and ignores empty brackets safely | **6** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./storm/report.md) · [`apply-plan.md`](./storm/apply-plan.md) |
 | **[`AntonOsika/gpt-engineer`](https://github.com/AntonOsika/gpt-engineer)** | `55.0k`★ | `4/4` (`1.00`) | Retracted JPG suffix MIME hypothesis after verifying `disk_memory.py:121-127` handles `.jpg` safely via ternary check | **6** | **1** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./gpt-engineer/report.md) · [`apply-plan.md`](./gpt-engineer/apply-plan.md) |
 | **[`langchain-ai/langgraph`](https://github.com/langchain-ai/langgraph)** | `44.4k`★ | `4/4` (`1.00`) | Retracted Pydantic v2 `model_validate_json` deserialization crash hypothesis after verifying `ext_hook` instantiates via `cls(**tup[2])` directly | **2** | **3** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./langgraph/report.md) · [`apply-plan.md`](./langgraph/apply-plan.md) |
+| **[`run-llama/llama_index`](https://github.com/run-llama/llama_index)** | `52.8k`★ | `4/4` (`1.00`) | Retracted BaseWorkflowAgent unhashable type hypothesis after verifying `__hash__` returns `id(self)` explicitly (`base_agent.py:148-156`) | **3** | **2** | `0.00` -> `0.00` (`4` voices, `0` deltas) | `stop (converged)` | [`report.md`](./llama-index/report.md) · [`apply-plan.md`](./llama-index/apply-plan.md) |
 
 ---
 
@@ -106,7 +108,7 @@ When maintainers receive AI-generated bug reports, two failure modes waste their
 1. **Unverified Pass-1 False Positives**: A single-shot LLM skims a file, sees `manifest.hooks` path joining, `CredentialFileWriter`, or `Location: ${safeRd}`, and files a false security report without reading the defense helper 30 lines below.
 2. **Incomplete Cross-Module Coverage**: A single-shot LLM flags one file and misses the sibling target (`codex.ts` vs `pi.ts` vs `opencode.ts`, or `install.sh` vs `install.ps1` vs `opencode/plugin.js`).
 
-In all forty-three audits:
+In all forty-four audits:
 - **Pass 1 (`coverage < 1.00` or unverified hypotheses)** was prevented from stopping early.
 - **Pass 2 (`Skeptic` + `Dreamer`)** opened the defense helpers, **retracted false alarms via `op: "delete"`** so maintainers never had to read them as noise, and graded the remaining modules.
 - **Pass 4 (`stop (converged)`)** held 4-voice epistemic silence (`0` deltas) instead of inventing style nitpicks.
