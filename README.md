@@ -15,7 +15,7 @@
 ```sh
 # Install in 1 line (Claude Code, Codex, OpenClaw + CLI on PATH)
 
-[![HOL Guard](https://img.shields.io/endpoint?url=https%3A%2F%2Fhol.org%2Fapi%2Fregistry%2Fbadges%2Fplugin%3Fslug%3Dquinn-o-donnell%252Fponder%26metric%3Drelease)](https://hol.org/registry/plugins/quinn-o-donnell%2Fponder?utm_source=hol_marketplace&utm_medium=plugins_badge&utm_campaign=plugins&utm_content=quinn-o-donnell%2Fponder&ref=plugin-author-0f01e29b)
+
 curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/main/install.sh | sh
 # Or via npm / Homebrew / Claude Code / Agent Skills / ClawHub / Tessl / LobeHub / Gemini CLI:
 #   npm install -g @quinnod345/ponder   # or: npx @quinnod345/ponder / npx ponder-cli
