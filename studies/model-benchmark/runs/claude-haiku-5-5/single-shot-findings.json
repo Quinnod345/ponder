@@ -1,0 +1,172 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/screens/results.jsx:4-7",
+      "severity": "must",
+      "title": "Combined results unlock after a single completed checkup",
+      "detail": "The gate is campaign.completedCount < 1, so one respondent's answers become the leadership 'Combined Reading' with an exact answer count shown. survey.jsx:8-11 promises leadership sees a combined reading only once at least 3 teammates have completed. The Executive PDF link at line 16 has the same exposure if the server does not enforce the threshold.",
+      "recommendation": "Raise the gate to completedCount < 3 in the UI, and enforce the same minimum server-side in the /api/campaigns/:id/pdf-export handler and any aggregate endpoint. Align the empty-state copy with the threshold."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/screens/invitations.jsx:12-21",
+      "severity": "must",
+      "title": "Invitations table exposes each participant's individual score",
+      "detail": "The Individual Score column renders p.individualScore for every completed participant. This contradicts the privacy promise in survey.jsx:8-11 that nobody at the company sees individual answers. The screen is a campaign-admin view, so this is a privacy leak to whoever can open it.",
+      "recommendation": "Remove the Individual Score column. If per-person progress is needed, show only completed or pending status. Confirm the backing data is not sent to the client at all."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/actions/team-actions.js:11-17",
+      "severity": "must",
+      "title": "Members are attached to a campaign without tenant or role checks",
+      "detail": "The campaign lookup at lines 4-6 is scoped by tenant_id, but the member lookup at line 12 (SELECT id, email FROM members WHERE id = $1) is not. Any caller can attach a member from another tenant by ID, which is cross-tenant IDOR. The action also has no role check, so any authenticated tenant user can modify campaign membership.",
+      "recommendation": "Scope the member query by tenant (AND tenant_id = currentUser.tenantId), or validate every memberId against the tenant in one query. Add an explicit authorization check for campaign management. Add a regression test for cross-tenant member IDs."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/billing.jsx:4-6,14,19",
+      "severity": "must",
+      "title": "Both upgrade buttons send plan 'business'",
+      "detail": "startUpgrade(selectedTier) ignores selectedTier when building the payload and always sends plan: 'business' (line 5). The Pro button (line 14) therefore starts a Business checkout with sourceTier 'pro'. Users can be charged for the wrong plan.",
+      "recommendation": "Send plan: selectedTier, or map each button to its own plan explicitly. Add a test that asserts the payload for each button. Consider disabling both buttons while a checkout request is in flight."
+    },
+    {
+      "id": "ss-5",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "title": "Failed plan upgrades are dropped after the event is marked processed",
+      "detail": "The event row is inserted with ON CONFLICT DO NOTHING before applyPlanUpgrade runs, and there is no transaction. If applyPlanUpgrade throws, the handler returns 500 but the event row remains. Stripe's retry then hits inserted.rowCount === 0 and returns 200 duplicate: true, so the upgrade is never applied and the event is never retried.",
+      "recommendation": "Run the insert and the upgrade in one transaction, so a failure rolls back the event row, or mark the row as processed only after success. Return a non-2xx response on failure so Stripe retries. Add a test that forces applyPlanUpgrade to throw and checks the retry is applied."
+    },
+    {
+      "id": "ss-6",
+      "file": "target-app/src/screens/dashboard.jsx:9-26",
+      "severity": "must",
+      "title": "Dashboard load errors leave the screen stuck on the skeleton loader",
+      "detail": "The catch handler at lines 15-17 sets error but never calls setIsLoading(false). The isLoading check at line 20 runs before the error check at line 24, so the error banner is unreachable and the user sees 'Loading workspace...' forever with no retry path.",
+      "recommendation": "Call setIsLoading(false) in the catch branch, or model load state as a single status (loading | error | ready). Render an error state with a retry action. Add a test for a rejected fetchSummary."
+    },
+    {
+      "id": "ss-7",
+      "file": "target-app/src/screens/dashboard.jsx:28-37",
+      "severity": "should",
+      "title": "Setup wizard discards its inputs and has an unhandled 'configure' step",
+      "detail": "The priority and schema-version inputs at lines 32-33 are uncontrolled and their values are never stored. Clicking Next sets currentStep to 'configure', which has no render branch, so the user falls through to the Workspace Overview. Placeholders also expose internal jargon ('Internal schema version') and the inputs have no associated labels.",
+      "recommendation": "Make the wizard a controlled form that stores values and submits them, or remove it if it is a placeholder. Add a real configure step or drop the unused value. Add visible labels and plain-language copy."
+    },
+    {
+      "id": "ss-8",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:5-6",
+      "severity": "should",
+      "title": "Duplicate v1 signatures are collapsed, which breaks secret rotation",
+      "detail": "Object.fromEntries keeps only the last key=value pair for each key. During Stripe webhook secret rotation the header carries several v1 signatures, and only the last one is checked. If that one is not signed with the current secret, valid deliveries are rejected with 401.",
+      "recommendation": "Parse the header into arrays, collect every v1 value, and accept the request if any one matches under timingSafeEqual. Add a fixture test with two v1 entries."
+    },
+    {
+      "id": "ss-9",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:3-15",
+      "severity": "should",
+      "title": "Signature check has no timestamp tolerance",
+      "detail": "The function never checks that parts.t is a recent, numeric Unix timestamp. Stripe recommends rejecting deliveries older than about 5 minutes. Replay is partly mitigated by the event_id dedupe table, but a captured payload stays valid indefinitely and can be re-sent after any dedupe-row pruning.",
+      "recommendation": "Parse parts.t as an integer and reject it when it is outside a tolerance window (for example 300 seconds) of the current time. Add tests for stale and future timestamps."
+    },
+    {
+      "id": "ss-10",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:6-20",
+      "severity": "should",
+      "title": "Seat limit is updated with a read-modify-write race",
+      "detail": "applyPlanUpgrade reads seat_limit, computes seat_limit + seatDelta in JavaScript, and writes the result back. Two different events for the same organization that run concurrently can lose one increment. Event-level dedupe does not cover this because the event_ids differ.",
+      "recommendation": "Use one atomic statement, for example UPDATE organizations SET seat_limit = seat_limit + $2 ... with the tier update, or lock the row with SELECT ... FOR UPDATE inside a transaction."
+    },
+    {
+      "id": "ss-11",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:3-4,15",
+      "severity": "should",
+      "title": "Checkout metadata is not validated, and defaults are silent",
+      "detail": "Number(metadata?.seats || 5) yields NaN for non-numeric input, and NaN is then written as seat_limit. A missing metadata.tier silently grants 'pro', so a checkout that drops the tier (the billing screen sends 'plan', not 'tier') would upgrade a Business buyer to Pro. A missing seats value silently adds 5.",
+      "recommendation": "Validate tier against an allowlist and seats as a positive integer. Reject the event (and alert) when metadata is missing rather than applying defaults. Make the seats value explicit in the checkout session."
+    },
+    {
+      "id": "ss-12",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:1-2",
+      "severity": "should",
+      "title": "Plan is granted without checking payment status",
+      "detail": "applyPlanUpgrade runs on checkout.session.completed without checking payment_status. For delayed payment methods Stripe fires completed with payment_status 'unpaid' and only later sends async_payment_succeeded, so the plan can be granted before any money moves.",
+      "recommendation": "Grant the upgrade only when payment_status === 'paid' (or handle checkout.session.async_payment_succeeded for the delayed case). Add a test for an unpaid session."
+    },
+    {
+      "id": "ss-13",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:6-12",
+      "severity": "should",
+      "title": "Organization is matched by billing email rather than a stable ID",
+      "detail": "The org is found with WHERE billing_email = customer_email. Emails can be shared, changed, cased differently, or null (Stripe sessions may lack an email). A null email yields zero rows and a thrown error, and a shared email can upgrade the wrong organization.",
+      "recommendation": "Carry the org ID in client_reference_id or metadata when the checkout session is created, and look up by that ID (or by stripe_customer_id). Normalize email case if email matching remains."
+    },
+    {
+      "id": "ss-14",
+      "file": "target-app/src/router.js:7",
+      "severity": "should",
+      "title": "Route points to a component file that does not exist",
+      "detail": "The /settings/legacy-export route maps to src/screens/legacy-export.jsx, which is not in the workspace. Navigating to it will fail at runtime or at build time, depending on how the router loads components.",
+      "recommendation": "Either add the screen or remove the route. If legacy-export is being retired, delete the route with it so the router does not reference a missing module."
+    },
+    {
+      "id": "ss-15",
+      "file": "target-app/src/screens/invitations.jsx:22",
+      "severity": "should",
+      "title": "Survey magic-link hashes are shown as plain text to campaign admins",
+      "detail": "The surveyHash is rendered in a code element. Because /survey/:hash accepts the hash as the only credential, anyone who can view this table can take any respondent's survey link and submit answers as them. The link is also plain text rather than an anchor, so it cannot be opened from the table.",
+      "recommendation": "Confirm who can view this table and restrict it to admins who need it. Consider revealing a link only on explicit action, expiring tokens after use, and rendering the link as an anchor when it is shown."
+    },
+    {
+      "id": "ss-16",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:3-10",
+      "severity": "could",
+      "title": "Unrouted legacy modal has low-contrast text and no dialog semantics",
+      "detail": "The modal sets color #ccc on background #fff, a contrast ratio of about 1.6:1 that fails WCAG AA. It has no role='dialog', aria-modal, focus management, or Escape handling. Nothing in the router references it, so it is likely dead code.",
+      "recommendation": "Delete the file if it is unused. If it is kept, use a theme token with at least 4.5:1 contrast and add dialog semantics and focus trapping."
+    },
+    {
+      "id": "ss-17",
+      "file": "target-app/src/screens/billing.jsx:25-28",
+      "severity": "could",
+      "title": "Invoices render without currency formatting and can crash on undefined",
+      "detail": "invoices.length at line 25 throws if the prop is undefined. Line 28 renders the raw inv.amount with no currency, no minor-unit conversion, and no date, so a value like 2900 has no clear meaning to the user. Upgrade buttons also have no pending or disabled state, so double-clicks can start two checkouts.",
+      "recommendation": "Default invoices to an empty array, format amounts with Intl.NumberFormat using the invoice currency and minor units, and disable the upgrade buttons while a checkout request is pending."
+    },
+    {
+      "id": "ss-18",
+      "file": "target-app/src/screens/survey.jsx:14-22",
+      "severity": "could",
+      "title": "Survey form has no submitting, error, or progress state",
+      "detail": "The form passes onSubmit straight through and relies on the parent to call preventDefault. It shows no submitting state, no server error, and no progress indicator. Users can double-submit a long survey, and the scale bounds are enforced only by native input validation.",
+      "recommendation": "Show a submitting state with the submit button disabled, surface server errors inline, and show progress through the questions. Confirm the parent handler calls preventDefault."
+    },
+    {
+      "id": "ss-19",
+      "file": "target-app/src/actions/team-actions.js:11-17",
+      "severity": "could",
+      "title": "Member attachment issues one query per member and can insert duplicates",
+      "detail": "The loop runs one SELECT and one INSERT per memberId (N+1). The INSERT has no ON CONFLICT clause, so attaching the same member twice creates a duplicate campaign_members row if the table has no unique constraint.",
+      "recommendation": "Batch the lookup and insert in one statement, use ON CONFLICT (campaign_id, member_id) DO NOTHING, and add a unique constraint on the pair."
+    },
+    {
+      "id": "ss-20",
+      "file": "target-app/src/lib/safe-query.js:1-10",
+      "severity": "could",
+      "title": "sql helper only parameterizes values, not identifiers",
+      "detail": "The tag parameterizes interpolated values as $n, which is correct for data. It does not validate or quote identifiers, so a dynamic table or column name passed through the tag would be emitted raw. The name implies a safety guarantee the helper does not provide.",
+      "recommendation": "Document that the helper only handles values. Add a helper such as identifier() that validates against an allowlist for dynamic names, and add unit tests for placeholder numbering and empty values."
+    },
+    {
+      "id": "ss-21",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:11",
+      "severity": "could",
+      "title": "Malformed signed JSON is not handled",
+      "detail": "JSON.parse(rawBody) runs outside the try block. A payload that passes signature verification but is not valid JSON throws an unhandled error instead of returning a 400 response with a clear message.",
+      "recommendation": "Wrap the parse in try/catch and return 400 for invalid JSON. Keep the 401 path for bad signatures."
+    }
+  ]
+}

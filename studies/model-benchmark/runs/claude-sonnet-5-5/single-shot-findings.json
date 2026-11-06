@@ -1,0 +1,124 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/screens/billing.jsx:4-19",
+      "severity": "must",
+      "title": "Upgrade to Pro button checks out the Business plan",
+      "detail": "startUpgrade always calls onCheckout({ plan: 'business', sourceTier }) regardless of which button was clicked. The highlighted 'Pro (Recommended)' $29 card therefore starts a $99 Business checkout.",
+      "recommendation": "Pass the plan the user clicked: onCheckout({ plan: 'pro' }) / ({ plan: 'business' }); keep sourceTier only if it is the user's current tier, not the clicked card."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/screens/dashboard.jsx:9-26",
+      "severity": "must",
+      "title": "Load failure leaves dashboard on the loading skeleton forever",
+      "detail": "The .catch handler calls setError but never setIsLoading(false). Because the isLoading branch is checked first, the error banner is unreachable and a failed fetch shows 'Loading workspace...' indefinitely. There is also no retry action and no unmount guard.",
+      "recommendation": "Set isLoading false in a finally block (or check error before isLoading), add a retry button, and cancel/ignore the request on unmount."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/results.jsx:4-10",
+      "severity": "must",
+      "title": "Results unlock at 1 completion, contradicting the 3-person anonymity promise",
+      "detail": "survey.jsx promises leadership only sees a combined reading once at least 3 teammates have completed. ResultsScreen unlocks at completedCount >= 1 and its empty state copy says 'as soon as one person completes', so a single respondent's answers are effectively the aggregate. The privacy guarantee shown to respondents is false.",
+      "recommendation": "Enforce a minimum cohort (>= 3) on the server and in the UI; make the empty state show progress toward the threshold (e.g. 1 of 3 answered). Guard against undefined aggregate."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/invitations.jsx:12,21",
+      "severity": "must",
+      "title": "Invitations table exposes each participant's individual score to leadership",
+      "detail": "The 'Individual Score' column renders p.individualScore per named person once they complete. This directly contradicts the survey promise that nobody at the company sees individual answers, and combined with the n>=1 results gate, de-anonymises respondents.",
+      "recommendation": "Remove the individual score column; show only completed/pending status. Do not ship per-person scores to this view."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/actions/team-actions.js:11-18",
+      "severity": "must",
+      "title": "Cross-tenant member lookup: members query is not scoped to the tenant",
+      "detail": "The campaign is tenant-checked, but each member is fetched with 'SELECT id, email FROM members WHERE id = ...' with no tenant_id filter. A user can attach members from another tenant to their campaign by guessing IDs (IDOR). Inserts also run one-by-one without a transaction or duplicate protection, so a mid-loop failure leaves partial state and re-running creates duplicates.",
+      "recommendation": "Add AND tenant_id = currentUser.tenantId to the members query (or one batched query), wrap in a transaction, use ON CONFLICT DO NOTHING, and report members that were skipped."
+    },
+    {
+      "id": "ss-6",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "title": "Event is marked processed before the upgrade runs, so a failed upgrade is never retried",
+      "detail": "The dedupe row is inserted first. If applyPlanUpgrade throws, the handler returns 500 so Stripe retries, but the retry hits ON CONFLICT, returns 200 duplicate:true, and the customer's upgrade is silently lost. The 500 body also leaks err.message, and JSON.parse is unguarded.",
+      "recommendation": "Insert the event row and apply the upgrade in a single transaction (or delete/mark-failed the row on error), return a generic error body, and guard JSON.parse."
+    },
+    {
+      "id": "ss-7",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:1-20",
+      "severity": "must",
+      "title": "Upgrade logic trusts loose metadata and matches org by email only",
+      "detail": "Tier defaults to 'pro' and seats to 5 when metadata is missing; Number(metadata.seats) can be NaN, which would write NaN into seat_limit. The org is found via billing_email (case-sensitive, not guaranteed unique) instead of a stable customer/client_reference id, and payment_status is not checked, so unpaid/async sessions can grant a plan. Seats are added to the existing limit (non-idempotent outside the event dedupe).",
+      "recommendation": "Validate tier against an allow-list and seats as a positive integer, require payment_status === 'paid', look up the org by client_reference_id / Stripe customer id, and set seat_limit from the plan rather than incrementing."
+    },
+    {
+      "id": "ss-8",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:3-15",
+      "severity": "should",
+      "title": "Signature verification has no timestamp tolerance and drops extra v1 signatures",
+      "detail": "The timestamp t is signed but never checked against the current time, so a captured valid payload can be replayed indefinitely (dedupe only catches it for the same event id). Object.fromEntries keeps only the last v1, but Stripe sends multiple v1 entries during secret rotation. Header parts without '=' produce undefined values; no try/catch around Buffer parsing assumptions.",
+      "recommendation": "Reject timestamps outside a ~5 minute window, collect all v1 values and accept if any matches in constant time, and validate hex length before comparing."
+    },
+    {
+      "id": "ss-9",
+      "file": "target-app/src/router.js:7",
+      "severity": "should",
+      "title": "Route points at a screen file that does not exist",
+      "detail": "'/settings/legacy-export' maps to src/screens/legacy-export.jsx, which is absent from the repo. Navigating there will fail. Conversely legacy-v1-modal.jsx is not referenced by any route or import.",
+      "recommendation": "Remove the dead route or add the screen; delete or wire up the orphaned legacy modal."
+    },
+    {
+      "id": "ss-10",
+      "file": "target-app/src/screens/dashboard.jsx:28-37",
+      "severity": "should",
+      "title": "Setup wizard is a dead end with developer-facing fields",
+      "detail": "The 'welcome' step has uncontrolled, unlabeled inputs (placeholder only) including 'Internal schema version' and 'Priority (Low / Medium / High)', which are internal jargon. Values are never stored or submitted. Next sets step 'configure', which has no branch, so it falls through to the overview, and there is no Back or Skip. The wizard also reappears on every visit because step state is local.",
+      "recommendation": "Remove internal fields, use labelled controlled inputs, persist completion, and implement or remove the 'configure' step with Back/Skip."
+    },
+    {
+      "id": "ss-11",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:6",
+      "severity": "should",
+      "title": "Legacy modal has unreadable contrast and no dialog semantics",
+      "detail": "Text colour #ccc on #fff is about 1.6:1 contrast. The modal has no role=dialog / aria-modal, no focus trap, no Escape handling, and no backdrop. Hard-coded inline colours also bypass any theme.",
+      "recommendation": "Use theme tokens with >= 4.5:1 contrast, add dialog semantics and focus management, or delete the unused component."
+    },
+    {
+      "id": "ss-12",
+      "file": "target-app/src/screens/survey.jsx:14-21",
+      "severity": "should",
+      "title": "Survey inputs are poorly labelled and submit handler is unsafe",
+      "detail": "Each question uses a bare number input (1-5) with the prompt in a <legend> but no scale labels, so the meaning of 1 vs 5 is unstated. onSubmit receives the raw event and the form is not given preventDefault, so the page may reload. There is no submitting, success or error state, and the privacy copy hard-codes '3' separately from the server rule.",
+      "recommendation": "Use labelled radio scales with endpoint text, wrap onSubmit to preventDefault, add submitting/error/success states, and source the threshold from one constant."
+    },
+    {
+      "id": "ss-13",
+      "file": "target-app/src/screens/billing.jsx:23-29",
+      "severity": "could",
+      "title": "Invoices render raw amounts and can crash or mislead",
+      "detail": "inv.amount is printed unformatted (no currency, date, status or download link), and invoices undefined would throw on .length. There is no indication of the user's current plan or whether an upgrade is in progress.",
+      "recommendation": "Default invoices to [], format currency and date, show status, and display the current plan and a pending state after checkout."
+    },
+    {
+      "id": "ss-14",
+      "file": "target-app/src/screens/results.jsx:15-18",
+      "severity": "could",
+      "title": "Results page assumes aggregate exists and offers a bare PDF link",
+      "detail": "aggregate.overall throws if aggregate is undefined while campaign is loaded. The 'Executive PDF' is a plain anchor with no loading or failure feedback and no check that the export respects the cohort threshold.",
+      "recommendation": "Guard aggregate, show a download state, and enforce the threshold in the export endpoint."
+    },
+    {
+      "id": "ss-15",
+      "file": "target-app/src/lib/safe-query.js:1-10",
+      "severity": "could",
+      "title": "sql tag cannot nest fragments or reject non-primitive values",
+      "detail": "The helper correctly parameterizes values but does not support composing fragments (a nested sql result would be bound as an object parameter). Callers can also pass undefined which pg treats unexpectedly.",
+      "recommendation": "Detect nested {text, values} fragments and splice them, and throw on undefined values."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/actions/team-actions.js:11-16",
+      "severity": "must",
+      "title": "Member lookup crosses tenant boundaries",
+      "detail": "Campaign ownership is checked, but member IDs are fetched without a tenant condition, allowing another tenant member to be attached.",
+      "recommendation": "Scope member lookup to currentUser.tenantId and reject unauthorized IDs before inserting."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/router.js:7",
+      "severity": "must",
+      "title": "Legacy export route references a missing screen",
+      "detail": "src/screens/legacy-export.jsx is absent from the source inventory.",
+      "recommendation": "Remove the route or implement and authorize its destination."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/billing.jsx:4-5",
+      "severity": "must",
+      "title": "Pro checkout requests Business",
+      "detail": "Both upgrade buttons submit plan business; selecting the displayed $29 Pro plan requests the $99 tier.",
+      "recommendation": "Send the selected validated tier and verify checkout pricing agrees with the displayed offer."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/dashboard.jsx:15-25",
+      "severity": "must",
+      "title": "Rejected fetch remains on loading screen",
+      "detail": "The catch handler sets error but never clears isLoading; the earlier loading branch hides the error forever.",
+      "recommendation": "Clear loading on failure and provide a retry action."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/screens/dashboard.jsx:28-35",
+      "severity": "should",
+      "title": "Setup inputs are discarded",
+      "detail": "Priority and schema inputs have no state or submission wiring; Next only changes a local screen flag.",
+      "recommendation": "Persist meaningful setup values, label inputs, and remove internal schema configuration from this user flow."
+    },
+    {
+      "id": "ss-6",
+      "file": "target-app/src/screens/invitations.jsx:12-22",
+      "severity": "must",
+      "title": "Invitation table reveals individual results and survey tokens",
+      "detail": "Named participant rows expose individualScore and the surveyHash despite the survey promise of private individual answers.",
+      "recommendation": "Remove individual scores and restrict bearer invitation tokens to an explicitly authorized delivery flow."
+    },
+    {
+      "id": "ss-7",
+      "file": "target-app/src/screens/results.jsx:4-17",
+      "severity": "must",
+      "title": "Results unlock below promised privacy threshold",
+      "detail": "One completed response reveals the combined score and PDF link although the survey promises at least three completions.",
+      "recommendation": "Apply a shared minimum of three to results and export authorization."
+    },
+    {
+      "id": "ss-8",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:6-8",
+      "severity": "should",
+      "title": "Modal lacks readable contrast and dialog semantics",
+      "detail": "The open modal uses #ccc on #fff and lacks dialog semantics, focus handling, and keyboard dismissal.",
+      "recommendation": "Use readable contrast and an accessible dialog primitive with focus restoration."
+    },
+    {
+      "id": "ss-9",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-27",
+      "severity": "must",
+      "title": "Failed upgrade is permanently deduplicated",
+      "detail": "The event ID is inserted before upgrade execution; after a failure the retry is acknowledged as duplicate without reapplying the upgrade.",
+      "recommendation": "Commit successful processing and deduplication atomically or track retryable processing status."
+    },
+    {
+      "id": "ss-10",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:5-14",
+      "severity": "must",
+      "title": "Signature verifier accepts stale signed requests",
+      "detail": "The timestamp participates in the HMAC but is never checked for freshness.",
+      "recommendation": "Reject malformed or out-of-window timestamps and support multiple v1 signatures."
+    },
+    {
+      "id": "ss-11",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:2-15",
+      "severity": "must",
+      "title": "Upgrade target and entitlements rely on unchecked metadata",
+      "detail": "Organization is selected by email and first matching row; arbitrary tier and Number-converted seats become entitlements.",
+      "recommendation": "Bind verified customer/session IDs to an organization and derive validated entitlements from trusted prices."
+    },
+    {
+      "id": "ss-12",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:14-19",
+      "severity": "must",
+      "title": "Concurrent upgrades lose seat additions",
+      "detail": "The worker reads seat_limit then writes an absolute sum; simultaneous events can overwrite each other.",
+      "recommendation": "Use atomic updates or a transaction with locking and define idempotent entitlement semantics."
+    },
+    {
+      "id": "ss-13",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:21-24",
+      "severity": "must",
+      "title": "Completed checkout grants entitlements without payment check",
+      "detail": "Every checkout.session.completed triggers an upgrade without checking payment_status or asynchronous payment outcome.",
+      "recommendation": "Grant only for a verified paid checkout or appropriate payment success event."
+    }
+  ]
+}

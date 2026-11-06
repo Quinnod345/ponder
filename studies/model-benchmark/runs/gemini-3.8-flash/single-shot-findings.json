@@ -1,0 +1,100 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/screens/invitations.jsx:12-23",
+      "severity": "must",
+      "title": "Individual survey scores and magic links exposed in invitations table",
+      "detail": "The invitations table renders each participant's individual score (p.individualScore) and survey magic link (/survey/${p.surveyHash}). This violates the strict anonymity promise stated in the survey screen ('nobody at {companyName} sees what you answered').",
+      "recommendation": "Remove individualScore and unmasked magic link tokens from the invitations view, showing only aggregate-safe statuses."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/screens/results.jsx:4-9",
+      "severity": "must",
+      "title": "Results threshold violates anonymity promise and reveals individual answers",
+      "detail": "ResultsScreen unlocks results as soon as completedCount >= 1 ('Results unlock as soon as one person completes a checkup'). However, SurveyScreen explicitly promises that 'Leadership only sees one combined reading once at least 3 teammates have completed the checkup'. Unlocking at 1 response de-anonymizes the respondent.",
+      "recommendation": "Enforce a minimum threshold of at least 3 completed responses before revealing aggregate survey results."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/billing.jsx:4-6",
+      "severity": "must",
+      "title": "Plan upgrade button hardcodes business plan for all tiers",
+      "detail": "The startUpgrade function always passes { plan: 'business', sourceTier: selectedTier } to onCheckout, regardless of whether the user clicked 'Upgrade to Pro' or 'Upgrade to Business'. Users attempting to upgrade to Pro at $29/mo are incorrectly charged and routed to Business at $99/mo.",
+      "recommendation": "Pass selectedTier as the plan parameter: onCheckout({ plan: selectedTier, sourceTier: selectedTier })."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/dashboard.jsx:15-26",
+      "severity": "must",
+      "title": "Infinite loading skeleton when dashboard API fetch fails",
+      "detail": "The catch block in DashboardScreen sets error state but fails to call setIsLoading(false). Because if (isLoading) precedes if (error), any failed API request leaves the component permanently stuck showing the loading skeleton without displaying the error banner.",
+      "recommendation": "Call setIsLoading(false) inside the catch block or in a finally handler."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/actions/team-actions.js:11-18",
+      "severity": "must",
+      "title": "Cross-tenant IDOR vulnerability when attaching campaign members",
+      "detail": "While the campaign query verifies tenant_id = currentUser.tenantId, the subsequent query SELECT id, email FROM members WHERE id = memberId does not scope by tenant_id. A user can attach member IDs belonging to other organizations into their campaign.",
+      "recommendation": "Add AND tenant_id = currentUser.tenantId to the member lookup query."
+    },
+    {
+      "id": "ss-6",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "title": "Webhook idempotency record committed before processing drops retries on failure",
+      "detail": "The webhook event is inserted into stripe_webhook_events before applyPlanUpgrade runs. If applyPlanUpgrade throws an error, the handler returns HTTP 500, but subsequent retries from Stripe will hit inserted.rowCount === 0 and return HTTP 200 duplicate, permanently dropping failed upgrades.",
+      "recommendation": "Only mark the webhook event as processed after successful execution, or track event status and allow retries on failed events."
+    },
+    {
+      "id": "ss-7",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:5-6",
+      "severity": "should",
+      "title": "Missing timestamp replay attack prevention in Stripe webhook verification",
+      "detail": "The timestamp parts.t is extracted from the stripe-signature header but its age is never verified against the current time. This leaves the webhook endpoint vulnerable to replay attacks.",
+      "recommendation": "Verify that Date.now() / 1000 - Number(parts.t) does not exceed a tolerance threshold (e.g. 300 seconds)."
+    },
+    {
+      "id": "ss-8",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:6-12",
+      "severity": "should",
+      "title": "Organization lookup relies on mutable customer email instead of immutable ID",
+      "detail": "Organizations are queried using billing_email = customer_email. If customer_email is missing or changed in Stripe checkout, or if multiple tenants share an address, updates may fail or affect the wrong organization.",
+      "recommendation": "Pass and verify an immutable organization ID in checkout session metadata, matching on organizations.id."
+    },
+    {
+      "id": "ss-9",
+      "file": "target-app/src/router.js:7",
+      "severity": "should",
+      "title": "Missing component file for legacy export route",
+      "detail": "The router registers route /settings/legacy-export pointing to src/screens/legacy-export.jsx, which does not exist in the filesystem (only legacy-v1-modal.jsx exists), leading to broken navigation.",
+      "recommendation": "Implement src/screens/legacy-export.jsx or update the route definition to reference the correct component."
+    },
+    {
+      "id": "ss-10",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:6",
+      "severity": "could",
+      "title": "Severe text contrast violation and missing modal accessibility",
+      "detail": "The modal styles text with color #ccc on background #fff, failing WCAG AA contrast standards. Additionally, the modal lacks accessibility attributes (role='dialog', aria-modal='true', focus trap, escape key listener).",
+      "recommendation": "Increase text contrast to meet minimum 4.5:1 ratio and add proper ARIA dialog semantics."
+    },
+    {
+      "id": "ss-11",
+      "file": "target-app/src/screens/dashboard.jsx:31-36",
+      "severity": "could",
+      "title": "Wizard step lacks accessible form labels and configure step is unhandled",
+      "detail": "Inputs rely solely on placeholders with no associated label or aria-label. Clicking Next sets currentStep to 'configure', which has no matching branch and falls through to the workspace overview.",
+      "recommendation": "Add accessible labels for inputs and implement the configure step branch in DashboardScreen."
+    },
+    {
+      "id": "ss-12",
+      "file": "target-app/src/screens/survey.jsx:18",
+      "severity": "could",
+      "title": "Survey questions use numeric number input instead of Likert scale radio group",
+      "detail": "Questions are rendered as input type='number' min='1' max='5' without semantic anchor labels (e.g. Strongly Disagree to Strongly Agree), degrading respondent usability.",
+      "recommendation": "Render question options as an accessible radio group with descriptive labels."
+    }
+  ]
+}

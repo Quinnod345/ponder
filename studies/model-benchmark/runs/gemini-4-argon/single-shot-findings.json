@@ -1,0 +1,100 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/actions/team-actions.js:11-18",
+      "severity": "must",
+      "title": "Cross-tenant IDOR in attachMembersToCampaign member lookup",
+      "detail": "While campaign lookup filters by currentUser.tenantId, the loop querying members (`SELECT id, email FROM members WHERE id = ${memberId}`) does not scope by tenant_id. An attacker can attach member IDs belonging to other tenants to their campaign.",
+      "recommendation": "Scope the member lookup by `tenant_id = ${currentUser.tenantId}` and batch the insert inside a single transaction."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/router.js:7-7",
+      "severity": "must",
+      "title": "Broken route pointing to non-existent legacy-export.jsx screen",
+      "detail": "The route `/settings/legacy-export` references `src/screens/legacy-export.jsx`, which does not exist in the codebase, while `src/screens/legacy-v1-modal.jsx` is unrouted and unused.",
+      "recommendation": "Remove the dead `/settings/legacy-export` route or wire it to an existing screen component."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/billing.jsx:4-6",
+      "severity": "must",
+      "title": "Pro upgrade button hardcodes 'business' plan in checkout payload",
+      "detail": "`startUpgrade(selectedTier)` always passes `plan: 'business'` to `onCheckout({ plan: 'business', sourceTier: selectedTier })`. Clicking 'Upgrade to Pro' ($29/mo) initiates checkout for the $99/mo Business plan.",
+      "recommendation": "Pass `plan: selectedTier` to `onCheckout`."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/dashboard.jsx:15-26",
+      "severity": "must",
+      "title": "Dashboard API error leaves screen stuck on infinite loading state",
+      "detail": "In `useEffect`, the `.catch()` handler calls `setError(...)` but never calls `setIsLoading(false)`. Because `if (isLoading)` is evaluated before `if (error)`, any failed `api.fetchSummary()` call leaves the user permanently stuck on 'Loading workspace...' and the error banner is unreachable.",
+      "recommendation": "Call `setIsLoading(false)` in the `.catch()` block (or `.finally()`)."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/screens/dashboard.jsx:28-37",
+      "severity": "should",
+      "title": "Dashboard welcome wizard has uncontrolled inputs and leaks internal schema jargon",
+      "detail": "The `welcome` step renders two unbound `<input>` elements without `value`, `onChange`, or `<label>` elements, and exposes internal jargon ('Internal schema version'). Clicking 'Next' discards user input.",
+      "recommendation": "Bind form inputs to state with accessible labels and remove internal-only fields like schema version from the user-facing setup wizard."
+    },
+    {
+      "id": "ss-6",
+      "file": "target-app/src/screens/invitations.jsx:12-23",
+      "severity": "must",
+      "title": "Invitations table exposes individual survey scores and raw participant magic links",
+      "detail": "`InvitationsScreen` renders `${p.individualScore}%` and `/survey/${p.surveyHash}` per participant. This directly violates the anonymity guarantee stated on `survey.jsx:8-11` ('nobody at {companyName} sees what you answered') and leaks bearer magic links that allow impersonating respondents.",
+      "recommendation": "Remove the Individual Score column and do not display raw magic link tokens in the table."
+    },
+    {
+      "id": "ss-7",
+      "file": "target-app/src/screens/results.jsx:4-10",
+      "severity": "must",
+      "title": "Results screen unlocks at 1 respondent instead of promised 3-respondent anonymity threshold",
+      "detail": "`SurveyScreen` promises leadership only sees combined results once at least 3 teammates complete the checkup (`survey.jsx:10-11`), but `ResultsScreen` checks `campaign.completedCount < 1`, exposing a single teammate's exact answers when `completedCount` is 1 or 2.",
+      "recommendation": "Enforce `campaign.completedCount < 3` on both backend and `ResultsScreen`, and update the empty state copy accordingly."
+    },
+    {
+      "id": "ss-8",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:6-9",
+      "severity": "should",
+      "title": "LegacyV1Modal has severe WCAG contrast failure (#ccc on #fff) and lacks dialog semantics",
+      "detail": "Inline style `color: '#ccc', background: '#fff'` yields a 1.61:1 contrast ratio (well below WCAG AA 4.5:1), and the modal lacks `role=\"dialog\"`, `aria-modal=\"true\"`, and keyboard Escape handling.",
+      "recommendation": "Use high-contrast theme tokens, add proper dialog ARIA attributes, or remove `LegacyV1Modal` if deprecated."
+    },
+    {
+      "id": "ss-9",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "title": "Non-transactional webhook deduplication permanently drops failed plan upgrades on retry",
+      "detail": "`stripe_webhook_events` records `event.id` before `applyPlanUpgrade` runs and outside a database transaction. If `applyPlanUpgrade` throws, the endpoint returns HTTP 500, but when Stripe retries the webhook, `ON CONFLICT (event_id) DO NOTHING` returns `rowCount === 0` and responds 200 `{ duplicate: true }`, silently losing the upgrade.",
+      "recommendation": "Wrap the event deduplication insert and `applyPlanUpgrade` in a single database transaction (`BEGIN` / `COMMIT` / `ROLLBACK`)."
+    },
+    {
+      "id": "ss-10",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:3-15",
+      "severity": "must",
+      "title": "Stripe webhook signature verification does not enforce timestamp tolerance against replay attacks",
+      "detail": "`verifyStripeSignature` includes `parts.t` in the HMAC payload but never checks whether `Number(parts.t)` is a valid timestamp within an acceptable window (e.g., 300 seconds) of current time, allowing captured webhook payloads to be replayed indefinitely if deduplication history is pruned.",
+      "recommendation": "Validate that `parts.t` is a finite integer within a strict tolerance window (e.g., `Math.abs(Date.now() / 1000 - Number(parts.t)) <= 300`)."
+    },
+    {
+      "id": "ss-11",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:2-20",
+      "severity": "must",
+      "title": "Non-atomic seat_limit update and unvalidated metadata in applyPlanUpgrade",
+      "detail": "`applyPlanUpgrade` reads `seat_limit` in a `SELECT` and writes `org.seat_limit + seatDelta` in a separate `UPDATE` without a lock or atomic SQL increment, causing lost updates under concurrent webhooks. Furthermore, `Number(metadata?.seats || 5)` is not validated against `NaN` or negative values, and `targetTier` is not validated against an allowlist.",
+      "recommendation": "Validate `seatDelta` as a positive integer and `targetTier` against allowed tiers, and perform an atomic update (`SET seat_limit = seat_limit + $2`)."
+    },
+    {
+      "id": "ss-12",
+      "file": "target-app/src/screens/survey.jsx:14-22",
+      "severity": "should",
+      "title": "Survey form submission does not prevent default browser reload or handle submission state",
+      "detail": "`<form onSubmit={onSubmit}>` passes the raw event to `onSubmit` without guarding against default form navigation or disabling the submit button while in-flight, and uses bare `<input type=\"number\">` without accessible labels inside each fieldset.",
+      "recommendation": "Associate inputs with labels or `aria-label`, handle `e.preventDefault()`, and disable the submit button during submission."
+    }
+  ]
+}

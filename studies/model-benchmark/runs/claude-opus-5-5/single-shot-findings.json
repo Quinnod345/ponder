@@ -1,0 +1,164 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/actions/team-actions.js:12-16",
+      "severity": "must",
+      "title": "Cross-tenant member attach (IDOR)",
+      "detail": "The campaign is scoped to currentUser.tenantId, but the member lookup is by id alone. A caller can pass any tenant's member id and attach that person to their own campaign, which also exposes the person through campaign results and invitations.",
+      "recommendation": "Add AND tenant_id = ${currentUser.tenantId} to the member lookup, and reject the whole request when any id fails to resolve."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/screens/billing.jsx:4-6",
+      "severity": "must",
+      "title": "Every upgrade button checks out Business",
+      "detail": "startUpgrade hardcodes plan: 'business' and sends the clicked tier as sourceTier. Clicking 'Upgrade to Pro' ($29) starts a Business ($99) checkout, so customers get overcharged.",
+      "recommendation": "Send plan: selectedTier. Remove sourceTier or populate it with the org's current tier."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/invitations.jsx:12,21",
+      "severity": "must",
+      "title": "Individual scores shown, contradicting the survey privacy promise",
+      "detail": "The invitations table shows each named participant's individualScore. The survey promises that nobody at the company sees individual answers.",
+      "recommendation": "Remove the column and stop returning individualScore to this screen's data source, so the enforcement happens server-side."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/results.jsx:4-10",
+      "severity": "must",
+      "title": "Results unlock at 1 respondent, but the survey promises 3",
+      "detail": "The gate is completedCount < 1 and the copy says results unlock after one completion. With one respondent, the 'combined' reading is that person's individual score, which breaks the anonymity promise in survey.jsx.",
+      "recommendation": "Enforce a shared minimum of 3 on the server and in the UI, update the empty state copy, and gate the PDF export the same way."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/screens/dashboard.jsx:15-17,20-22",
+      "severity": "must",
+      "title": "Dashboard load failure leaves a permanent skeleton",
+      "detail": "The catch handler sets error but never clears isLoading. The isLoading check returns first, so the error banner is unreachable and users see 'Loading workspace...' forever.",
+      "recommendation": "Clear isLoading in a finally block, or check error before isLoading. Add a retry action to the banner."
+    },
+    {
+      "id": "ss-6",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "title": "Failed upgrades are permanently lost on Stripe retry",
+      "detail": "The event id is committed before processing runs, outside any transaction. If applyPlanUpgrade throws, the handler returns 500 and Stripe retries, but the retry hits the duplicate branch and returns 200 without doing the work. The customer has paid and never gets upgraded.",
+      "recommendation": "Run the dedupe insert and the upgrade in one transaction, or mark events processed only after success and let unprocessed events be retried."
+    },
+    {
+      "id": "ss-7",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:5-14",
+      "severity": "should",
+      "title": "No timestamp tolerance on Stripe signatures",
+      "detail": "parts.t is included in the HMAC but never compared with the current time, so a captured signed payload stays valid forever. Parsing through Object.fromEntries also keeps only the last v1 value, so signature rotation with several v1 entries can reject valid events.",
+      "recommendation": "Reject timestamps outside a 5-minute tolerance and compare against all v1 signatures, or use stripe.webhooks.constructEvent."
+    },
+    {
+      "id": "ss-8",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:3-4",
+      "severity": "should",
+      "title": "Missing checkout metadata silently grants Pro and 5 seats",
+      "detail": "metadata.tier defaults to 'pro' and metadata.seats to 5. A session with missing metadata grants an entitlement nobody paid for, and non-numeric seats yields NaN for seat_limit.",
+      "recommendation": "Validate tier and seats against the purchased Stripe line items or price, and fail loudly when they are missing or invalid."
+    },
+    {
+      "id": "ss-9",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:6-20",
+      "severity": "should",
+      "title": "Org is matched by billing email, and seats are updated with a racy read-modify-write",
+      "detail": "customer_email is not a stable identity. It can match several orgs (rows[0] wins) or none. Stripe can also send customer_email as null with the address in customer_details. seat_limit is read and then written back, so concurrent events lose updates.",
+      "recommendation": "Resolve the org from client_reference_id or metadata.org_id or the Stripe customer id. Use SET seat_limit = seat_limit + $n in a single statement."
+    },
+    {
+      "id": "ss-10",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:22-24",
+      "severity": "should",
+      "title": "Upgrade applied without checking payment status, and no downgrade path",
+      "detail": "checkout.session.completed fires for delayed payment methods before funds settle, and payment_status is never checked. Cancellations and failed payments (customer.subscription.deleted, invoice.payment_failed) are ignored, so entitlements only ever grow.",
+      "recommendation": "Check payment_status === 'paid', handle async_payment_succeeded and async_payment_failed, and handle subscription lifecycle events."
+    },
+    {
+      "id": "ss-11",
+      "file": "target-app/src/router.js:7",
+      "severity": "should",
+      "title": "Route points to a component file that does not exist",
+      "detail": "/settings/legacy-export references src/screens/legacy-export.jsx, which is not in the source tree. Visiting the route or resolving it at build time fails.",
+      "recommendation": "Remove the route or add the screen."
+    },
+    {
+      "id": "ss-12",
+      "file": "target-app/src/screens/dashboard.jsx:28-37",
+      "severity": "should",
+      "title": "Setup wizard is broken: uncontrolled inputs, internal field, no persistence",
+      "detail": "Both inputs discard their values on Next because they have no state or names and nothing is submitted. 'Internal schema version' is an implementation detail shown to users. Priority is free text with placeholder-only labels. 'configure' has no screen and falls through to the overview. currentStep starts at 'welcome', so the wizard reappears on every mount.",
+      "recommendation": "Bind and persist the inputs, use a labeled select for priority, remove the schema field, add a real configure step or drop it, and base the initial step on server state."
+    },
+    {
+      "id": "ss-13",
+      "file": "target-app/src/screens/invitations.jsx:13,22",
+      "severity": "should",
+      "title": "Magic link tokens are visible to admins and link text is not usable",
+      "detail": "Showing each participant's survey hash lets anyone viewing the table open and submit a survey as that person, which undermines anonymity. The relative path in a code tag can't be clicked or copied as a working URL, and there is no resend or copy action.",
+      "recommendation": "Replace the raw link with a server-side 'Resend invite' action and do not return hashes to admin views."
+    },
+    {
+      "id": "ss-14",
+      "file": "target-app/src/actions/team-actions.js:3-19",
+      "severity": "should",
+      "title": "Attach action is non-atomic, not idempotent and reports false success",
+      "detail": "Missing members are silently skipped and still return { ok: true }. Inserts are not in a transaction, so a mid-loop failure leaves a partial attach. No ON CONFLICT means a re-run can raise a duplicate error. There's no role check on currentUser, and each member costs two round trips.",
+      "recommendation": "Use one tenant-scoped INSERT ... SELECT ... ON CONFLICT DO NOTHING with a role check, and return added and rejected ids."
+    },
+    {
+      "id": "ss-15",
+      "file": "target-app/src/screens/results.jsx:15-18",
+      "severity": "should",
+      "title": "Results page crashes on missing aggregate, and PDF has no threshold guard",
+      "detail": "aggregate.overall is read without a null check, so a campaign with completions but a pending aggregate throws. The export link is a plain anchor with no loading or failure handling, and the endpoint must enforce the same anonymity threshold.",
+      "recommendation": "Render a pending state when aggregate is null, and enforce the threshold in the export endpoint."
+    },
+    {
+      "id": "ss-16",
+      "file": "target-app/src/screens/survey.jsx:14-21",
+      "severity": "should",
+      "title": "Survey has no submit states and a weak rating input",
+      "detail": "A number input is a poor way to pick a 1-5 rating, and nothing explains what 1 and 5 mean. The fieldset's input has no label of its own. There's no pending, error, success or double-submit protection, onSubmit is given the raw event with no preventDefault in this component, and a campaign with no questions renders only a submit button.",
+      "recommendation": "Use a labeled radio group with anchors, and add submitting, error, success and empty states."
+    },
+    {
+      "id": "ss-17",
+      "file": "target-app/src/screens/billing.jsx:10-30",
+      "severity": "could",
+      "title": "Billing screen lacks current-plan, pending and invoice detail",
+      "detail": "There's no current-plan indication, so an existing Pro customer can 'upgrade' to Pro. onCheckout has no pending or error handling, which allows double clicks. Invoice rows show only a bare, unformatted amount with no date, status or download. An undefined invoices prop crashes.",
+      "recommendation": "Accept currentTier, disable the matching plan, add pending and error states, and format invoices with date, status and receipt link."
+    },
+    {
+      "id": "ss-18",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:3-10",
+      "severity": "could",
+      "title": "Orphan legacy modal has failing contrast and no dialog semantics",
+      "detail": "#ccc on #fff is about 1.6:1, well below WCAG AA. There's no role='dialog', aria-modal, focus trap or Escape handling. Nothing imports this component and it has no settings content, so it looks like dead code.",
+      "recommendation": "Delete it if unused. Otherwise use a shared dialog primitive with accessible colors."
+    },
+    {
+      "id": "ss-19",
+      "file": "target-app/src/screens/dashboard.jsx:9-26,39-44",
+      "severity": "could",
+      "title": "Dashboard effect has no cancellation, error has no a11y or recovery, and null summary reads as zero",
+      "detail": "fetchSummary has no abort or stale guard, so a changed api prop can race. The error banner has no role='alert' or retry. summary?.activeCount ?? 0 reports 'Active campaigns: 0' when the data is missing. The overview also has no empty state or call to action.",
+      "recommendation": "Add an ignore flag or AbortController, role='alert' with retry, and a distinct empty state."
+    },
+    {
+      "id": "ss-20",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:8,11,27",
+      "severity": "could",
+      "title": "Webhook leaks internal error text and has no structured logging",
+      "detail": "err.message is returned to the caller on 500 and nothing is logged, so a billing failure is only visible in Stripe's dashboard. JSON.parse and the dedupe insert are outside the try block. Responses set no Content-Type.",
+      "recommendation": "Log with the event id, return a generic error body, move parsing and insert inside the guarded path, and set the JSON content type."
+    }
+  ]
+}

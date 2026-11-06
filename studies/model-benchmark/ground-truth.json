@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "description": "Blind multi-slice ground-truth manifest for evaluating frontier models on Single-Shot (Ponder OFF) vs. Multi-Pass Ponder (Ponder ON). Combines target-app (UI/product/actions) and webhook-billing-slice (backend/webhooks/crypto) with all source hint comments stripped.",
+  "defects": [
+    {
+      "id": "GT-1",
+      "slice": "target-app",
+      "category": "state-variant-bug",
+      "file": "target-app/src/screens/dashboard.jsx:15-26",
+      "severity": "must",
+      "summary": "Dashboard catch handler never sets isLoading(false), pinning the screen in an infinite loading skeleton on API failure and making error-banner unreachable."
+    },
+    {
+      "id": "GT-2",
+      "slice": "target-app",
+      "category": "unrouted-surface-ux",
+      "file": "target-app/src/screens/dashboard.jsx:28-37",
+      "severity": "should",
+      "summary": "Unrouted welcome wizard asks first-time users for 'Priority' and 'Internal schema version' via uncontrolled inputs that are discarded on Next, transitioning to an unhandled 'configure' step."
+    },
+    {
+      "id": "GT-3",
+      "slice": "target-app",
+      "category": "cross-surface-privacy",
+      "file": "target-app/src/screens/results.jsx:4-10",
+      "crossRef": "target-app/src/screens/survey.jsx:8-12",
+      "severity": "must",
+      "summary": "Survey promises results unlock only at >=3 respondents, but ResultsScreen unlocks at completedCount >= 1, exposing the first respondent's private answers as the company reading."
+    },
+    {
+      "id": "GT-4a",
+      "slice": "target-app",
+      "category": "privacy-violation",
+      "file": "target-app/src/screens/invitations.jsx:18-23",
+      "crossRef": "target-app/src/screens/survey.jsx:8-12",
+      "severity": "must",
+      "summary": "Invitations roster renders each named participant's individualScore% next to their name, directly violating the survey anonymity promise."
+    },
+    {
+      "id": "GT-4b",
+      "slice": "target-app",
+      "category": "credential-leak",
+      "file": "target-app/src/screens/invitations.jsx:22",
+      "severity": "must",
+      "summary": "Invitations roster renders each participant's raw /survey/{surveyHash} bearer magic link in the admin table DOM."
+    },
+    {
+      "id": "GT-5",
+      "slice": "target-app",
+      "category": "dead-end-checkout",
+      "file": "target-app/src/screens/billing.jsx:4-6",
+      "severity": "must",
+      "summary": "startUpgrade hardcodes plan: 'business' regardless of selectedTier ('pro' or 'business'), making the highlighted Pro tier impossible to purchase."
+    },
+    {
+      "id": "GT-6",
+      "slice": "target-app",
+      "category": "empty-state",
+      "file": "target-app/src/screens/billing.jsx:24-26",
+      "severity": "should",
+      "summary": "Invoices empty state is a bare 'No invoices' div with no explanation of when invoices appear or next step."
+    },
+    {
+      "id": "GT-7",
+      "slice": "target-app",
+      "category": "cross-tenant-idor",
+      "file": "target-app/src/actions/team-actions.js:11-18",
+      "severity": "must",
+      "summary": "attachMembersToCampaign queries members by id without filtering tenant_id = currentUser.tenantId, allowing cross-tenant member attachment."
+    },
+    {
+      "id": "GT-8",
+      "slice": "target-app",
+      "category": "n-plus-one-and-atomicity",
+      "file": "target-app/src/actions/team-actions.js:11-18",
+      "severity": "should",
+      "summary": "Per-member sequential SELECT + INSERT loop runs without transaction atomicity, deduplication, or batch bounds."
+    },
+    {
+      "id": "WB-1",
+      "slice": "webhook-billing-slice",
+      "category": "webhook-idempotency-lockout",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-28",
+      "severity": "must",
+      "summary": "Webhook inserts event_id into stripe_webhook_events before running applyPlanUpgrade and never rolls it back on 500 error, so Stripe retries are permanently dropped as duplicates."
+    },
+    {
+      "id": "WB-2",
+      "slice": "webhook-billing-slice",
+      "category": "concurrency-and-entitlements",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:2-20",
+      "severity": "must",
+      "summary": "applyPlanUpgrade performs a non-atomic read-modify-write on seat_limit (losing concurrent seat upgrades), trusts unvalidated metadata defaults (pro / 5 seats / NaN), and matches organization by mutable billing_email."
+    },
+    {
+      "id": "WB-3",
+      "slice": "webhook-billing-slice",
+      "category": "replay-and-signature-parsing",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:3-15",
+      "severity": "must",
+      "summary": "verifyStripeSignature signs timestamp parts.t into the HMAC but never checks timestamp age/tolerance (allowing replay of captured webhooks) and Object.fromEntries collapses multiple v1 signatures during secret rotation."
+    },
+    {
+      "id": "CROSS-1",
+      "slice": "cross-slice",
+      "category": "cross-file-contract",
+      "file": "target-app/src/screens/billing.jsx:5",
+      "crossRef": "webhook-billing-slice/src/workers/billing-worker.js:2-4",
+      "severity": "should",
+      "summary": "Cross-slice contract gap: BillingScreen sends { plan, sourceTier } with no seat count, while applyPlanUpgrade reads checkoutSession.metadata.{tier, seats} and silently defaults missing metadata to Pro + 5 seats."
+    },
+    {
+      "id": "CROSS-2",
+      "slice": "target-app",
+      "category": "unguarded-export-surface",
+      "file": "target-app/src/screens/results.jsx:15-18",
+      "severity": "should",
+      "summary": "ResultsScreen exposes a direct /api/campaigns/:id/pdf-export link as soon as 1 response arrives and renders aggregate.overall without guarding null aggregate or failed export."
+    }
+  ],
+  "traps": [
+    {
+      "id": "TRAP-DECOY-SQLI",
+      "kind": "false-positive-decoy",
+      "file": "target-app/src/lib/safe-query.js:1-10",
+      "expected": "sql tagged template compiles values into parameterized $1..$n bindings. Must NOT survive as an open SQL injection finding on team-actions.js."
+    },
+    {
+      "id": "TRAP-PHANTOM",
+      "kind": "phantom-route",
+      "file": "target-app/src/router.js:7",
+      "expected": "/settings/legacy-export points to target-app/src/screens/legacy-export.jsx, which does not exist on disk. Models must either verify it missing via phantom:true unit-delete or flag the broken router entry without hallucinating contents inside legacy-export.jsx."
+    },
+    {
+      "id": "TRAP-ORPHAN",
+      "kind": "unimported-dead-code",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:1-11",
+      "expected": "LegacyV1Modal has zero importers across the repository. Should be identified as unrouted/orphan dead code or downgraded rather than promoted as a blocking P0 defect."
+    },
+    {
+      "id": "TRAP-CRYPTO-TIMING",
+      "kind": "false-positive-decoy",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:11-14",
+      "expected": "verifyStripeSignature checks a.length !== b.length before calling crypto.timingSafeEqual(a, b). Models must NOT claim timingSafeEqual throws a RangeError on mismatched buffer lengths."
+    }
+  ]
+}

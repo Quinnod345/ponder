@@ -1,0 +1,108 @@
+{
+  "findings": [
+    {
+      "id": "ss-1",
+      "file": "target-app/src/actions/team-actions.js:11-16",
+      "severity": "must",
+      "title": "Member lookup crosses tenant boundary",
+      "detail": "Campaign ownership is checked but member IDs are looked up globally, allowing foreign members to be attached.",
+      "recommendation": "Scope member selection to the current tenant and reject foreign IDs."
+    },
+    {
+      "id": "ss-2",
+      "file": "target-app/src/router.js:7",
+      "severity": "must",
+      "title": "Route targets missing screen",
+      "detail": "The legacy-export route references a file absent from the source inventory.",
+      "recommendation": "Implement the screen or remove the route."
+    },
+    {
+      "id": "ss-3",
+      "file": "target-app/src/screens/billing.jsx:4-5",
+      "severity": "must",
+      "title": "Pro checkout requests Business",
+      "detail": "Both buttons send plan business despite different advertised prices.",
+      "recommendation": "Send the selected plan and verify checkout mapping."
+    },
+    {
+      "id": "ss-4",
+      "file": "target-app/src/screens/dashboard.jsx:15-25",
+      "severity": "must",
+      "title": "Failed load never leaves spinner",
+      "detail": "The rejection handler sets error but never clears isLoading, so the error branch is unreachable.",
+      "recommendation": "Clear loading on failure and provide recovery."
+    },
+    {
+      "id": "ss-5",
+      "file": "target-app/src/screens/dashboard.jsx:28-35",
+      "severity": "should",
+      "title": "Setup inputs discarded",
+      "detail": "Priority and internal version inputs have no state or submission; Next simply hides them.",
+      "recommendation": "Persist meaningful setup inputs and remove the internal schema field."
+    },
+    {
+      "id": "ss-6",
+      "file": "target-app/src/screens/invitations.jsx:19-22",
+      "severity": "must",
+      "title": "Invitations disclose individual results and access tokens",
+      "detail": "Named individual scores contradict the survey privacy promise; survey hashes expose participant access links.",
+      "recommendation": "Remove individual results and restrict token handling to authorized delivery."
+    },
+    {
+      "id": "ss-7",
+      "file": "target-app/src/screens/results.jsx:4-17",
+      "severity": "must",
+      "title": "Results unlock below promised privacy threshold",
+      "detail": "One response exposes an aggregate and export despite the survey promise of at least three.",
+      "recommendation": "Require three responses and enforce the same threshold server-side."
+    },
+    {
+      "id": "ss-8",
+      "file": "target-app/src/screens/legacy-v1-modal.jsx:6-9",
+      "severity": "should",
+      "title": "Modal lacks accessible dialog behavior",
+      "detail": "The open variant has no dialog role, accessible naming or keyboard/focus management; text uses low contrast colors.",
+      "recommendation": "Implement accessible dialog semantics, focus handling and sufficient contrast."
+    },
+    {
+      "id": "ss-9",
+      "file": "webhook-billing-slice/src/lib/webhook-crypto.js:5-14",
+      "severity": "must",
+      "title": "Signature has no freshness limit",
+      "detail": "Valid signatures remain accepted indefinitely because the timestamp is authenticated but never age checked.",
+      "recommendation": "Validate numeric timestamp against a bounded tolerance."
+    },
+    {
+      "id": "ss-10",
+      "file": "webhook-billing-slice/src/routes/stripe-webhook.js:12-27",
+      "severity": "must",
+      "title": "Failure permanently consumes webhook",
+      "detail": "Event ID is persisted before processing; a worker failure returns 500 but the retry is acknowledged as duplicate without applying the upgrade.",
+      "recommendation": "Atomically commit the event and upgrade or maintain retryable processing state."
+    },
+    {
+      "id": "ss-11",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:2-19",
+      "severity": "must",
+      "title": "Entitlement update trusts unchecked session fields",
+      "detail": "Worker defaults tier and seats, accepts arbitrary tier or invalid seat counts, and applies completed sessions without payment status validation.",
+      "recommendation": "Validate paid entitlement against canonical checkout and price data."
+    },
+    {
+      "id": "ss-12",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:6-15",
+      "severity": "must",
+      "title": "Billing email is an ambiguous organization key",
+      "detail": "The first organization matching an email receives the upgrade without a stable customer or checkout organization binding.",
+      "recommendation": "Resolve a unique stored customer/session association."
+    },
+    {
+      "id": "ss-13",
+      "file": "webhook-billing-slice/src/workers/billing-worker.js:15-19",
+      "severity": "must",
+      "title": "Concurrent seat upgrades lose updates",
+      "detail": "Read-modify-write computes seats from stale values when multiple events overlap.",
+      "recommendation": "Use atomic increments or locked transaction updates."
+    }
+  ]
+}
